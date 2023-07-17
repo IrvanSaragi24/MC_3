@@ -17,6 +17,7 @@
 		E2AD0EB62A60EDE300E76ED3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2AD0EB52A60EDE300E76ED3 /* Assets.xcassets */; };
 		E2AD0EB92A60EDE300E76ED3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2AD0EB82A60EDE300E76ED3 /* Preview Assets.xcassets */; };
 		ECAE9AA32A654C3200E46A34 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECAE9AA22A654C3200E46A34 /* Player.swift */; };
+		ECAE9AA62A6553D600E46A34 /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECAE9AA52A6553D600E46A34 /* ConnectionManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		E2AD0EB52A60EDE300E76ED3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E2AD0EB82A60EDE300E76ED3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		ECAE9AA22A654C3200E46A34 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		ECAE9AA52A6553D600E46A34 /* ConnectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,7 +63,7 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		E22F94122A65051F0088315B /* view */ = {
+		E22F94122A65051F0088315B /* View */ = {
 			isa = PBXGroup;
 			children = (
 				E2AD0EB12A60EDE100E76ED3 /* MC_3App.swift */,
@@ -70,7 +72,7 @@
 				E25C6E012A645D4800B4F3EC /* HangOutView.swift */,
 				E22F94132A654EA30088315B /* SwiftUIView.swift */,
 			);
-			path = view;
+			path = View;
 			sourceTree = "<group>";
 		};
 		E2AD0EA52A60EDE100E76ED3 = {
@@ -92,9 +94,10 @@
 		E2AD0EB02A60EDE100E76ED3 /* MC_3 */ = {
 			isa = PBXGroup;
 			children = (
+				ECAE9AA42A65528400E46A34 /* Utility */,
 				E22F94112A6505000088315B /* ViewModel */,
 				E22F94102A6504E90088315B /* Model */,
-				E22F94122A65051F0088315B /* view */,
+				E22F94122A65051F0088315B /* View */,
 				E2AD0EB52A60EDE300E76ED3 /* Assets.xcassets */,
 				E2AD0EB72A60EDE300E76ED3 /* Preview Content */,
 			);
@@ -107,6 +110,14 @@
 				E2AD0EB82A60EDE300E76ED3 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		ECAE9AA42A65528400E46A34 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				ECAE9AA52A6553D600E46A34 /* ConnectionManager.swift */,
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -183,6 +194,7 @@
 				E22F94142A654EA30088315B /* SwiftUIView.swift in Sources */,
 				E25C6E022A645D4800B4F3EC /* HangOutView.swift in Sources */,
 				E2AD0EB42A60EDE100E76ED3 /* ContentView.swift in Sources */,
+				ECAE9AA62A6553D600E46A34 /* ConnectionManager.swift in Sources */,
 				E2AD0EB22A60EDE100E76ED3 /* MC_3App.swift in Sources */,
 				ECAE9AA32A654C3200E46A34 /* Player.swift in Sources */,
 				E25C6DFE2A63D65200B4F3EC /* ViewModel.swift in Sources */,
