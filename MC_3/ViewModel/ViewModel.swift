@@ -8,12 +8,10 @@
 import Foundation
 
 class DataApp: ObservableObject {
-    @Published var nama: String = "" // Provide an initializer or default value
+    @Published var nama: String = "" 
     @Published var dataModels: [DataModel] = [
         DataModel(title: "Aku berjanji tidak phubbing"),
-//        DataModel(title: "Aku berjanji tidak phubbing2"),
-//        DataModel(title: "Aku berjanji tidak phubbing3"),
-//        DataModel(title: "Aku berjanji tidak phubbing4")
+
     ]
 }
 

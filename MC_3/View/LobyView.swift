@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-struct SwiftUIView: View {
+struct LobyView: View {
     var body: some View {
         Text("IRvan")
     }
 }
 
-struct SwiftUIView_Previews: PreviewProvider {
+struct LobyView_Previews: PreviewProvider {
     static var previews: some View {
-        SwiftUIView()
+        LobyView()
     }
 }
