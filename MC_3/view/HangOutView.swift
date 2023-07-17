@@ -9,7 +9,6 @@ import SwiftUI
 
 struct HangOutView: View {
     @State private var vibrateOnRing = false
-    @State private var vibrateOnRing2 = false
     var body: some View {
         ZStack{
             Color(vibrateOnRing ? "Background" : "Second")
@@ -29,7 +28,7 @@ struct HangOutView: View {
                             
                     }
                     
-                    .animation(.easeOut(duration: 0.2))
+                    .animation(.easeOut(duration: 0.2), value: vibrateOnRing)
                     .opacity(vibrateOnRing ? 0 : 1)
                     
                     VStack{
@@ -39,7 +38,7 @@ struct HangOutView: View {
                             .font(.system(size: vibrateOnRing ? 36 : 50))
                             .fontWeight(.bold)
                             .offset(x: vibrateOnRing ? -50 : 0, y: vibrateOnRing ? -300 : 0)
-                            .animation(.linear)
+                            .animation(.linear, value: vibrateOnRing)
                         ZStack{
                             RoundedRectangle(cornerRadius: 50)
                                 .stroke(Color("Main"), lineWidth: 8)
@@ -70,7 +69,7 @@ struct HangOutView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
 //                    .background()
                 }
-                .animation(.spring())
+                .animation(.spring(), value: vibrateOnRing)
             }
         }
     }

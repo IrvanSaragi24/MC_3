@@ -45,9 +45,12 @@ struct ContentView: View {
             .navigationBarTitle("")
             .navigationBarBackButtonHidden(true)
             .background(
-                NavigationLink(destination: TrainVoiceView(name: vm.nama, title:vm.dataModels.map { $0.title }), isActive: $navigateToNextView) {
-                    EmptyView()
+                NavigationLink(
+                    destination: TrainVoiceView(name: vm.nama, title: vm.dataModels.map { $0.title }),
+                    isActive: $navigateToNextView) {
+                    Text("Go to TrainVoiceView")
                 }
+
             )
         }// Navigation View
     }
