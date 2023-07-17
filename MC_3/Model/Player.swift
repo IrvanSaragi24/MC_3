@@ -18,6 +18,6 @@ struct Player: Identifiable {
     let role: Role
     let gender : Int
     let age: Int?
-
+    let isHealthy: Bool
 }
 
