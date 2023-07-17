@@ -16,7 +16,7 @@ struct Player: Identifiable {
     let id = UUID()
     let name: String
     let role: Role
-    let gender : Bool
+    let gender : Int
     let age: Int?
 
 }
