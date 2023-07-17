@@ -17,5 +17,7 @@ struct Player: Identifiable {
     let name: String
     let role: Role
     let gender : Bool
+    let age: Int?
+
 }
 
