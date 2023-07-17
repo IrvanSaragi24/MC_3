@@ -16,4 +16,5 @@ struct Player: Identifiable {
     let id = UUID()
     let name: String
     let role: Role
+    let age: Int?
 }
