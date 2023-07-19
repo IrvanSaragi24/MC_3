@@ -10,10 +10,21 @@ import Foundation
 enum Role: CaseIterable {
     case host
     case guest
+    case noRole
+}
+
+class PlayerData: ObservableObject {
+    @Published var mainPlayer: Player
+    @Published var playerList: [Player] = []
+    
+    init(mainPlayer: Player, playerList: [Player]) {
+        self.mainPlayer = mainPlayer
+        self.playerList = playerList
+    }
 }
 
 struct Player: Identifiable {
     let id = UUID()
-    let name: String
-    let role: Role
+    var name: String
+    var role: Role
 }

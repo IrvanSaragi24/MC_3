@@ -12,6 +12,9 @@ struct LobbyView: View {
     @State private var lobbyName: String = ""
     @State private var silentDuration: Int = 0
     @State private var showingResultView = false
+    
+    @EnvironmentObject private var connectionManager: ConnectionManager
+    @EnvironmentObject private var playerData: PlayerData
 
     var body: some View {
         NavigationView {
@@ -114,8 +117,12 @@ struct LobbyInviteView: View {
 }
 
 struct LobbyView_Previews: PreviewProvider {
+    static let player = Player(name: "Player", role: .noRole)
+    static var playerData = PlayerData(mainPlayer: player, playerList: [player])
+    
     static var previews: some View {
         LobbyView()
-            .environmentObject(ConnectionManager())
+            .environmentObject(ConnectionManager(player.name))
+            .environmentObject(playerData)
     }
 }

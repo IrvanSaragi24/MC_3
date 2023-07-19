@@ -8,8 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var playerData: PlayerData?
+    @State private var connectionManager: ConnectionManager?
+    var defaultPlayer = Player(name: "Player", role: .noRole)
+    
     @StateObject var vm = DataApp()
     @State private var navigateToNextView = false
+    
 
     var body: some View {
         NavigationView {
@@ -38,6 +43,24 @@ struct ContentView: View {
                         
                     }//zstack
                     .padding(.top, -10)
+                    
+                    NavigationLink(
+                        destination: ChooseRoleView()
+                            .environmentObject(playerData ?? PlayerData(mainPlayer: defaultPlayer, playerList: [defaultPlayer]))
+                        .environmentObject(connectionManager ?? ConnectionManager(UIDevice.current.name))
+                    )
+                    {
+                            Label("Enter", systemImage: "hand.point.right.fill")
+                    }
+                    .buttonStyle(MultipeerButtonStyle())
+                    .simultaneousGesture(
+                        TapGesture().onEnded {
+                            let player = Player(name: vm.nama, role: .noRole)
+                            playerData = PlayerData(mainPlayer: player, playerList: [player])
+                            connectionManager = ConnectionManager(player.name)
+                        }
+                    )
+                    
                 }//Vstack
                 .foregroundColor(Color("ColorText"))
             }// ZStack

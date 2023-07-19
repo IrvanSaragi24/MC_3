@@ -9,12 +9,10 @@ import SwiftUI
 
 @main
 struct MC_3App: App {
-    @StateObject private var connectionManager = ConnectionManager()
+    
     var body: some Scene {
         WindowGroup {
-//            ContentView()
-            ChooseRoleView()
-                .environmentObject(connectionManager)
+            ContentView()
         }
     }
 }

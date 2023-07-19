@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ChooseRoleView: View {
     @EnvironmentObject private var connectionManager: ConnectionManager
+    @EnvironmentObject private var playerData: PlayerData
     
     @State private var isWaiting = false
     
@@ -24,10 +25,18 @@ struct ChooseRoleView: View {
                     
                     Spacer()
                     
-                    NavigationLink(destination: LobbyView().environmentObject(connectionManager)) {
-                        Label("Host", systemImage: "house.fill")
+                    NavigationLink(
+                        destination: LobbyView()
+                        .environmentObject(connectionManager)
+                        .environmentObject(playerData)
+                    )
+                    {
+                            Label("Host", systemImage: "house.fill")
                     }
                     .buttonStyle(MultipeerButtonStyle())
+                    .onTapGesture {
+                        playerData.mainPlayer.role = .host
+                    }
                     
                     Spacer()
                     
@@ -39,12 +48,15 @@ struct ChooseRoleView: View {
                             Label("Guest", systemImage: "paperplane.fill")
                         })
                     .buttonStyle(MultipeerButtonStyle())
+                    .onTapGesture {
+                        playerData.mainPlayer.role = .guest
+                    }
                     
                     Spacer()
                     Spacer()
                 }
             }
-            .navigationTitle("Choose Your Role")
+            .navigationTitle("\(playerData.mainPlayer.name) Choose Your Role")
         }
         
     }
@@ -62,8 +74,12 @@ struct LoaderView: View {
 }
 
 struct ChooseRoleView_Previews: PreviewProvider {
+    static let player = Player(name: "Player", role: .noRole)
+    static var playerData = PlayerData(mainPlayer: player, playerList: [player])
+    
     static var previews: some View {
         ChooseRoleView()
-            .environmentObject(ConnectionManager())
+            .environmentObject(ConnectionManager(player.name))
+            .environmentObject(playerData)
     }
 }

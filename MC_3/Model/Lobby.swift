@@ -16,6 +16,7 @@ struct Lobby: Codable, Identifiable {
     let name: String
     let date: Date
     let silentDuration: Int
+    var question: String?
     
     init(name: String, date: Date, silentDuration: Int) {
         self.name = name
