@@ -16,6 +16,11 @@
 		E2AD0EB42A60EDE100E76ED3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2AD0EB32A60EDE100E76ED3 /* ContentView.swift */; };
 		E2AD0EB62A60EDE300E76ED3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2AD0EB52A60EDE300E76ED3 /* Assets.xcassets */; };
 		E2AD0EB92A60EDE300E76ED3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2AD0EB82A60EDE300E76ED3 /* Preview Assets.xcassets */; };
+		EC8318702A65F1A200BD3A7E /* Lobby.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC83186F2A65F1A200BD3A7E /* Lobby.swift */; };
+		EC8318722A66050C00BD3A7E /* ChooseRoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8318712A66050C00BD3A7E /* ChooseRoleView.swift */; };
+		EC8318742A66A11B00BD3A7E /* LobbyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8318732A66A11B00BD3A7E /* LobbyView.swift */; };
+		EC8318A92A67EBD400BD3A7E /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8318A82A67EBD400BD3A7E /* ButtonStyle.swift */; };
+		EC8318AB2A67F28500BD3A7E /* CreateLobbyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8318AA2A67F28500BD3A7E /* CreateLobbyView.swift */; };
 		ECAE9AA32A654C3200E46A34 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECAE9AA22A654C3200E46A34 /* Player.swift */; };
 		ECAE9AA62A6553D600E46A34 /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECAE9AA52A6553D600E46A34 /* ConnectionManager.swift */; };
 /* End PBXBuildFile section */
@@ -31,6 +36,11 @@
 		E2AD0EB32A60EDE100E76ED3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		E2AD0EB52A60EDE300E76ED3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E2AD0EB82A60EDE300E76ED3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		EC83186F2A65F1A200BD3A7E /* Lobby.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lobby.swift; sourceTree = "<group>"; };
+		EC8318712A66050C00BD3A7E /* ChooseRoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseRoleView.swift; sourceTree = "<group>"; };
+		EC8318732A66A11B00BD3A7E /* LobbyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyView.swift; sourceTree = "<group>"; };
+		EC8318A82A67EBD400BD3A7E /* ButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
+		EC8318AA2A67F28500BD3A7E /* CreateLobbyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateLobbyView.swift; sourceTree = "<group>"; };
 		ECAE9AA22A654C3200E46A34 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		ECAE9AA52A6553D600E46A34 /* ConnectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -50,6 +60,7 @@
 			isa = PBXGroup;
 			children = (
 				E25C6DFF2A63EA2300B4F3EC /* DataModel.swift */,
+				EC83186F2A65F1A200BD3A7E /* Lobby.swift */,
 				ECAE9AA22A654C3200E46A34 /* Player.swift */,
 			);
 			path = Model;
@@ -66,11 +77,13 @@
 		E22F94122A65051F0088315B /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E2AD0EB12A60EDE100E76ED3 /* MC_3App.swift */,
 				E25C6DFB2A63CBAB00B4F3EC /* TrainVoiceView.swift */,
 				E2AD0EB32A60EDE100E76ED3 /* ContentView.swift */,
+				EC8318712A66050C00BD3A7E /* ChooseRoleView.swift */,
+				EC8318732A66A11B00BD3A7E /* LobbyView.swift */,
 				E25C6E012A645D4800B4F3EC /* HangOutView.swift */,
 				E22F94132A654EA30088315B /* SwiftUIView.swift */,
+				EC8318AA2A67F28500BD3A7E /* CreateLobbyView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -94,6 +107,7 @@
 		E2AD0EB02A60EDE100E76ED3 /* MC_3 */ = {
 			isa = PBXGroup;
 			children = (
+				E2AD0EB12A60EDE100E76ED3 /* MC_3App.swift */,
 				ECAE9AA42A65528400E46A34 /* Utility */,
 				E22F94112A6505000088315B /* ViewModel */,
 				E22F94102A6504E90088315B /* Model */,
@@ -116,6 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				ECAE9AA52A6553D600E46A34 /* ConnectionManager.swift */,
+				EC8318A82A67EBD400BD3A7E /* ButtonStyle.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -190,10 +205,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC8318A92A67EBD400BD3A7E /* ButtonStyle.swift in Sources */,
 				E25C6E002A63EA2300B4F3EC /* DataModel.swift in Sources */,
 				E22F94142A654EA30088315B /* SwiftUIView.swift in Sources */,
+				EC8318702A65F1A200BD3A7E /* Lobby.swift in Sources */,
 				E25C6E022A645D4800B4F3EC /* HangOutView.swift in Sources */,
+				EC8318AB2A67F28500BD3A7E /* CreateLobbyView.swift in Sources */,
 				E2AD0EB42A60EDE100E76ED3 /* ContentView.swift in Sources */,
+				EC8318742A66A11B00BD3A7E /* LobbyView.swift in Sources */,
+				EC8318722A66050C00BD3A7E /* ChooseRoleView.swift in Sources */,
 				ECAE9AA62A6553D600E46A34 /* ConnectionManager.swift in Sources */,
 				E2AD0EB22A60EDE100E76ED3 /* MC_3App.swift in Sources */,
 				ECAE9AA32A654C3200E46A34 /* Player.swift in Sources */,
