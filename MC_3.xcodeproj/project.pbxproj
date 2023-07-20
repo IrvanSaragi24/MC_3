@@ -72,6 +72,7 @@
 		E22F94122A65051F0088315B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				EC8318A82A67EBD400BD3A7E /* ButtonStyle.swift */,
 				E25C6DFB2A63CBAB00B4F3EC /* TrainVoiceView.swift */,
 				E2AD0EB32A60EDE100E76ED3 /* ContentView.swift */,
 				EC8318712A66050C00BD3A7E /* ChooseRoleView.swift */,
@@ -124,7 +125,6 @@
 			isa = PBXGroup;
 			children = (
 				ECAE9AA52A6553D600E46A34 /* ConnectionManager.swift */,
-				EC8318A82A67EBD400BD3A7E /* ButtonStyle.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
