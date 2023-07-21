@@ -32,9 +32,7 @@ struct ContentView: View {
                     ZStack {
                         Capsule()
                             .frame(width: 250, height: 70)
-                        TextField("Name", text: $vm.nama, onCommit: {
-                            navigateToNextView = true
-                        })
+                        TextField("Name", text: $vm.nama)
                         .frame(width: 250, height: 70)
                         .foregroundColor(Color("Background"))
                         .multilineTextAlignment(.center)
@@ -45,14 +43,27 @@ struct ContentView: View {
                     .padding(.top, -10)
                     
                     NavigationLink(
-                        destination: ChooseRoleView()
+                        destination: ChooseRoleView(namePlayer : vm.nama)
                             .environmentObject(playerData ?? PlayerData(mainPlayer: defaultPlayer, playerList: [defaultPlayer]))
                         .environmentObject(connectionManager ?? ConnectionManager(UIDevice.current.name))
                     )
                     {
-                            Label("Enter", systemImage: "hand.point.right.fill")
+                        ZStack{
+                            Capsule()
+                                .stroke(Color("Second"), lineWidth : 2)
+                                .frame(width: 358, height: 47)
+                                .overlay {
+                                    Capsule()
+                                        .foregroundColor(Color("Main"))
+                                        .opacity(0.4)
+                                }
+                            Text("ENTER")
+                                .font(.system(size: 18, weight: .bold))
+                                
+                                
+                        }
                     }
-                    .buttonStyle(MultipeerButtonStyle())
+                    .padding(.top, 65)
                     .simultaneousGesture(
                         TapGesture().onEnded {
                             let player = Player(name: vm.nama, role: .noRole)
@@ -60,21 +71,11 @@ struct ContentView: View {
                             connectionManager = ConnectionManager(player.name)
                         }
                     )
+                    .disabled(vm.nama.isEmpty)
                     
                 }//Vstack
                 .foregroundColor(Color("ColorText"))
             }// ZStack
-            .navigationBarHidden(true)
-            .navigationBarTitle("")
-            .navigationBarBackButtonHidden(true)
-            .background(
-                NavigationLink(
-                    destination: TrainVoiceView(name: vm.nama, title: vm.dataModels.map { $0.title }),
-                    isActive: $navigateToNextView) {
-                    Text("Go to TrainVoiceView")
-                }
-
-            )
         }// Navigation View
     }
 }

@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "320c0ffc5f66dfa8c5901f39cf4c816e-sticker 1.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "320c0ffc5f66dfa8c5901f39cf4c816e-sticker 1@2x.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "320c0ffc5f66dfa8c5901f39cf4c816e-sticker 1@3x.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

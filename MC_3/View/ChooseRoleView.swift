@@ -8,13 +8,16 @@
 import SwiftUI
 
 struct ChooseRoleView: View {
+    var namePlayer : String
     @EnvironmentObject private var connectionManager: ConnectionManager
     @EnvironmentObject private var playerData: PlayerData
     
+    
     @State private var isWaiting = false
+    @State private var hideBackButton = false
     
     var body: some View {
-        NavigationView {
+        NavigationView{
             VStack {
                 if isWaiting {
                     Text("Waiting Host")
@@ -22,44 +25,80 @@ struct ChooseRoleView: View {
                     
                 }
                 else {
-                    
-                    Spacer()
-                    
-                    NavigationLink(
-                        destination: LobbyView()
-                        .environmentObject(connectionManager)
-                        .environmentObject(playerData)
-                    )
-                    {
-                            Label("Host", systemImage: "house.fill")
+                    ZStack{
+                        Color.clear.backgroundStyle()
+                        VStack(){
+                            Text("HANGOUT MODE")
+                                .font(.system(size: 36, weight: .bold))
+                                .foregroundColor(Color("Second"))
+                            NavigationLink(
+                                destination: LobbyView(name: namePlayer)
+                                    .environmentObject(connectionManager)
+                                    .environmentObject(playerData),
+                                isActive: $hideBackButton
+                            )
+                            {
+                                ZStack{
+                                    Circle()
+                                        .shadow(color: .black, radius: 2)
+                                        .foregroundColor(Color("Second"))
+                                    VStack{
+                                        Image(systemName: "crown.fill")
+                                            .resizable()
+                                            .frame(width: 25, height: 25)
+                                        Image(systemName: "person.fill")
+                                            .resizable()
+                                            .frame(width: 55, height: 55)
+                                        Text("HOST")
+                                            .font(.title)
+                                            .fontWeight(.bold)
+                                    }
+                                    .foregroundColor(Color("User"))
+                                }
+                                .frame(width: 262)
+                            }.padding(.bottom, 65)
+//
+                            Button(
+                                action: {
+                                    connectionManager.isReceivingHangout = true
+                                    isWaiting = true
+                                }, label: {
+                                    ZStack{
+                                        Circle()
+                                            .shadow(color: .black, radius: 2)
+                                            .foregroundColor(Color("Second"))
+                                        
+                                        
+                                        VStack{
+                                            Image(systemName: "person.fill")
+                                                .resizable()
+                                                .frame(width: 55, height: 55)
+                                            Text("GUEST")
+                                                .font(.title)
+                                                .fontWeight(.bold)
+                                            
+                                        }
+                                        
+                                        .foregroundColor(Color("User"))
+                                    }
+                                    .frame(width: 262)
+                                })
+                            .onTapGesture {
+                                playerData.mainPlayer.role = .guest
+                            }
+                        }
                     }
-                    .buttonStyle(MultipeerButtonStyle())
-                    .onTapGesture {
-                        playerData.mainPlayer.role = .host
-                    }
-                    
-                    Spacer()
-                    
-                    Button(
-                        action: {
-                            connectionManager.isReceivingHangout = true
-                            isWaiting = true
-                        }, label: {
-                            Label("Guest", systemImage: "paperplane.fill")
-                        })
-                    .buttonStyle(MultipeerButtonStyle())
-                    .onTapGesture {
-                        playerData.mainPlayer.role = .guest
-                    }
-                    
-                    Spacer()
-                    Spacer()
                 }
             }
-            .navigationTitle("\(playerData.mainPlayer.name) Choose Your Role")
+//            .navigationTitle("HANGOUT MODE")
+////            .navigationViewStyle(Color("Main"))
+            
         }
+        .navigationBarBackButtonHidden(hideBackButton)
+            .animation(nil, value: hideBackButton)
         
     }
+    
 }
 
 struct LoaderView: View {
@@ -78,8 +117,9 @@ struct ChooseRoleView_Previews: PreviewProvider {
     static var playerData = PlayerData(mainPlayer: player, playerList: [player])
     
     static var previews: some View {
-        ChooseRoleView()
+        ChooseRoleView(namePlayer: "")
             .environmentObject(ConnectionManager(player.name))
             .environmentObject(playerData)
     }
 }
+

@@ -40,3 +40,17 @@ struct FooterButtonStyle: ButtonStyle {
       .padding(8)
   }
 }
+struct BackgroundStyle: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color("Background"))
+            .ignoresSafeArea()
+    }
+}
+
+extension View {
+    func backgroundStyle() -> some View {
+        self.modifier(BackgroundStyle())
+    }
+}
