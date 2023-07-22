@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		E22F94142A654EA30088315B /* LobyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22F94132A654EA30088315B /* LobyView.swift */; };
+		E22F946E2A67B13E0088315B /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22F946D2A67B13E0088315B /* TimerView.swift */; };
+		E22F94702A682F5A0088315B /* QuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22F946F2A682F5A0088315B /* QuestionView.swift */; };
 		E25C6DFC2A63CBAB00B4F3EC /* TrainVoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25C6DFB2A63CBAB00B4F3EC /* TrainVoiceView.swift */; };
 		E25C6DFE2A63D65200B4F3EC /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25C6DFD2A63D65200B4F3EC /* ViewModel.swift */; };
 		E25C6E022A645D4800B4F3EC /* HangOutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25C6E012A645D4800B4F3EC /* HangOutView.swift */; };
@@ -30,6 +32,8 @@
 
 /* Begin PBXFileReference section */
 		E22F94132A654EA30088315B /* LobyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobyView.swift; sourceTree = "<group>"; };
+		E22F946D2A67B13E0088315B /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
+		E22F946F2A682F5A0088315B /* QuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionView.swift; sourceTree = "<group>"; };
 		E25C6DFB2A63CBAB00B4F3EC /* TrainVoiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainVoiceView.swift; sourceTree = "<group>"; };
 		E25C6DFD2A63D65200B4F3EC /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		E25C6E012A645D4800B4F3EC /* HangOutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HangOutView.swift; sourceTree = "<group>"; };
@@ -82,15 +86,17 @@
 		E22F94122A65051F0088315B /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E25C6DFB2A63CBAB00B4F3EC /* TrainVoiceView.swift */,
-				E2AD0EB32A60EDE100E76ED3 /* ContentView.swift */,
+				EC8318A82A67EBD400BD3A7E /* ButtonStyle.swift */,
 				EC8318712A66050C00BD3A7E /* ChooseRoleView.swift */,
+				E2AD0EB32A60EDE100E76ED3 /* ContentView.swift */,
 				EC8318732A66A11B00BD3A7E /* LobbyView.swift */,
 				E25C6E012A645D4800B4F3EC /* HangOutView.swift */,
 				E22F94132A654EA30088315B /* LobyView.swift */,
 				EC8F9E222A683F7000E0A76B /* ListenView.swift */,
 				EC8F9E242A683FD100E0A76B /* JudgeView.swift */,
 				EC8F9E262A68403200E0A76B /* AskedView.swift */,
+				E22F946D2A67B13E0088315B /* TimerView.swift */,
+				E22F946F2A682F5A0088315B /* QuestionView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -98,6 +104,7 @@
 		E2AD0EA52A60EDE100E76ED3 = {
 			isa = PBXGroup;
 			children = (
+				E25C6DFB2A63CBAB00B4F3EC /* TrainVoiceView.swift */,
 				E2AD0EB02A60EDE100E76ED3 /* MC_3 */,
 				E2AD0EAF2A60EDE100E76ED3 /* Products */,
 			);
@@ -222,9 +229,13 @@
 				E22F94142A654EA30088315B /* LobyView.swift in Sources */,
 				E25C6E022A645D4800B4F3EC /* HangOutView.swift in Sources */,
 				EC8F9E232A683F7000E0A76B /* ListenView.swift in Sources */,
+				E22F946E2A67B13E0088315B /* TimerView.swift in Sources */,
+				E22F94142A654EA30088315B /* LobyView.swift in Sources */,
+				E25C6E022A645D4800B4F3EC /* HangOutView.swift in Sources */,
 				E2AD0EB42A60EDE100E76ED3 /* ContentView.swift in Sources */,
 				EC8318742A66A11B00BD3A7E /* LobbyView.swift in Sources */,
 				EC8318722A66050C00BD3A7E /* ChooseRoleView.swift in Sources */,
+				E22F94702A682F5A0088315B /* QuestionView.swift in Sources */,
 				ECAE9AA62A6553D600E46A34 /* ConnectionManager.swift in Sources */,
 				E2AD0EB22A60EDE100E76ED3 /* MC_3App.swift in Sources */,
 				ECAE9AA32A654C3200E46A34 /* Player.swift in Sources */,

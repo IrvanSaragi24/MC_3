@@ -10,72 +10,35 @@ import SwiftUI
 struct HangOutView: View {
     @State private var vibrateOnRing = false
     @State private var showRoles = false
+    @State private var circleScale: CGFloat = 1.0
     var body: some View {
-        ZStack{
-            Color(vibrateOnRing ? "Background" : "Second")
-                .ignoresSafeArea()
-            VStack{
-                
+        if vibrateOnRing {
+            ContentView()
+        } else {
+            ZStack{
+                Color("Second")
+                    .ignoresSafeArea()
                 ZStack{
                     ZStack{
                         Circle()
                             .foregroundColor(Color("Main"))
-                            .frame(width: vibrateOnRing ? 800 : 600)
-                            .ignoresSafeArea()
+                            .frame(width: 694)
                         Circle()
                             .foregroundColor(Color("Background"))
-                            .frame(width: vibrateOnRing ? 800 : 500)
-                            .ignoresSafeArea()
+                            .frame(width: 560)
                     }
-                    .animation(.easeOut(duration: 0.5), value: vibrateOnRing)
-                    .opacity(vibrateOnRing ? 0 : 1)
-                    
+                    .scaleEffect(circleScale)
                     VStack{
-                        Text(vibrateOnRing ? "HangOut Mode" : "HangOut\nMode")
+                        Text("HangOut\nMode")
                             .multilineTextAlignment(.center)
                             .foregroundColor(Color("Second"))
-                            .font(.system(size: vibrateOnRing ? 30 : 50))
+                            .font(.system(size: 50))
                             .fontWeight(.bold)
-                            .offset(x: vibrateOnRing ? -70 : 0, y: vibrateOnRing ? -300 : 0)
-                            .animation(.linear, value: vibrateOnRing)
-                        ZStack{
-                            RoundedRectangle(cornerRadius: 50)
-                                .stroke(Color("Main"), lineWidth: 8)
-                                .frame(width: vibrateOnRing ? 80 : 160, height: vibrateOnRing ? 45 : 80)
-                                .foregroundColor(Color("Second"))
-                            
-                            Button {
-                                vibrateOnRing.toggle()
-                                showRoles.toggle()
-                            } label: {
-                                ZStack{
-                                    
-                                    Circle()
-                                    //                                        .frame(width: 50, height: 50)
-                                        .frame(width: vibrateOnRing ? 30 : 50, height: vibrateOnRing ? 30 : 50)
-                                    Circle()
-                                    //                                        .frame(width: 30, height: 30)
-                                        .frame(width: vibrateOnRing ? 20 : 30, height: vibrateOnRing ? 20 : 30)
-                                        .foregroundColor(vibrateOnRing ? .green : .pink)
-                                    
-                                }
-                            }// Label Button
-                            .cornerRadius(20)
-                            .frame(width: vibrateOnRing ? 65 : 140, height: vibrateOnRing ? 60 : 80, alignment: vibrateOnRing ? .trailing : .leading)
-                            
-                            
-                        } // ZStack button
-                        .offset(x: vibrateOnRing ? 120 : 0, y: vibrateOnRing ? -365 : 0)
+                        //                        ExtractedView()
+                        ButtonSlider(circleScale: $circleScale, vibrateOnRing: $vibrateOnRing)
                         
-                       
-                        
-                    } // VStack
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    if showRoles {
-                        Roles()
                     }
-                }// ZStack
-                .animation(.spring(), value: vibrateOnRing)
+                }
             }
         }
     }
@@ -87,61 +50,75 @@ struct HangOutView_Previews: PreviewProvider {
     }
 }
 
-struct Roles : View {
-    var body: some View{
-        VStack(spacing : 60){
-            Button {
-                print("nextViewHost")
-            } label: {
-                ZStack{
-                    Circle()
-                        .stroke(Color.white, lineWidth: 6)
-                        .shadow(color: .white, radius: 5)
-                    Circle()
-                    VStack{
-                        Image(systemName: "crown.fill")
-                            .resizable()
-                            .frame(width: 25, height: 25)
-                        Image(systemName: "person.fill")
-                            .resizable()
-                            .frame(width: 55, height: 55)
-                        Text("HOST")
-                            .font(.title)
-                            .fontWeight(.bold)
-                            
-                    }
-                    .foregroundColor(Color("User"))
+struct ButtonSlider: View {
+    @State private var buttonWidth: Double = UIScreen.main.bounds.width - 90
+    @State private var buttonOffset: CGFloat = 0
+    @Binding var circleScale: CGFloat
+    @Binding var vibrateOnRing : Bool
+    var body: some View {
+        ZStack {
+            ZStack {
+                Capsule()
+                    .fill(Color("Main").opacity(0.2))
+                Capsule()
+                    .fill(Color("Second").opacity(0.2))
+                    .padding(8)
+                Text("Get Started")
+                    .font(.system(.title3, design: .rounded))
+                    .fontWeight(.bold)
+                    .foregroundColor(Color("Second"))
+                    .offset(x: 20)
+                HStack {
+                    Capsule()
+                        .fill(Color("Background"))
+                        .shadow(color: .white, radius: 4)
+                        .frame(width: buttonOffset + 80)
+                    Spacer()
                 }
-                .frame(width: 230)
-                
-            }// Button Host
-            
-            Button {
-                print("nextViewGuest")
-            } label: {
-                ZStack{
-                    Circle()
-                        .stroke(Color.white, lineWidth: 6)
-                        .shadow(color: .white, radius: 5)
-                    Circle()
-                    
-                    VStack{
-                        Image(systemName: "person.fill")
-                            .resizable()
-                            .frame(width: 55, height: 55)
-                        Text("GUEST")
-                            .font(.title)
-                            .fontWeight(.bold)
-                            
+                HStack {
+                    ZStack {
+                        Circle()
+                            .stroke(Color("Second"), lineWidth : 2)
+                        Circle()
+                            .fill(Color.white.opacity(0.15))
+                            .padding(8)
+                        Image(systemName: "chevron.right.2")
+                            .font(.system(size: 24, weight: .bold))
                     }
-                    
-                    .foregroundColor(Color("User"))
+                    .foregroundColor(Color("Second"))
+                    .frame(width: 80, height: 80, alignment: .center)
+                    .offset(x: buttonOffset)
+                    .gesture(
+                        DragGesture()
+                            .onChanged { gesture in
+                                if gesture.translation.width > 0 && buttonOffset <= buttonWidth - 100 {
+                                    buttonOffset = gesture.translation.width
+                                    circleScale = scaleCircle(offset: gesture.translation.width)
+                                }
+                            }
+                            .onEnded { _ in
+                                withAnimation(Animation.easeOut(duration: 1.0)) {
+                                    if buttonOffset > buttonWidth / 2 {
+                                        
+                                        buttonOffset = buttonWidth - 80
+                                        vibrateOnRing = true
+                                    } else {
+                                        buttonOffset = 0
+                                    }
+                                    circleScale = 1.0
+                                }
+                            }
+                    )
+                    Spacer()
                 }
-                .frame(width: 230)
-               
-            }//Button Guest
-
+            }
+            .frame(width: buttonWidth, height: 80, alignment: .center)
+            .padding()
         }
-        .foregroundColor(Color("ColorText"))
+    }
+    private func scaleCircle(offset: CGFloat) -> CGFloat {
+        let scaledOffset = offset / (buttonWidth - 90) // Normalize the offset
+        let scaleFactor = 1 + (scaledOffset * 0.5) // Adjust the scale factor as needed
+        return min(1.5, scaleFactor) // Ensure the maximum scale is 1.5
     }
 }
