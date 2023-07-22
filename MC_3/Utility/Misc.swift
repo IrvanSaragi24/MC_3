@@ -36,3 +36,9 @@ enum ConnectionStatus {
         }
     }
 }
+
+enum GameState {
+    case waitingForInvitation
+    case waitingToStart
+    case listening
+}

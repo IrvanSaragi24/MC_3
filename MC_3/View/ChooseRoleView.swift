@@ -18,24 +18,34 @@ struct ChooseRoleView: View {
         NavigationView {
             VStack {
                 if isWaiting {
-                    Text("Waiting Host")
-                    LoaderView(tintColor: .purple, scaleSize: 5.0).padding()
-                    
+                    switch multipeerController.gameState {
+                    case .listening:
+                        ListenView()
+                            .environmentObject(multipeerController)
+                            .environmentObject(playerData)
+                    case .waitingToStart:
+                        Text("You have joined \(multipeerController.hostPeerID?.displayName ?? "Unknown")'s Room")
+                        Text("Waiting for START!")
+                        LoaderView(tintColor: .black, scaleSize: 5.0).padding()
+                    case .waitingForInvitation:
+                        Text("Waiting for Invitation")
+                        LoaderView(tintColor: .purple, scaleSize: 5.0).padding()
+                    }
                 }
                 else {
-                    
                     Spacer()
                     
                     NavigationLink(
                         destination: LobbyView(lobby: lobby)
-                        .environmentObject(multipeerController)
-                        .environmentObject(playerData)
+                            .environmentObject(multipeerController)
+                            .environmentObject(playerData)
                     )
                     {
-                            Label("Host", systemImage: "house.fill")
+                        Label("Host", systemImage: "house.fill")
                     }
                     .buttonStyle(MultipeerButtonStyle())
                     .onTapGesture {
+                        multipeerController.isHost = true
                         playerData.mainPlayer.lobbyRole = .host
                         lobby.name = playerData.mainPlayer.name
                     }
@@ -72,6 +82,7 @@ struct LoaderView: View {
         ProgressView()
             .scaleEffect(scaleSize, anchor: .center)
             .progressViewStyle(CircularProgressViewStyle(tint: tintColor))
+        
     }
 }
 

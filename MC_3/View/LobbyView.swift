@@ -8,57 +8,11 @@
 import SwiftUI
 import MultipeerConnectivity
 
-struct LobbyViewX: View {
-    @State private var lobbyName: String = ""
-    @State private var silentDuration: Int = 0
-    @State private var showingResultView = false
-    
-    @EnvironmentObject private var multipeerController: MultipeerController
-    @EnvironmentObject private var playerData: PlayerData
-    
-    var body: some View {
-        NavigationView {
-            VStack(alignment: .leading) {
-                Text("Lobby Name:")
-                
-                TextField("Enter Lobby Name", text: $lobbyName)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                
-                
-                Text("Silent Duration")
-                TextField("Enter Silent Duration Rime", value: $silentDuration, formatter: NumberFormatter())
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .keyboardType(.numberPad)
-                
-                
-                Button(action: {
-                    showingResultView = true
-                }) {
-                    Text("Create Lobby")
-                        .font(.headline)
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                }
-                .sheet(isPresented: $showingResultView) {
-                    //                    LobbyInviteView(lobby: Lobby(name: lobbyName, date: Date.now, silentDuration: silentDuration))
-                }
-                Spacer()
-            }
-            .padding()
-            .navigationTitle("Lobby")
-            
-        }
-    }
-}
-
-
 struct LobbyView: View {
     @State var lobby: Lobby
     @EnvironmentObject var multipeerController: MultipeerController
     @EnvironmentObject private var playerData: PlayerData
-    @State private var navigateToAskedView = false
+    @State private var navigateToListenView = false
 
     var body: some View {
         NavigationView { // Add the main NavigationView here
@@ -75,6 +29,13 @@ struct LobbyView: View {
                         Spacer()
                         TextField("Number of question", value: $lobby.numberOfQuestion, formatter: NumberFormatter())
                             .keyboardType(.numberPad)
+                    }
+                    HStack {
+                        Image(systemName: "person.3.fill")
+                        Text("TOTAL PLAYER: ")
+                        Spacer()
+                        Text("\(multipeerController.allGuest.filter { $0.status == .connected }.count)")
+                        
                     }
                     
                     Section(
@@ -111,7 +72,12 @@ struct LobbyView: View {
 
                 // Button to navigate to the next page
                 Button {
-                    navigateToAskedView = true
+                    let connectedGuest = multipeerController.allGuest
+                        .filter { $0.status == .connected }
+                        .map { $0.id }
+                    
+                    multipeerController.sendMessage("START LISTEN", to: connectedGuest)
+                    navigateToListenView = true
                     
                 } label: {
                     Label("Start!", systemImage: "stop.circle.fill")
@@ -123,14 +89,18 @@ struct LobbyView: View {
             }
             .background(
                 NavigationLink(
-                    destination: ListenView(),
-                    isActive: $navigateToAskedView
+                    destination: ListenView()
+                        .environmentObject(multipeerController)
+                        .environmentObject(playerData),
+                    isActive: $navigateToListenView
                 ) {
                     EmptyView()
                 }
             )
         }
     }
+    
+    
 }
 
 struct LobbyView_Previews: PreviewProvider {

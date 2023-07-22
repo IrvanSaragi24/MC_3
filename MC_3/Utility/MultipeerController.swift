@@ -28,11 +28,12 @@ class MultipeerController: NSObject, ObservableObject {
     private var session: MCSession
     private var browser: MCNearbyServiceBrowser
     private var advertiser: MCNearbyServiceAdvertiser
-    private var hostPeerID: MCPeerID? //I want to save the peerID of host
+    var hostPeerID: MCPeerID? //I want to save the peerID of host
     
     @Published var availableGuest: [MCPeerID] = [] // Do not use this var
     @Published var connectedGuest: [MCPeerID] = [] // Do not use this var
     @Published var allGuest: [Guest] = []
+    @Published var gameState: GameState = .waitingForInvitation
     
     init(_ displayName: String) {
         myPeerId = MCPeerID(displayName: displayName)
@@ -59,6 +60,8 @@ class MultipeerController: NSObject, ObservableObject {
             }
         }
     }
+    
+    var isHost : Bool = false
     /*
     func startAdvertising() {
         advertiser.startAdvertisingPeer()
@@ -72,7 +75,7 @@ class MultipeerController: NSObject, ObservableObject {
     }
     */
     //Sending Data
-    private func sendMessage(_ message: String, to peers: [MCPeerID]) {
+    func sendMessage(_ message: String, to peers: [MCPeerID]) {
         guard
             let data = message.data(using: .utf8),
             !peers.isEmpty
@@ -133,8 +136,6 @@ extension MultipeerController: MCNearbyServiceBrowserDelegate {
             let guest = Guest(id: peerID, status: .discovered)
             DispatchQueue.main.async { [weak self] in
                 self?.allGuest.append(guest)
-                print("from discover: ")
-                print(self?.allGuest.count)
             }
         }
     }
@@ -196,8 +197,29 @@ extension MultipeerController: MCSessionDelegate {
             print("\(peerID) state: unknown")
         }
     }
-    
+    /*
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
+      guard let job = try? JSONDecoder().decode(JobModel.self, from: data) else { return }
+      DispatchQueue.main.async {
+        self.jobReceivedHandler?(job)
+      }
+    }
+    */
+    
+    //handle data received
+    func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
+        if let receivedString = String(data: data, encoding: .utf8) {
+            // Process the received string here
+            print("Received data: \(receivedString) from peer: \(peerID.displayName)")
+            DispatchQueue.main.async { [weak self] in
+                if receivedString == "START LISTEN" {
+                    self?.gameState = .listening
+                }
+            }
+        } else {
+            // Failed to convert data to a string
+            print("Failed to convert data to a string.")
+        }
         delegate?.didReceive(data: data, from: peerID)
     }
     
@@ -224,7 +246,7 @@ extension MultipeerController: MCNearbyServiceAdvertiserDelegate {
 }
 */
 
-//handle invitation
+//handle invitation yo join a session with confirmation
 extension MultipeerController: MCNearbyServiceAdvertiserDelegate {
     func advertiser(
         _ advertiser: MCNearbyServiceAdvertiser,
@@ -234,7 +256,6 @@ extension MultipeerController: MCNearbyServiceAdvertiserDelegate {
     ) {
         guard
             let window = UIApplication.shared.windows.first,
-            // 1
             let context = context,
             let lobbyName = String(data: context, encoding: .utf8)
         else {
@@ -250,7 +271,6 @@ extension MultipeerController: MCNearbyServiceAdvertiserDelegate {
             title: "Decline",
             style: .cancel
         ) { _ in
-            // 2
             invitationHandler(false, nil)
         })
         alertController.addAction(UIAlertAction(
@@ -259,6 +279,9 @@ extension MultipeerController: MCNearbyServiceAdvertiserDelegate {
         ) { _ in
             // 3
             invitationHandler(true, self.session)
+            //save the host PeerID
+            self.hostPeerID = peerID
+            self.gameState = .waitingToStart
         })
         window.rootViewController?.present(alertController, animated: true)
         

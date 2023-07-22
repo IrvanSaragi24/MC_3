@@ -43,7 +43,7 @@ struct ContentView: View {
                     .padding(.top, -10)
                     
                     NavigationLink(
-                        destination: ChooseRoleView(namePlayer : vm.nama)
+                        destination: ChooseRoleView()
                             .environmentObject(playerData ?? PlayerData(mainPlayer: defaultPlayer, playerList: [defaultPlayer]))
                         .environmentObject(multipeerController ?? MultipeerController(UIDevice.current.name))
                     )

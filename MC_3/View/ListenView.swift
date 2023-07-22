@@ -27,6 +27,16 @@ struct ListenView: View {
                     destination: AskedView()
                 )
                 {
+                        Label("Quiz Time!", systemImage: "hand.raised.fill")
+                }
+                .buttonStyle(MultipeerButtonStyle())
+                .onTapGesture {
+                    
+                }
+                NavigationLink(
+                    destination: AskedView()
+                )
+                {
                         Label("Stop!", systemImage: "stop.circle.fill")
                 }
                 .buttonStyle(MultipeerButtonStyle())
