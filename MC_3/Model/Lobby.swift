@@ -7,25 +7,16 @@
 
 import Foundation
 
-class LobbyList: ObservableObject {
-    @Published var lobbies: [Lobby] = []
-}
-
-struct Lobby: Codable, Identifiable {
-    var id = UUID()
-    let name: String
-    let date: Date
-    let silentDuration: Int
+struct Lobby: Identifiable {
+    let id = UUID()
+    var name: String
+    var silentDuration: Int
+    var numberOfQuestion: Int
     var question: String?
     
-    init(name: String, date: Date, silentDuration: Int) {
+    init(name: String, silentDuration: Int, numberOfQuestion: Int) {
         self.name = name
-        self.date = date
         self.silentDuration = silentDuration
-    }
-    
-    func data() -> Data? {
-        let encoder = JSONEncoder()
-        return try? encoder.encode(self)
+        self.numberOfQuestion = numberOfQuestion
     }
 }

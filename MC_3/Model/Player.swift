@@ -7,12 +7,6 @@
 
 import Foundation
 
-enum Role: CaseIterable {
-    case host
-    case guest
-    case noRole
-}
-
 class PlayerData: ObservableObject {
     @Published var mainPlayer: Player
     @Published var playerList: [Player] = []
@@ -23,8 +17,9 @@ class PlayerData: ObservableObject {
     }
 }
 
-struct Player: Identifiable {
+struct Player: Identifiable, Hashable {
     let id = UUID()
     var name: String
-    var role: Role
+    var lobbyRole: LobbyRole
+    var gameRole: GameRole
 }

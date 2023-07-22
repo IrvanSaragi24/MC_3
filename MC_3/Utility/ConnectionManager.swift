@@ -5,11 +5,18 @@
 //  Created by Sayed Zulfikar on 17/07/23.
 //
 
-import Foundation
 import MultipeerConnectivity
 
-class ConnectionManager: NSObject, ObservableObject {
+//protocol ControllerMultipeerHandlerDelegate: AnyObject {
+//    func connected(peerID: MCPeerID)
+//    func disconnected(peerID: MCPeerID)
+//    func didReceive(data: Data, from peerID: MCPeerID)
+//}
+
+class ConnManager: NSObject, ObservableObject {
     typealias LobbyReceivedHandler = (Lobby) -> Void
+    
+//    weak var delegate: ControllerMultipeerHandlerDelegate?
 
     private let displayName: String
     private var myPeerId: MCPeerID!
@@ -34,7 +41,7 @@ class ConnectionManager: NSObject, ObservableObject {
     }
     
     @Published var guests: [MCPeerID] = []
-    
+    @Published var connGuests: [MCPeerID] = []
     
     
     init(_ displayName: String, lobbyReceivedHandler: LobbyReceivedHandler? = nil) {
@@ -50,7 +57,7 @@ class ConnectionManager: NSObject, ObservableObject {
         
         nearbyServiceAdvertiser.delegate = self
         nearbyServiceBrowser.delegate = self
-        
+//        session.delegate = self
     }
     
     private func configurePeerId() {
@@ -67,13 +74,13 @@ class ConnectionManager: NSObject, ObservableObject {
         nearbyServiceAdvertiser = MCNearbyServiceAdvertiser(
             peer: myPeerId,
             discoveryInfo: nil,
-            serviceType: ConnectionManager.service)
+            serviceType: ConnManager.service)
     }
     
     private func configureServiceBrowser() {
         nearbyServiceBrowser = MCNearbyServiceBrowser(
             peer: myPeerId,
-            serviceType: ConnectionManager.service)
+            serviceType: ConnManager.service)
     }
     
     func startBrowsing() {
@@ -97,10 +104,23 @@ class ConnectionManager: NSObject, ObservableObject {
             timeout: TimeInterval(120))
     }
     
-    
+    private func send(_ message: String, to peers: [MCPeerID]) {
+        guard
+          let session = session,
+          let data = message.data(using: .utf8),
+          !peers.isEmpty
+        else { return }
+        
+      do {
+        try session.send(data, toPeers: peers, with: .reliable)
+      } catch {
+        print(error.localizedDescription)
+      }
+    }
+
 }
 
-extension ConnectionManager: MCNearbyServiceAdvertiserDelegate {
+extension ConnManager: MCNearbyServiceAdvertiserDelegate {
     func advertiser(
         _ advertiser: MCNearbyServiceAdvertiser,
         didReceiveInvitationFromPeer peerID: MCPeerID,
@@ -140,7 +160,7 @@ extension ConnectionManager: MCNearbyServiceAdvertiserDelegate {
     }
 }
 
-extension ConnectionManager: MCNearbyServiceBrowserDelegate {
+extension ConnManager: MCNearbyServiceBrowserDelegate {
     func browser(
         _ browser: MCNearbyServiceBrowser,
         foundPeer peerID: MCPeerID,
@@ -158,3 +178,74 @@ extension ConnectionManager: MCNearbyServiceBrowserDelegate {
         guests.remove(at: index)
     }
 }
+/*
+extension ConnManager: MCSessionDelegate {
+  func session(
+    _ session: MCSession,
+    peer peerID: MCPeerID,
+    didChange state: MCSessionState
+  ) {
+    switch state {
+    case .connected:
+        if !connGuests.contains(peerID) {
+            DispatchQueue.main.async { [weak self] in
+                self?.connGuests.append(peerID)
+            }
+        }
+      
+    case .notConnected:
+        if let index = connGuests.firstIndex(of: peerID) {
+            DispatchQueue.main.async { [weak self] in
+                self?.connGuests.remove(at: index)
+            }
+        }
+    case .connecting:
+      print("Connecting to: \(peerID.displayName)")
+    @unknown default:
+      print("Unknown state: \(state)")
+    }
+  }
+    
+    func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
+        guard let message = String(data: data, encoding: .utf8) else { return }
+        DispatchQueue.main.async {
+            self.jobReceivedHandler?(message)
+        }
+    }
+  
+  func session(
+    _ session: MCSession,
+    didReceive data: Data,
+    fromPeer peerID: MCPeerID
+  ) {
+    guard let job = try? JSONDecoder()
+      .decode(JobModel.self, from: data) else { return }
+    DispatchQueue.main.async {
+      self.jobReceivedHandler?(job)
+    }
+  }
+
+  
+  func session(
+    _ session: MCSession,
+    didReceive stream: InputStream,
+    withName streamName: String,
+    fromPeer peerID: MCPeerID
+  ) {}
+  
+  func session(
+    _ session: MCSession,
+    didStartReceivingResourceWithName resourceName: String,
+    fromPeer peerID: MCPeerID,
+    with progress: Progress
+  ) {}
+  
+  func session(
+    _ session: MCSession,
+    didFinishReceivingResourceWithName resourceName: String,
+    fromPeer peerID: MCPeerID,
+    at localURL: URL?,
+    withError error: Error?
+  ) {}
+}
+*/

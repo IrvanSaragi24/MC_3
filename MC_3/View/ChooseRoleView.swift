@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct ChooseRoleView: View {
-    @EnvironmentObject private var connectionManager: ConnectionManager
+    @EnvironmentObject private var multipeerController: MultipeerController
     @EnvironmentObject private var playerData: PlayerData
     
     @State private var isWaiting = false
+    @State private var lobby = Lobby(name: "Test", silentDuration: 10, numberOfQuestion: 1)
     
     var body: some View {
         NavigationView {
@@ -26,8 +27,8 @@ struct ChooseRoleView: View {
                     Spacer()
                     
                     NavigationLink(
-                        destination: LobbyView()
-                        .environmentObject(connectionManager)
+                        destination: LobbyView(lobby: lobby)
+                        .environmentObject(multipeerController)
                         .environmentObject(playerData)
                     )
                     {
@@ -35,21 +36,22 @@ struct ChooseRoleView: View {
                     }
                     .buttonStyle(MultipeerButtonStyle())
                     .onTapGesture {
-                        playerData.mainPlayer.role = .host
+                        playerData.mainPlayer.lobbyRole = .host
+                        lobby.name = playerData.mainPlayer.name
                     }
                     
                     Spacer()
                     
                     Button(
                         action: {
-                            connectionManager.isReceivingHangout = true
+                            multipeerController.isAdvertising = true
                             isWaiting = true
                         }, label: {
                             Label("Guest", systemImage: "paperplane.fill")
                         })
                     .buttonStyle(MultipeerButtonStyle())
                     .onTapGesture {
-                        playerData.mainPlayer.role = .guest
+                        playerData.mainPlayer.lobbyRole = .guest
                     }
                     
                     Spacer()
@@ -74,12 +76,12 @@ struct LoaderView: View {
 }
 
 struct ChooseRoleView_Previews: PreviewProvider {
-    static let player = Player(name: "Player", role: .noRole)
+    static let player = Player(name: "Player", lobbyRole: .noLobbyRole, gameRole: .noGameRole)
     static var playerData = PlayerData(mainPlayer: player, playerList: [player])
     
     static var previews: some View {
         ChooseRoleView()
-            .environmentObject(ConnectionManager(player.name))
+            .environmentObject(MultipeerController(player.name))
             .environmentObject(playerData)
     }
 }

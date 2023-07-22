@@ -9,8 +9,8 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var playerData: PlayerData?
-    @State private var connectionManager: ConnectionManager?
-    var defaultPlayer = Player(name: "Player", role: .noRole)
+    @State private var multipeerController: MultipeerController?
+    var defaultPlayer = Player(name: "Player", lobbyRole: .noLobbyRole, gameRole: .noGameRole)
     
     @StateObject var vm = DataApp()
     @State private var navigateToNextView = false
@@ -47,7 +47,7 @@ struct ContentView: View {
                     NavigationLink(
                         destination: ChooseRoleView()
                             .environmentObject(playerData ?? PlayerData(mainPlayer: defaultPlayer, playerList: [defaultPlayer]))
-                        .environmentObject(connectionManager ?? ConnectionManager(UIDevice.current.name))
+                        .environmentObject(multipeerController ?? MultipeerController(UIDevice.current.name))
                     )
                     {
                             Label("Enter", systemImage: "hand.point.right.fill")
@@ -55,9 +55,9 @@ struct ContentView: View {
                     .buttonStyle(MultipeerButtonStyle())
                     .simultaneousGesture(
                         TapGesture().onEnded {
-                            let player = Player(name: vm.nama, role: .noRole)
+                            let player = Player(name: vm.nama, lobbyRole: .noLobbyRole, gameRole: .noGameRole)
                             playerData = PlayerData(mainPlayer: player, playerList: [player])
-                            connectionManager = ConnectionManager(player.name)
+                            multipeerController = MultipeerController(player.name)
                         }
                     )
                     
