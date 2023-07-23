@@ -22,7 +22,7 @@ class MultipeerController: NSObject, ObservableObject {
     weak var delegate: MultipeerControllerDelegate?
     
 //    private let myPeerId = MCPeerID(displayName: String("\(UIDevice.current.name) \(UUID())".prefix(10)))
-    private var myPeerId: MCPeerID!
+    var myPeerId: MCPeerID!
     private let serviceType = MCConstants.service
     
     private var session: MCSession
@@ -34,6 +34,7 @@ class MultipeerController: NSObject, ObservableObject {
     @Published var connectedGuest: [MCPeerID] = [] // Do not use this var
     @Published var allGuest: [Guest] = []
     @Published var gameState: GameState = .waitingForInvitation
+    var isReferee: Bool = false
     
     init(_ displayName: String) {
         myPeerId = MCPeerID(displayName: displayName)

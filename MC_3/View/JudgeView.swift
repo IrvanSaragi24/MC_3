@@ -9,7 +9,27 @@ import SwiftUI
 
 struct JudgeView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Spacer()
+            Text("Player")
+            Text("ADHI")
+            Image(systemName: "person.circle.fill")
+            Text("Waiting for Judges to Vote")
+            Spacer()
+            Text("Question")
+            Text("Lorem Ipsum Dolor")
+            Text("1/3")
+            NavigationLink(
+                destination: AskedView()
+            )
+            {
+                    Label("\u{200B}", systemImage: "gobackward")
+            }
+            .buttonStyle(MultipeerButtonStyle())
+            .onTapGesture {
+                
+            }
+        }
     }
 }
 
