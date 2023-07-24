@@ -10,12 +10,19 @@ import SwiftUI
 struct ListenView: View {
     @EnvironmentObject private var multipeerController: MultipeerController
     @EnvironmentObject private var playerData: PlayerData
+    @StateObject var audioViewModel = AudioViewModel()
+    
     var body: some View {
         NavigationView {
             ZStack{
                 BubbleView()
                 VStack (spacing : 16) {
                     VStack{
+//                        if let peerID = multipeerController.hostPeerID {
+//                            Text("\(peerID)")
+//                        } else {
+//                            Text("Host Peer ID is nil.")
+//                        }
                         Circle()
                             .stroke(Color("Main"), lineWidth: 10)
                             .frame(width: 234)

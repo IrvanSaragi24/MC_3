@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A3E9052C2A6EF495007A0E2A /* Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E9052B2A6EF495007A0E2A /* Audio.swift */; };
+		A3E9052E2A6EF4BF007A0E2A /* AudioViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E9052D2A6EF4BF007A0E2A /* AudioViewModel.swift */; };
+		A3E905302A6EF4DE007A0E2A /* VoiceActivityDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E9052F2A6EF4DE007A0E2A /* VoiceActivityDetector.swift */; };
 		E22F946E2A67B13E0088315B /* BubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22F946D2A67B13E0088315B /* BubbleView.swift */; };
 		E22F94702A682F5A0088315B /* QuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22F946F2A682F5A0088315B /* QuestionView.swift */; };
 		E22F94722A6B78F10088315B /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22F94712A6B78F10088315B /* LoadingView.swift */; };
@@ -35,6 +38,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A3E9052B2A6EF495007A0E2A /* Audio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Audio.swift; sourceTree = "<group>"; };
+		A3E9052D2A6EF4BF007A0E2A /* AudioViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioViewModel.swift; sourceTree = "<group>"; };
+		A3E9052F2A6EF4DE007A0E2A /* VoiceActivityDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceActivityDetector.swift; sourceTree = "<group>"; };
 		E22F946D2A67B13E0088315B /* BubbleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleView.swift; sourceTree = "<group>"; };
 		E22F946F2A682F5A0088315B /* QuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionView.swift; sourceTree = "<group>"; };
 		E22F94712A6B78F10088315B /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
@@ -79,6 +85,7 @@
 			children = (
 				EC83186F2A65F1A200BD3A7E /* Lobby.swift */,
 				ECAE9AA22A654C3200E46A34 /* Player.swift */,
+				A3E9052B2A6EF495007A0E2A /* Audio.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -87,6 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				E25C6DFD2A63D65200B4F3EC /* ViewModel.swift */,
+				A3E9052D2A6EF4BF007A0E2A /* AudioViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -158,6 +166,7 @@
 				ECAE9AA52A6553D600E46A34 /* ConnectionManager.swift */,
 				EC8F9E282A69411800E0A76B /* MultipeerController.swift */,
 				EC8F9E2A2A69422100E0A76B /* Misc.swift */,
+				A3E9052F2A6EF4DE007A0E2A /* VoiceActivityDetector.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -243,14 +252,17 @@
 				E22F946E2A67B13E0088315B /* BubbleView.swift in Sources */,
 				E25C6E022A645D4800B4F3EC /* HangOutView.swift in Sources */,
 				ECCA2FDF2A6C212E000226AD /* ResultView.swift in Sources */,
+				A3E9052E2A6EF4BF007A0E2A /* AudioViewModel.swift in Sources */,
 				E2AD0EB42A60EDE100E76ED3 /* ContentView.swift in Sources */,
 				EC8318742A66A11B00BD3A7E /* LobbyView.swift in Sources */,
 				EC8318722A66050C00BD3A7E /* ChooseRoleView.swift in Sources */,
+				A3E9052C2A6EF495007A0E2A /* Audio.swift in Sources */,
 				E22F94702A682F5A0088315B /* QuestionView.swift in Sources */,
 				ECAE9AA62A6553D600E46A34 /* ConnectionManager.swift in Sources */,
 				E2AD0EB22A60EDE100E76ED3 /* MC_3App.swift in Sources */,
 				ECCA2FDB2A6C1C0C000226AD /* ChoosePlayerView.swift in Sources */,
 				ECAE9AA32A654C3200E46A34 /* Player.swift in Sources */,
+				A3E905302A6EF4DE007A0E2A /* VoiceActivityDetector.swift in Sources */,
 				EC8F9E292A69411800E0A76B /* MultipeerController.swift in Sources */,
 				EC8F9E272A68403200E0A76B /* AskedView.swift in Sources */,
 				E25C6DFE2A63D65200B4F3EC /* ViewModel.swift in Sources */,
