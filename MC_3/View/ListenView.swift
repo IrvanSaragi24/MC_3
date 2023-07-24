@@ -12,46 +12,68 @@ struct ListenView: View {
     @EnvironmentObject private var playerData: PlayerData
     var body: some View {
         NavigationView {
-            if multipeerController.gameState == .choosingPlayer {
-                ChoosePlayerView()
-                    .environmentObject(multipeerController)
-                    .environmentObject(playerData)
-            }
-            else {
-                VStack {
+            ZStack{
+                BubbleView()
+                VStack (spacing : 16) {
+                    VStack{
+                        Circle()
+                            .stroke(Color("Main"), lineWidth: 10)
+                            .frame(width: 234)
+                            .overlay {
+                                Circle()
+                                    .foregroundColor(Color.red)
+                                Image("Music")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 225)
+                            }
+                            .padding(.top, 24)
+                        Text("Listening..")
+                            .font(.system(size: 36, weight: .semibold))
+                            .foregroundColor(Color("Second"))
+                        ZStack{
+                            RoundedRectangle(cornerRadius: 20)
+                                .stroke(Color("Second"), lineWidth: 4)
+                                .frame(width: 234, height: 56)
+                                .overlay {
+                                    RoundedRectangle(cornerRadius: 20)
+                                        .foregroundColor(Color("Second"))
+                                        .opacity(0.2)
+                                }
+                            Text("10.30")
+                                .font(.system(size: 32))
+                                .fontWeight(.semibold)
+                                .foregroundColor(Color("Second"))
+                        }
+                        
+                    }
+                    .padding(.top, 100)
                     Spacer()
-                    Image(systemName: "waveform.circle")
-                        .foregroundColor(.purple)
-                        .font(.system(size: 250))
                     NavigationLink(
                         destination: ChoosePlayerView()
                             .environmentObject(multipeerController)
                             .environmentObject(playerData)
                     )
                     {
-                        Label("Quiz Time!", systemImage: "hand.raised.fill")
+                        Text("Quiz Time!")
+                            .font(.system(size: 28, weight: .bold))
                     }
                     .buttonStyle(MultipeerButtonStyle())
                     .onTapGesture {
-                        //send broadcast message to other peer to change the screen
-                        let connectedGuest = multipeerController.allGuest
-                            .filter { $0.status == .connected }
-                            .map { $0.id }
                         
-                        multipeerController.sendMessage(MsgCommandConstant.startQuiz, to: connectedGuest)
                     }
                     NavigationLink(
                         destination: HangOutView()
                     )
                     {
-                        Label("Stop!", systemImage: "stop.circle.fill")
+                        Text("End Session")
+                            .font(.system(size: 28, weight: .bold))
                     }
                     .buttonStyle(MultipeerButtonStyle())
                     .onTapGesture {
                         multipeerController.stopBrowsing()
                         multipeerController.isAdvertising = false
                     }
-                    Spacer()
                 }
             }
         }
