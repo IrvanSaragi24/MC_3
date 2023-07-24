@@ -11,10 +11,16 @@ struct MultipeerButtonStyle: ButtonStyle {
   func makeBody(configuration: Configuration) -> some View {
     configuration.label
       .padding()
-      .font(.headline)
-      .background(configuration.isPressed ? Color.black : Color.accentColor)
-      .cornerRadius(9.0)
-      .foregroundColor(.white)
+      .frame(width: 354, height: 48)
+      .background(
+                ZStack {
+                    configuration.isPressed ? Color("Second") : Color("Main")
+                    RoundedRectangle(cornerRadius: 40.0)
+                        .stroke(Color("Second"), lineWidth: 4) // Set the border color and width
+                }
+            )
+      .cornerRadius(40.0)
+      .foregroundColor(Color("Second"))
   }
 }
 

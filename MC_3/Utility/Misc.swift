@@ -6,6 +6,7 @@
 // Put all your constants and enum here
 
 import Foundation
+import SwiftUI
 
 enum MCConstants {
     static let service = "Dra9on" // bonjour limit: 15 char
@@ -30,11 +31,46 @@ enum ConnectionStatus {
     var stringValue: String {
         switch self {
         case .connected:
-            return "connected"
+            return "Joined"
         case .discovered:
-            return "discovered"
+            return "Waiting"
         }
     }
+    
+    var circleColor: Color {
+            switch self {
+            case .connected:
+                return .green
+            case .discovered:
+                return .red
+            }
+        }
+    
+    var BackgroundColor: Color {
+            switch self {
+            case .connected:
+                return Color("Second")
+            case .discovered:
+                return Color("Background")
+            }
+        }
+    var TextColor: Color {
+            switch self {
+            case .connected:
+                return Color("Background")
+            case .discovered:
+                return Color("Second")
+            }
+        }
+    
+    var ImageButtonAdd: String {
+            switch self {
+            case .connected:
+                return "person.fill.badge.minus"
+            case .discovered:
+                return "person.fill.badge.plus"
+            }
+        }
 }
 
 enum GameState {
