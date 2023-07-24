@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E22F946E2A67B13E0088315B /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22F946D2A67B13E0088315B /* TimerView.swift */; };
+		E22F946E2A67B13E0088315B /* BubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22F946D2A67B13E0088315B /* BubbleView.swift */; };
 		E22F94702A682F5A0088315B /* QuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22F946F2A682F5A0088315B /* QuestionView.swift */; };
 		E22F94722A6B78F10088315B /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22F94712A6B78F10088315B /* LoadingView.swift */; };
 		E25C6DFC2A63CBAB00B4F3EC /* TrainVoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25C6DFB2A63CBAB00B4F3EC /* TrainVoiceView.swift */; };
@@ -35,7 +35,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E22F946D2A67B13E0088315B /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
+		E22F946D2A67B13E0088315B /* BubbleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleView.swift; sourceTree = "<group>"; };
 		E22F946F2A682F5A0088315B /* QuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionView.swift; sourceTree = "<group>"; };
 		E22F94712A6B78F10088315B /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		E25C6DFB2A63CBAB00B4F3EC /* TrainVoiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainVoiceView.swift; sourceTree = "<group>"; };
@@ -102,14 +102,13 @@
 				EC8F9E222A683F7000E0A76B /* ListenView.swift */,
 				EC8F9E242A683FD100E0A76B /* JudgeView.swift */,
 				EC8F9E262A68403200E0A76B /* AskedView.swift */,
-				E22F946D2A67B13E0088315B /* TimerView.swift */,
+				E22F946D2A67B13E0088315B /* BubbleView.swift */,
 				E22F946F2A682F5A0088315B /* QuestionView.swift */,
 				ECCA2FDA2A6C1C0C000226AD /* ChoosePlayerView.swift */,
 				ECCA2FDC2A6C1FAF000226AD /* RefereeView.swift */,
 				ECCA2FDE2A6C212E000226AD /* ResultView.swift */,
 				ECCA2FE02A6C24DF000226AD /* ContinueView.swift */,
 				E22F94712A6B78F10088315B /* LoadingView.swift */,
-
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -238,11 +237,10 @@
 				EC8F9E2B2A69422100E0A76B /* Misc.swift in Sources */,
 				EC8318702A65F1A200BD3A7E /* Lobby.swift in Sources */,
 				ECCA2FDD2A6C1FAF000226AD /* RefereeView.swift in Sources */,
-				E22F94142A654EA30088315B /* LobyView.swift in Sources */,
 				E25C6E022A645D4800B4F3EC /* HangOutView.swift in Sources */,
 				EC8F9E232A683F7000E0A76B /* ListenView.swift in Sources */,
 				ECCA2FE12A6C24DF000226AD /* ContinueView.swift in Sources */,
-				E22F946E2A67B13E0088315B /* TimerView.swift in Sources */,
+				E22F946E2A67B13E0088315B /* BubbleView.swift in Sources */,
 				E25C6E022A645D4800B4F3EC /* HangOutView.swift in Sources */,
 				ECCA2FDF2A6C212E000226AD /* ResultView.swift in Sources */,
 				E2AD0EB42A60EDE100E76ED3 /* ContentView.swift in Sources */,

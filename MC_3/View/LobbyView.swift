@@ -22,13 +22,17 @@ struct LobbyView: View {
                 Image("CircleHost")
                     .resizable()
                     .scaledToFill()
-                    .padding(.top, 50)
+                    .ignoresSafeArea()
+                    .padding(.top, 130)
                 Text("8 player \n maximum limit")
                     .font(.system(size: 36, weight: .bold))
                     .multilineTextAlignment(.center)
                     .foregroundColor(Color("Second"))
                     .opacity(0.3)
                 VStack (spacing : 25){
+                    Text("Lobby")
+                        .foregroundColor(Color("Second"))
+                        .font(.system(size: 38, weight: .bold))
                     HStack(spacing : 30){
                         RoundedRectangle(cornerRadius: 10)
                             .frame(width: 148, height: 40)
@@ -66,7 +70,7 @@ struct LobbyView: View {
                         .overlay {
                             HStack{
                                 Image(systemName: "person.3.fill")
-                                Text("Total Player")
+                                Text("Joined Player")
                                 Spacer()
                                 Text("\(multipeerController.allGuest.filter { $0.status == .connected }.count)")
                             }
@@ -128,7 +132,7 @@ struct LobbyView: View {
                     }
                     .listStyle(InsetGroupedListStyle())
                     .scrollContentBackground(.hidden)
-                    .navigationTitle("\(lobby.name)'s Lobby")
+//                    .navigationTitle("\(lobby.name)'s Lobby")
                     .onAppear {
                         multipeerController.startBrowsing()
                     }
@@ -175,11 +179,9 @@ struct LobbyView: View {
 }
 
 struct LobbyView_Previews: PreviewProvider {
-//<<<<<<< Updated upstream
+
     static let player = Player(name: "Player", lobbyRole: .noLobbyRole, gameRole: .asked)
-//=======
-//    static let player = Player(name: "Irvan", lobbyRole: .noLobbyRole, gameRole: .noGameRole)
-//>>>>>>> Stashed changes
+
     static var playerData = PlayerData(mainPlayer: player, playerList: [player])
     
     static var lobby = Lobby(name: player.name, silentDuration: 10, numberOfQuestion: 1)

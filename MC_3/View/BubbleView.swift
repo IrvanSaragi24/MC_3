@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TimerView: View {
+struct BubbleView: View {
     @State private var ButtonStop = false
     @State private var circle1Offset = CGSize(width: 150, height: 200)
     @State private var circle1Opacity = 0.4
@@ -33,11 +33,11 @@ struct TimerView: View {
                     .shadow(color: .white, radius: 5)
                     .animation(Animation.easeInOut(duration: animationDuration))
             }
-            if ButtonStop {
-                pickupphone()
-            }else{
-                ListeningView(ButtonStop: $ButtonStop)
-            }
+//            if ButtonStop {
+//                pickupphone()
+//            }else{
+////                ListeningView(ButtonStop: $ButtonStop)
+////            }
         }.onAppear {
             animateCircles()
         }
@@ -113,9 +113,9 @@ struct TimerView: View {
     }
 }
 
-struct TimerView_Previews: PreviewProvider {
+struct BubbleView_Previews: PreviewProvider {
     static var previews: some View {
-        TimerView()
+        BubbleView()
     }
 }
 
@@ -158,66 +158,66 @@ struct ListeningView: View {
             } label: {
                 ZStack{
                     RoundedRectangle(cornerRadius: 20)
-                    
+
                         .frame(width: 358, height: 48)
                         .foregroundColor(Color("Main"))
                         .overlay(
                             RoundedRectangle(cornerRadius: 20)
                                 .stroke(Color("Second"), lineWidth: 4)
                         )
-                    
+
                     Text("Stop!")
                         .font(.system(size: 28, weight: .heavy))
                         .foregroundColor(Color("Second"))
                 }
             }
-            
-            
+
+
         }
     }
 }
-
-struct pickupphone : View{
-    @State private var ButtonPick : Bool = false
-    var body: some View{
-        if ButtonPick{
-            QuestionView()
-        }
-        else{
-            VStack{
-                Spacer()
-                Text("Pick \n up \n your \n Phone")
-                    .font(.system(size: 72, weight: .bold))
-                    .multilineTextAlignment(.center)
-                    .foregroundColor(Color("Main"))
-                    .overlay(
-                        Text("Pick \n up \n your \n Phone")
-                            .font(.system(size: 72, weight: .bold))
-                            .foregroundColor(Color("Second"))
-                            .offset(x: 2, y: 2) // Offset the white text to create a stroke effect
-                    )
-                    .multilineTextAlignment(.center)
-                Spacer()
-                Button {
-                    ButtonPick = true
-                } label: {
-                    ZStack{
-                        RoundedRectangle(cornerRadius: 20)
-                        
-                            .frame(width: 358, height: 48)
-                            .foregroundColor(Color("Main"))
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 20)
-                                    .stroke(Color("Second"), lineWidth: 4)
-                            )
-                        
-                        Text("Question")
-                            .font(.system(size: 28, weight: .heavy))
-                            .foregroundColor(Color("Second"))
-                    }
-                }
-
-            }
-        }
-    }
-}
+//
+//struct pickupphone : View{
+//    @State private var ButtonPick : Bool = false
+//    var body: some View{
+//        if ButtonPick{
+//            QuestionView()
+//        }
+//        else{
+//            VStack{
+//                Spacer()
+//                Text("Pick \n up \n your \n Phone")
+//                    .font(.system(size: 72, weight: .bold))
+//                    .multilineTextAlignment(.center)
+//                    .foregroundColor(Color("Main"))
+//                    .overlay(
+//                        Text("Pick \n up \n your \n Phone")
+//                            .font(.system(size: 72, weight: .bold))
+//                            .foregroundColor(Color("Second"))
+//                            .offset(x: 2, y: 2) // Offset the white text to create a stroke effect
+//                    )
+//                    .multilineTextAlignment(.center)
+//                Spacer()
+//                Button {
+//                    ButtonPick = true
+//                } label: {
+//                    ZStack{
+//                        RoundedRectangle(cornerRadius: 20)
+//
+//                            .frame(width: 358, height: 48)
+//                            .foregroundColor(Color("Main"))
+//                            .overlay(
+//                                RoundedRectangle(cornerRadius: 20)
+//                                    .stroke(Color("Second"), lineWidth: 4)
+//                            )
+//
+//                        Text("Question")
+//                            .font(.system(size: 28, weight: .heavy))
+//                            .foregroundColor(Color("Second"))
+//                    }
+//                }
+//
+//            }
+//        }
+//    }
+//}
