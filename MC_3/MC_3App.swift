@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-@main
+@
+main
 struct MC_3App: App {
     
     var body: some Scene {

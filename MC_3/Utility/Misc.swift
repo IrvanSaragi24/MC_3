@@ -77,7 +77,7 @@ enum ConnectionStatus {
         }
 }
 
-enum GameState {
+enum GameState : String{
     case waitingForInvitation
     case waitingToStart
     case listening

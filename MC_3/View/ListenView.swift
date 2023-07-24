@@ -28,6 +28,7 @@ struct ListenView: View {
                                     .frame(width: 225)
                             }
                             .padding(.top, 24)
+                        Text("\(multipeerController.gameState.rawValue)")
                         Text("Listening..")
                             .font(.system(size: 36, weight: .semibold))
                             .foregroundColor(Color("Second"))
