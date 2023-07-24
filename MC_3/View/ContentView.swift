@@ -72,6 +72,8 @@ struct ContentView: View {
                         }
                     )
                     .disabled(vm.nama.isEmpty)
+                    .opacity(vm.nama.isEmpty ? 0.4 : 1.0)
+            
                     
                 }//Vstack
                 .foregroundColor(Color("ColorText"))

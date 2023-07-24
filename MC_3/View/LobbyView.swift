@@ -13,79 +13,151 @@ struct LobbyView: View {
     @EnvironmentObject var multipeerController: MultipeerController
     @EnvironmentObject private var playerData: PlayerData
     @State private var navigateToListenView = false
-
+    
     var body: some View {
         NavigationView { // Add the main NavigationView here
-            VStack {
-                List {
-                    HStack {
-                        Text("Silent Duration:")
-                        Spacer()
-                        TextField("Silent Duration", value: $lobby.silentDuration, formatter: NumberFormatter())
-                            .keyboardType(.numberPad)
-                    }
-                    HStack {
-                        Text("Number of question:")
-                        Spacer()
-                        TextField("Number of question", value: $lobby.numberOfQuestion, formatter: NumberFormatter())
-                            .keyboardType(.numberPad)
-                    }
-                    HStack {
-                        Image(systemName: "person.3.fill")
-                        Text("TOTAL PLAYER: ")
-                        Spacer()
-                        Text("\(multipeerController.allGuest.filter { $0.status == .connected }.count)")
-                        
-                    }
-                    
-                    Section(
-                        header: HStack(spacing: 8) {
-                            Text("All Guests")
-                            Spacer()
-                            ProgressView()
-                        }) {
-                            ForEach(multipeerController.allGuest, id: \.self) { guest in
+            ZStack {
+                Color.clear.backgroundStyle()
+                    .ignoresSafeArea()
+                Image("CircleHost")
+                    .resizable()
+                    .scaledToFill()
+                    .padding(.top, 50)
+                Text("8 player \n maximum limit")
+                    .font(.system(size: 36, weight: .bold))
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(Color("Second"))
+                    .opacity(0.3)
+                VStack (spacing : 25){
+                    HStack(spacing : 30){
+                        RoundedRectangle(cornerRadius: 10)
+                            .frame(width: 148, height: 40)
+                            .foregroundColor(.white)
+                            .overlay {
                                 HStack {
-                                    Text(guest.id.displayName)
-                                        .font(.headline)
-                                    Spacer()
-                                    Text(guest.status.stringValue)
-                                        .font(.headline)
-                                    Spacer()
-                                    Image(systemName: "arrowshape.turn.up.right.fill")
+                                    Text("Silent period")
+                                        .frame(width: 100)
+                                    TextField("..", value: $lobby.silentDuration, formatter: NumberFormatter())
+                                        .keyboardType(.numberPad)
+                                        .multilineTextAlignment(.trailing)
+                                        .padding(.trailing, 20)
+                                    
                                 }
-                                .onTapGesture {
-                                    multipeerController.invitePeer(guest.id, to: lobby)
-                                }
+                                
                             }
+                        RoundedRectangle(cornerRadius: 10)
+                            .frame(width: 148, height: 40)
+                            .foregroundColor(.white)
+                            .overlay {
+                                HStack {
+                                    HStack {
+                                        Text("Question:")
+                                            .frame(width: 100)
+                                        TextField("Number of question", value: $lobby.numberOfQuestion, formatter: NumberFormatter())
+                                            .keyboardType(.numberPad)
+                                    }
+                                }
+                                
+                            }
+                    }
+                    RoundedRectangle(cornerRadius: 21)
+                        .stroke(lineWidth: 2)
+                        .frame(width: 234, height: 32)
+                        .overlay {
+                            HStack{
+                                Image(systemName: "person.3.fill")
+                                Text("Total Player")
+                                Spacer()
+                                Text("\(multipeerController.allGuest.filter { $0.status == .connected }.count)")
+                            }
+                            .padding()
                             
                         }
-                }
-                .listStyle(InsetGroupedListStyle())
-                .navigationTitle("\(lobby.name)'s Lobby")
-                .onAppear {
-                    multipeerController.startBrowsing()
-                }
-                .onDisappear {
-                    multipeerController.stopBrowsing()
-                }
-
-                // Button to navigate to the next page
-                Button {
-                    let connectedGuest = multipeerController.allGuest
-                        .filter { $0.status == .connected }
-                        .map { $0.id }
+                        .foregroundColor(Color("Second"))
+                    List {
+                        Section(
+                            header: HStack(spacing: 8) {
+                                Text("All Guests")
+                                    .foregroundColor(Color("Second"))
+                                Spacer()
+                                ProgressView()
+                            }) {
+                                ForEach(multipeerController.allGuest, id: \.self) { guest in
+                                    ZStack{
+                                        RoundedRectangle(cornerRadius: 12)
+                                            .frame(width: 314, height: 80)
+                                            .foregroundColor(guest.status.BackgroundColor)
+                                            .shadow(color : .indigo, radius : 5)
+                                            .overlay {
+                                                HStack(spacing : 20) {
+                                                    Circle()
+                                                        .stroke(lineWidth: 2)
+                                                        .frame(width : 20)
+                                                        .overlay{
+                                                            Circle()
+                                                                .foregroundColor(guest.status.circleColor)
+                                                                .frame(width : 18)
+                                                        }
+                                                    
+                                                    
+                                                    Capsule()
+                                                        .frame(width: 2)
+                                                    VStack(alignment: .leading){
+                                                        Text(guest.id.displayName)
+                                                            .font(.system(size : 24, weight : .bold))
+                                                        Text(guest.status.stringValue)
+                                                            .font(.system(size : 12, weight : .regular))
+                                                    }
+                                                    
+                                                    Spacer()
+                                                    Image(systemName: guest.status.ImageButtonAdd)
+                                                        .resizable()
+                                                        .frame(width : 30, height : 30)
+                                                        .onTapGesture {
+                                                            multipeerController.invitePeer(guest.id, to: lobby)
+                                                        }
+                                                }.foregroundColor(guest.status.TextColor)
+                                                    .padding()
+                                            }
+                                    }
+                                    
+                                }
+                                .listRowBackground(Color.clear)
+                                
+                            }
+                    }
+                    .listStyle(InsetGroupedListStyle())
+                    .scrollContentBackground(.hidden)
+                    .navigationTitle("\(lobby.name)'s Lobby")
+                    .onAppear {
+                        multipeerController.startBrowsing()
+                    }
+                    .onDisappear {
+                        multipeerController.stopBrowsing()
+                    }
                     
-                    multipeerController.sendMessage("START LISTEN", to: connectedGuest)
-                    navigateToListenView = true
+                    Button {
+                        let connectedGuest = multipeerController.allGuest
+                            .filter { $0.status == .connected }
+                            .map { $0.id }
+                        
+                        multipeerController.sendMessage("START LISTEN", to: connectedGuest)
+                        navigateToListenView = true
+                        
+                    } label: {
+                        
+                        
+                        Text("Start!")
+                            .font(.system(size: 28, weight : .bold))
+                        
+                        
+                    }
+                    .buttonStyle(MultipeerButtonStyle())
+                    .padding(.bottom, 50)
                     
-                } label: {
-                    Label("Start!", systemImage: "stop.circle.fill")
+                    //                Spacer() // Optional spacer to push the button to the bottom
                 }
-                .buttonStyle(MultipeerButtonStyle())
-                .padding()
-
-                Spacer() // Optional spacer to push the button to the bottom
+                .padding(.top, 60)
             }
             .background(
                 NavigationLink(
@@ -100,11 +172,14 @@ struct LobbyView: View {
         }
     }
     
-    
 }
 
 struct LobbyView_Previews: PreviewProvider {
+<<<<<<< Updated upstream
     static let player = Player(name: "Player", lobbyRole: .noLobbyRole, gameRole: .asked)
+=======
+    static let player = Player(name: "Irvan", lobbyRole: .noLobbyRole, gameRole: .noGameRole)
+>>>>>>> Stashed changes
     static var playerData = PlayerData(mainPlayer: player, playerList: [player])
     
     static var lobby = Lobby(name: player.name, silentDuration: 10, numberOfQuestion: 1)

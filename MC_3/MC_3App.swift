@@ -12,8 +12,8 @@ struct MC_3App: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
-//            HangOutView()
+//            ContentView()
+            HangOutView()
         }
     }
 }
