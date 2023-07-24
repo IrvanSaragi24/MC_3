@@ -104,7 +104,7 @@ struct LobbyView: View {
 }
 
 struct LobbyView_Previews: PreviewProvider {
-    static let player = Player(name: "Player", lobbyRole: .noLobbyRole, gameRole: .noGameRole)
+    static let player = Player(name: "Player", lobbyRole: .noLobbyRole, gameRole: .asked)
     static var playerData = PlayerData(mainPlayer: player, playerList: [player])
     
     static var lobby = Lobby(name: player.name, silentDuration: 10, numberOfQuestion: 1)

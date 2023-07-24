@@ -10,7 +10,6 @@ import SwiftUI
 struct ListenView: View {
     @EnvironmentObject private var multipeerController: MultipeerController
     @EnvironmentObject private var playerData: PlayerData
-    
     var body: some View {
         NavigationView {
             VStack {
@@ -24,7 +23,9 @@ struct ListenView: View {
                     .foregroundColor(.purple)
                     .font(.system(size: 250))
                 NavigationLink(
-                    destination: AskedView()
+                    destination: ChoosePlayerView()
+                        .environmentObject(multipeerController)
+                        .environmentObject(playerData)
                 )
                 {
                         Label("Quiz Time!", systemImage: "hand.raised.fill")
@@ -34,14 +35,15 @@ struct ListenView: View {
                     
                 }
                 NavigationLink(
-                    destination: AskedView()
+                    destination: HangOutView()
                 )
                 {
                         Label("Stop!", systemImage: "stop.circle.fill")
                 }
                 .buttonStyle(MultipeerButtonStyle())
                 .onTapGesture {
-                    
+                    multipeerController.stopBrowsing()
+                    multipeerController.isAdvertising = false
                 }
                 Spacer()
             }
@@ -50,7 +52,7 @@ struct ListenView: View {
 }
 
 struct ListenView_Previews: PreviewProvider {
-    static let player = Player(name: "Player", lobbyRole: .host, gameRole: .noGameRole)
+    static let player = Player(name: "Player", lobbyRole: .host, gameRole: .asked)
     static var playerData = PlayerData(mainPlayer: player, playerList: [player])
     
     static var previews: some View {

@@ -19,9 +19,8 @@ enum LobbyRole: CaseIterable {
 }
 
 enum GameRole: CaseIterable {
-    case judge
+    case referee
     case asked
-    case noGameRole
 }
 
 enum ConnectionStatus {

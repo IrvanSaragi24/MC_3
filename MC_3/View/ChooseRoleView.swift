@@ -87,7 +87,7 @@ struct LoaderView: View {
 }
 
 struct ChooseRoleView_Previews: PreviewProvider {
-    static let player = Player(name: "Player", lobbyRole: .noLobbyRole, gameRole: .noGameRole)
+    static let player = Player(name: "Player", lobbyRole: .noLobbyRole, gameRole: .asked)
     static var playerData = PlayerData(mainPlayer: player, playerList: [player])
     
     static var previews: some View {
