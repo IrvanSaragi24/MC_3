@@ -141,7 +141,7 @@ struct LobbyView: View {
                             .filter { $0.status == .connected }
                             .map { $0.id }
                         
-                        multipeerController.sendMessage("START LISTEN", to: connectedGuest)
+                        multipeerController.sendMessage(MsgCommandConstant.startListen, to: connectedGuest)
                         navigateToListenView = true
                         
                     } label: {
@@ -175,11 +175,11 @@ struct LobbyView: View {
 }
 
 struct LobbyView_Previews: PreviewProvider {
-//<<<<<<< Updated upstream
+    //<<<<<<< Updated upstream
     static let player = Player(name: "Player", lobbyRole: .noLobbyRole, gameRole: .asked)
-//=======
-//    static let player = Player(name: "Irvan", lobbyRole: .noLobbyRole, gameRole: .noGameRole)
-//>>>>>>> Stashed changes
+    //=======
+    //    static let player = Player(name: "Irvan", lobbyRole: .noLobbyRole, gameRole: .noGameRole)
+    //>>>>>>> Stashed changes
     static var playerData = PlayerData(mainPlayer: player, playerList: [player])
     
     static var lobby = Lobby(name: player.name, silentDuration: 10, numberOfQuestion: 1)

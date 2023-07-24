@@ -57,7 +57,8 @@ struct ChooseRoleView: View {
                             LoadingView(textWait: "Wait for the host to start...")
                                 .padding()
                             ///
-                        case .waitingForInvitation:
+//                        case .waitingForInvitation:
+                        default:
                             LoadingView(textWait: "Wait to be invited by the host...")
                                 .padding(.bottom, 200)
                         }

@@ -12,40 +12,47 @@ struct ListenView: View {
     @EnvironmentObject private var playerData: PlayerData
     var body: some View {
         NavigationView {
-            VStack {
-                
-                List(playerData.playerList, id: \.self) { item in
-                    Text(item.name)
-                }
-                .frame(height: 100)
-                
-                Image(systemName: "waveform.circle")
-                    .foregroundColor(.purple)
-                    .font(.system(size: 250))
-                NavigationLink(
-                    destination: ChoosePlayerView()
-                        .environmentObject(multipeerController)
-                        .environmentObject(playerData)
-                )
-                {
+            if multipeerController.gameState == .choosingPlayer {
+                ChoosePlayerView()
+                    .environmentObject(multipeerController)
+                    .environmentObject(playerData)
+            }
+            else {
+                VStack {
+                    Spacer()
+                    Image(systemName: "waveform.circle")
+                        .foregroundColor(.purple)
+                        .font(.system(size: 250))
+                    NavigationLink(
+                        destination: ChoosePlayerView()
+                            .environmentObject(multipeerController)
+                            .environmentObject(playerData)
+                    )
+                    {
                         Label("Quiz Time!", systemImage: "hand.raised.fill")
-                }
-                .buttonStyle(MultipeerButtonStyle())
-                .onTapGesture {
-                    
-                }
-                NavigationLink(
-                    destination: HangOutView()
-                )
-                {
+                    }
+                    .buttonStyle(MultipeerButtonStyle())
+                    .onTapGesture {
+                        //send broadcast message to other peer to change the screen
+                        let connectedGuest = multipeerController.allGuest
+                            .filter { $0.status == .connected }
+                            .map { $0.id }
+                        
+                        multipeerController.sendMessage(MsgCommandConstant.startQuiz, to: connectedGuest)
+                    }
+                    NavigationLink(
+                        destination: HangOutView()
+                    )
+                    {
                         Label("Stop!", systemImage: "stop.circle.fill")
+                    }
+                    .buttonStyle(MultipeerButtonStyle())
+                    .onTapGesture {
+                        multipeerController.stopBrowsing()
+                        multipeerController.isAdvertising = false
+                    }
+                    Spacer()
                 }
-                .buttonStyle(MultipeerButtonStyle())
-                .onTapGesture {
-                    multipeerController.stopBrowsing()
-                    multipeerController.isAdvertising = false
-                }
-                Spacer()
             }
         }
     }

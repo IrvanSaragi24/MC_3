@@ -213,8 +213,11 @@ extension MultipeerController: MCSessionDelegate {
             // Process the received string here
             print("Received data: \(receivedString) from peer: \(peerID.displayName)")
             DispatchQueue.main.async { [weak self] in
-                if receivedString == "START LISTEN" {
+                if receivedString == MsgCommandConstant.startListen {
                     self?.gameState = .listening
+                }
+                else if receivedString == MsgCommandConstant.startQuiz{
+                    self?.gameState = .choosingPlayer
                 }
             }
         } else {

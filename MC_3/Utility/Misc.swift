@@ -12,6 +12,11 @@ enum MCConstants {
     static let service = "Dra9on" // bonjour limit: 15 char
 }
 
+enum MsgCommandConstant {
+    static let startListen = "START LISTEN"
+    static let startQuiz = "START QUIZ"
+}
+
 enum LobbyRole: CaseIterable {
     case host
     case guest
@@ -76,4 +81,5 @@ enum GameState {
     case waitingForInvitation
     case waitingToStart
     case listening
+    case choosingPlayer
 }
