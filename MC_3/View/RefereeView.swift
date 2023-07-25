@@ -47,7 +47,7 @@ struct RefereeView: View {
                 
                 ZStack{
                     Text(vibrateOnRing || vibrateOnRing1 ? "Wait for Judges to vote \nVoting : 4/6\(dots)" : "Judges The \n Player")
-                        .font(.system(size: 32, weight: .bold))
+                        .font(.system(size:vibrateOnRing || vibrateOnRing1 ?  20 : 32 , weight: .bold))
                         .multilineTextAlignment(.center)
                         .foregroundColor(Color("Second"))
                         .padding(.bottom, 100)

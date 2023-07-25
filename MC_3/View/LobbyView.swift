@@ -14,6 +14,8 @@ struct LobbyView: View {
     @EnvironmentObject var multipeerController: MultipeerController
     @EnvironmentObject private var playerData: PlayerData
     @State private var navigateToListenView = false
+    @State private var showingConfirmationAlert = false
+    @State private var guestToRemove: MCPeerID?
     
     var body: some View {
         NavigationView { // Add the main NavigationView here
@@ -119,12 +121,31 @@ struct LobbyView: View {
                                                         .resizable()
                                                         .frame(width : 30, height : 30)
                                                         .onTapGesture {
-                                                            multipeerController.invitePeer(guest.id, to: lobby)
+                                                            if guest.status == .connected {
+                                                                guestToRemove = guest.id
+                                                                showingConfirmationAlert = true
+//                                                                multipeerController.disconnectPeer(peerToRemove: guest.id)
+                                                            }
+                                                            else {
+                                                                multipeerController.invitePeer(guest.id, to: lobby)
+                                                            }
                                                         }
                                                 }.foregroundColor(guest.status.TextColor)
                                                     .padding()
                                             }
                                     }
+                                    .alert(isPresented: $showingConfirmationAlert) {
+                                                Alert(
+                                                    title: Text("Disconnect Peer"),
+                                                    message: Text("Are you sure you want to disconnect this peer?"),
+                                                    primaryButton: .destructive(Text("Yes")) {
+                                                        if let peerToRemove = guestToRemove {
+                                                            multipeerController.disconnectPeer(peerToRemove: peerToRemove)
+                                                        }
+                                                    },
+                                                    secondaryButton: .cancel()
+                                                )
+                                            }
                                     
                                 }
                                 .listRowBackground(Color.clear)
@@ -142,11 +163,9 @@ struct LobbyView: View {
                     }
                     
                     Button {
-                        let connectedGuest = multipeerController.allGuest
-                            .filter { $0.status == .connected }
-                            .map { $0.id }
+                        let connectedGuest = multipeerController.getConnectedPeers()
                         
-                        multipeerController.sendMessage("START LISTEN", to: connectedGuest)
+                        multipeerController.sendMessage(MsgCommandConstant.startListen, to: connectedGuest)
                         navigateToListenView = true
                         
                     } label: {
@@ -192,5 +211,6 @@ struct LobbyView_Previews: PreviewProvider {
         LobbyView(lobby: lobby)
             .environmentObject(MultipeerController(player.name))
             .environmentObject(playerData)
+            .environmentObject(LobbyViewModel())
     }
 }
