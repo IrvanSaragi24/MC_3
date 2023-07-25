@@ -10,6 +10,7 @@ import MultipeerConnectivity
 
 struct LobbyView: View {
     @State var lobby: Lobby
+    @EnvironmentObject var lobbyViewModel: LobbyViewModel
     @EnvironmentObject var multipeerController: MultipeerController
     @EnvironmentObject private var playerData: PlayerData
     @State private var navigateToListenView = false
@@ -41,7 +42,7 @@ struct LobbyView: View {
                                 HStack {
                                     Text("Silent period")
                                         .frame(width: 100)
-                                    TextField("..", value: $lobby.silentDuration, formatter: NumberFormatter())
+                                    TextField("..", value: $lobbyViewModel.lobby.silentDuration, formatter: NumberFormatter())
                                         .keyboardType(.numberPad)
                                         .multilineTextAlignment(.trailing)
                                         .padding(.trailing, 20)
@@ -57,7 +58,7 @@ struct LobbyView: View {
                                     HStack {
                                         Text("Question:")
                                             .frame(width: 100)
-                                        TextField("Number of question", value: $lobby.numberOfQuestion, formatter: NumberFormatter())
+                                        TextField("Number of question", value: $lobbyViewModel.lobby.numberOfQuestion, formatter: NumberFormatter())
                                             .keyboardType(.numberPad)
                                     }
                                 }
@@ -166,6 +167,7 @@ struct LobbyView: View {
             .background(
                 NavigationLink(
                     destination: ListenView()
+                        .environmentObject(lobbyViewModel)
                         .environmentObject(multipeerController)
                         .environmentObject(playerData),
                     isActive: $navigateToListenView
