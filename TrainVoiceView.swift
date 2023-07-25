@@ -8,38 +8,37 @@
 import SwiftUI
 
 struct TrainVoiceView: View {
-    
-    @State private var dots: String = ""
-    private let dotCount = 3
-    private let dotDelay = 0.5
+    @State private var isPickerVisible = false
+    @State private var selectedValue: Double = 0.0
+
     var body: some View {
-        Text("Wew\(dots)")
-            .font(.system(size: 32, weight: .bold))
-            .foregroundColor(Color("Second"))
-            .onAppear {
-                animateDots()
-            }
-    }
-    
-    private func animateDots() {
-        var count = 1
-        dots = ""
-        
-        func addDot() {
-            dots += "."
-            count += 1
-            if count <= dotCount {
-                DispatchQueue.main.asyncAfter(deadline: .now() + dotDelay) {
-                    addDot()
+        VStack {
+            
+                    Button("Show Picker") {
+                        isPickerVisible = true
+                    }
+                    .padding()
+
+                    if isPickerVisible {
+                        Picker("Double Value", selection: $selectedValue) {
+                            ForEach(0..<10) { index in
+                                let doubleValue = Double(index) / 2.0 // Adjust the range or step as needed
+                                Text(String(format: "%.1f", doubleValue))
+                            }
+                        }
+                        .pickerStyle(WheelPickerStyle()) // Use WheelPickerStyle for a spinning wheel picker
+                        .transition(.slide) // Add a transition for smooth appearance
+
+                        Button("Done") {
+                            isPickerVisible = false
+                        }
+                        .padding()
+                    }
+
+                    Text("Selected Value: \(selectedValue)")
+                        .padding()
                 }
-            } else {
-                DispatchQueue.main.asyncAfter(deadline: .now() + dotDelay) {
-                    animateDots() // Start the animation again
-                }
-            }
-        }
-        
-        addDot()
+                .padding()
     }
 }
 

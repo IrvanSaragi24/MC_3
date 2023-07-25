@@ -57,24 +57,4 @@ class LobbyViewModel: ObservableObject {
             lobby.elapsedTime = Date().timeIntervalSince(startTime)
         }
     }
-    
-    func getQuestion() {
-        guard let url = Bundle.main.url(forResource: "questions", withExtension: "json") else {
-            print("Json file not found")
-            return
-        }
-        
-        do {
-            let data = try Data(contentsOf: url)
-            let questions = try JSONDecoder().decode([Question].self, from: data)
-            
-            // Pick a random question from the loaded array
-            if let randomQuestion = questions.randomElement() {
-                self.lobby.question = randomQuestion.text
-            }
-        } catch {
-            print("Error loading or decoding JSON: \(error)")
-        }
-    }
-
 }
