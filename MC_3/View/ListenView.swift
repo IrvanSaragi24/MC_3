@@ -111,12 +111,26 @@ struct ListenView: View {
                         if newValue == false {
                             if multipeerController.hostPeerID == nil {
                                 lobbyViewModel.pauseTimer()
-                                let connectedGuest = multipeerController.allGuest
+                                lobbyViewModel.getQuestion()
+//                                lobbyViewModel.lobby.question
+                                var connectedGuest = multipeerController.getConnectedPeers()
+//                                multipeerController.allGuest
+//                                    .filter { $0.status == .connected }
+//                                    .map { $0.id }
+                                
+                                multipeerController.sendMessage("[START QUIZ]", to: connectedGuest)
+                                startGame = true
+                                connectedGuest = multipeerController.allGuest
                                     .filter { $0.status == .connected }
                                     .map { $0.id }
-                                
-                                multipeerController.sendMessage("START QUIZ", to: connectedGuest)
-                                startGame = true
+                                // Di sisi pengirim
+                                let question = "Apa ibukota Indonesia?"
+                                let typeData = "question"
+                                let message = "\(question):\(typeData)"
+
+                                // Kirim pesan ke semua peer yang terhubung
+                                multipeerController.sendMessage(message, to: connectedGuest)
+
                             }
                         }
                     }
