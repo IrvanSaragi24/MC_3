@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct MultipeerButtonStyle: ButtonStyle {
-  func makeBody(configuration: Configuration) -> some View {
-    configuration.label
-      .padding()
-      .frame(width: 354, height: 48)
-      .background(
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .padding()
+            .frame(width: 314, height: 48)
+            .background(
                 ZStack {
                     configuration.isPressed ? Color("Second") : Color("Main")
                     RoundedRectangle(cornerRadius: 40.0)
@@ -24,27 +24,28 @@ struct MultipeerButtonStyle: ButtonStyle {
   }
 }
 
+
 struct ChatMessageButtonStyle: ButtonStyle {
-  func makeBody(configuration: Configuration) -> some View {
-    HStack {
-      Spacer()
-      configuration.label
-      Spacer()
+    func makeBody(configuration: Configuration) -> some View {
+        HStack {
+            Spacer()
+            configuration.label
+            Spacer()
+        }
+        .padding(8)
+        .background(configuration.isPressed ? Color.black : Color.green)
+        .cornerRadius(9.0)
+        .foregroundColor(.white)
     }
-    .padding(8)
-    .background(configuration.isPressed ? Color.black : Color.green)
-    .cornerRadius(9.0)
-    .foregroundColor(.white)
-  }
 }
 
 struct FooterButtonStyle: ButtonStyle {
-  func makeBody(configuration: Configuration) -> some View {
-    configuration.label
-          .foregroundColor(configuration.isPressed ? Color.black : .accentColor)
-      .font(.headline)
-      .padding(8)
-  }
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .foregroundColor(configuration.isPressed ? Color.black : .accentColor)
+            .font(.headline)
+            .padding(8)
+    }
 }
 struct BackgroundStyle: ViewModifier {
     func body(content: Content) -> some View {
