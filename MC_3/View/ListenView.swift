@@ -103,20 +103,21 @@ struct ListenView: View {
                     .onAppear{
                         if audioViewModel.audio.isRecording == false && multipeerController.hostPeerID == nil {
                             audioViewModel.startVoiceActivityDetection()
+                            lobbyViewModel.startTimer()
+                            audioViewModel.silentPeriod = lobbyViewModel.lobby.silentDuration
                         }
-                        lobbyViewModel.startTimer()
-                        audioViewModel.silentPeriod = lobbyViewModel.lobby.silentDuration
                     }
                     .onChange(of: audioViewModel.audio.isRecording) { newValue in
                         if newValue == false {
-                            startGame = true
-                            lobbyViewModel.pauseTimer()
-                            let connectedGuest = multipeerController.allGuest
-                                .filter { $0.status == .connected }
-                                .map { $0.id }
-                            
-                            multipeerController.sendMessage("START QUIZ", to: connectedGuest)
-                            startGame = true
+                            if multipeerController.hostPeerID == nil {
+                                lobbyViewModel.pauseTimer()
+                                let connectedGuest = multipeerController.allGuest
+                                    .filter { $0.status == .connected }
+                                    .map { $0.id }
+                                
+                                multipeerController.sendMessage("START QUIZ", to: connectedGuest)
+                                startGame = true
+                            }
                         }
                     }
                 }

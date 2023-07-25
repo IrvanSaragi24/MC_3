@@ -34,6 +34,7 @@ class MultipeerController: NSObject, ObservableObject {
     @Published var connectedGuest: [MCPeerID] = [] // Do not use this var
     @Published var allGuest: [Guest] = []
     @Published var gameState: GameState = .waitingForInvitation
+    @Published var receivedQuestion: String?
     var isReferee: Bool = false
     
     init(_ displayName: String) {
@@ -210,16 +211,41 @@ extension MultipeerController: MCSessionDelegate {
     //handle data received
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         if let receivedString = String(data: data, encoding: .utf8) {
-            // Process the received string here
-            print("Received data: \(receivedString) from peer: \(peerID.displayName)")
-            DispatchQueue.main.async { [weak self] in
-                if receivedString == MsgCommandConstant.startListen {
-                    self?.gameState = .listening
+            // Split the received string using the delimiter (":")
+                let components = receivedString.components(separatedBy: ":")
+                if components.count == 1 {
+                    let message = components[0]
+
+                    // Check if the message is a command or other type of data
+                    if message == MsgCommandConstant.startListen {
+                        DispatchQueue.main.async { [weak self] in
+                            // Handle the "Start Listen" command
+                            self?.gameState = .listening
+                        }
+                    } else if message == MsgCommandConstant.startQuiz {
+                        DispatchQueue.main.async { [weak self] in
+                            // Handle the "Start Quiz" command
+                            self?.gameState = .choosingPlayer
+                        }
+                    } else {
+                        // Handle other types of commands or messages if needed
+                    }
+                } else if components.count == 2 {
+                    let question = components[0]
+                    let typeData = components[1]
+
+                    if typeData == "question" {
+                        DispatchQueue.main.async { [weak self] in
+                            // Handle the received question
+                            self?.receivedQuestion = question
+                        }
+                    } else {
+                        // Handle other types of data if needed
+                    }
+                } else {
+                    // Invalid message format
+                    print("Invalid message format: \(receivedString)")
                 }
-                else if receivedString == MsgCommandConstant.startQuiz{
-                    self?.gameState = .choosingPlayer
-                }
-            }
         } else {
             // Failed to convert data to a string
             print("Failed to convert data to a string.")
