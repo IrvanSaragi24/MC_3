@@ -14,6 +14,8 @@ struct LobbyView: View {
     @EnvironmentObject var multipeerController: MultipeerController
     @EnvironmentObject private var playerData: PlayerData
     @State private var navigateToListenView = false
+    @State private var showingConfirmationAlert = false
+    @State private var guestToRemove: MCPeerID?
     
     var body: some View {
         NavigationView { // Add the main NavigationView here
@@ -120,7 +122,9 @@ struct LobbyView: View {
                                                         .frame(width : 30, height : 30)
                                                         .onTapGesture {
                                                             if guest.status == .connected {
-                                                                multipeerController.disconnectPeer(peerToRemove: guest.id)
+                                                                guestToRemove = guest.id
+                                                                showingConfirmationAlert = true
+//                                                                multipeerController.disconnectPeer(peerToRemove: guest.id)
                                                             }
                                                             else {
                                                                 multipeerController.invitePeer(guest.id, to: lobby)
@@ -130,6 +134,18 @@ struct LobbyView: View {
                                                     .padding()
                                             }
                                     }
+                                    .alert(isPresented: $showingConfirmationAlert) {
+                                                Alert(
+                                                    title: Text("Disconnect Peer"),
+                                                    message: Text("Are you sure you want to disconnect this peer?"),
+                                                    primaryButton: .destructive(Text("Yes")) {
+                                                        if let peerToRemove = guestToRemove {
+                                                            multipeerController.disconnectPeer(peerToRemove: peerToRemove)
+                                                        }
+                                                    },
+                                                    secondaryButton: .cancel()
+                                                )
+                                            }
                                     
                                 }
                                 .listRowBackground(Color.clear)
@@ -148,9 +164,6 @@ struct LobbyView: View {
                     
                     Button {
                         let connectedGuest = multipeerController.getConnectedPeers()
-//                        multipeerController.allGuest
-//                            .filter { $0.status == .connected }
-//                            .map { $0.id }
                         
                         multipeerController.sendMessage(MsgCommandConstant.startListen, to: connectedGuest)
                         navigateToListenView = true
