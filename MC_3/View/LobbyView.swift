@@ -119,7 +119,12 @@ struct LobbyView: View {
                                                         .resizable()
                                                         .frame(width : 30, height : 30)
                                                         .onTapGesture {
-                                                            multipeerController.invitePeer(guest.id, to: lobby)
+                                                            if guest.status == .connected {
+                                                                multipeerController.disconnectPeer(peerToRemove: guest.id)
+                                                            }
+                                                            else {
+                                                                multipeerController.invitePeer(guest.id, to: lobby)
+                                                            }
                                                         }
                                                 }.foregroundColor(guest.status.TextColor)
                                                     .padding()
@@ -142,11 +147,12 @@ struct LobbyView: View {
                     }
                     
                     Button {
-                        let connectedGuest = multipeerController.allGuest
-                            .filter { $0.status == .connected }
-                            .map { $0.id }
+                        let connectedGuest = multipeerController.getConnectedPeers()
+//                        multipeerController.allGuest
+//                            .filter { $0.status == .connected }
+//                            .map { $0.id }
                         
-                        multipeerController.sendMessage("START LISTEN", to: connectedGuest)
+                        multipeerController.sendMessage(MsgCommandConstant.startListen, to: connectedGuest)
                         navigateToListenView = true
                         
                     } label: {
@@ -192,5 +198,6 @@ struct LobbyView_Previews: PreviewProvider {
         LobbyView(lobby: lobby)
             .environmentObject(MultipeerController(player.name))
             .environmentObject(playerData)
+            .environmentObject(LobbyViewModel())
     }
 }

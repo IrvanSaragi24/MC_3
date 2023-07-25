@@ -114,6 +114,33 @@ class MultipeerController: NSObject, ObservableObject {
         return session.connectedPeers
     }
     
+    func resetAllGuest() {
+        let connectedPeers = getConnectedPeers()
+        allGuest = []
+        for peer in connectedPeers {
+            let guest = Guest(id: peer, status: .connected)
+            allGuest.append(guest)
+        }
+    }
+    
+    
+    
+    func disconnectPeer(peerToRemove: MCPeerID) {
+        DispatchQueue.main.async { [weak self] in
+            let connectedGuest: [MCPeerID] = [peerToRemove]
+            self?.sendMessage(MsgCommandConstant.disconnect, to: connectedGuest)
+            
+            if let index = self?.allGuest.firstIndex(where: { $0.id == peerToRemove }) {
+                self?.allGuest[index].status = .discovered
+            } else {
+                print("Person with name 'Tono' not found.")
+            }
+        }
+//        DispatchQueue.main.async { [weak self] in
+//            self?.allGuest.append(guest)
+//        }
+    }
+    
 }
 
 // Handle guest candidate - browsing nearby service
@@ -227,7 +254,16 @@ extension MultipeerController: MCSessionDelegate {
                             // Handle the "Start Quiz" command
                             self?.gameState = .choosingPlayer
                         }
-                    } else {
+                    } else if message == MsgCommandConstant.disconnect {
+                        DispatchQueue.main.async { [weak self] in
+                            // Handle disconnect
+                            self?.session.disconnect()
+                            self?.gameState = .waitingForInvitation
+                            self?.isAdvertising = true
+                            
+                        }
+                    }
+                    else {
                         // Handle other types of commands or messages if needed
                     }
                 } else if components.count == 2 {
