@@ -33,6 +33,11 @@ struct ChooseRoleView: View {
                                 .environmentObject(lobbyViewModel)
                                 .environmentObject(multipeerController)
                                 .environmentObject(playerData)
+                        case .choosingPlayer:
+                            ChoosePlayerView()
+                                .environmentObject(lobbyViewModel)
+                                .environmentObject(multipeerController)
+                                .environmentObject(playerData)
                         case .waitingToStart:
                             VStack{
                                 Text("You have joined")
