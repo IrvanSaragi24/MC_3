@@ -20,6 +20,7 @@ class AudioViewModel: NSObject, ObservableObject {
     private let detector: VoiceActivityDetector = VoiceActivityDetector()
     private var timer: Timer?
     private var isTimerRunning: Bool = false
+    var silentPeriod: Int?
     
     func getDocumentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
@@ -83,7 +84,7 @@ class AudioViewModel: NSObject, ObservableObject {
             let currentTime = Date()
             let timeDifference = currentTime.timeIntervalSince(lastSpeechDetectedTimestamp)
             
-            if timeDifference >= 30.0 {
+            if timeDifference >= TimeInterval(silentPeriod ?? Int(30.0)) {
                 print("stopping....")
                 stopVoiceActivityDetection() // Stop the voice activity detection process
                 return // Exit the function early to avoid multiple invalidations

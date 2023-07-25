@@ -12,6 +12,7 @@ struct ListenView: View {
     @EnvironmentObject private var multipeerController: MultipeerController
     @EnvironmentObject private var playerData: PlayerData
     @StateObject var audioViewModel = AudioViewModel()
+    @State private var startGame = false
     
     var body: some View {
         NavigationView {
@@ -66,6 +67,7 @@ struct ListenView: View {
                     Spacer()
                     NavigationLink(
                         destination: ChoosePlayerView()
+                            .environmentObject(lobbyViewModel)
                             .environmentObject(multipeerController)
                             .environmentObject(playerData)
                     )
@@ -77,6 +79,15 @@ struct ListenView: View {
                     .onTapGesture {
                         
                     }
+                    NavigationLink(
+                        destination: ChoosePlayerView()
+                            .environmentObject(lobbyViewModel)
+                            .environmentObject(multipeerController)
+                            .environmentObject(playerData),
+                        isActive: $startGame,
+                        label: {
+                            EmptyView()
+                        })
                     NavigationLink(
                         destination: HangOutView()
                     )
@@ -94,6 +105,19 @@ struct ListenView: View {
                             audioViewModel.startVoiceActivityDetection()
                         }
                         lobbyViewModel.startTimer()
+                        audioViewModel.silentPeriod = lobbyViewModel.lobby.silentDuration
+                    }
+                    .onChange(of: audioViewModel.audio.isRecording) { newValue in
+                        if newValue == false {
+                            startGame = true
+                            lobbyViewModel.pauseTimer()
+                            let connectedGuest = multipeerController.allGuest
+                                .filter { $0.status == .connected }
+                                .map { $0.id }
+                            
+                            multipeerController.sendMessage("START QUIZ", to: connectedGuest)
+                            startGame = true
+                        }
                     }
                 }
             }
