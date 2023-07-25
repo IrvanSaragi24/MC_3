@@ -77,7 +77,7 @@ struct ListenView: View {
                     }
                     .buttonStyle(MultipeerButtonStyle())
                     .onTapGesture {
-                        
+                        audioViewModel.stopVoiceActivityDetection()
                     }
                     NavigationLink(
                         destination: ChoosePlayerView()
@@ -108,9 +108,9 @@ struct ListenView: View {
                         audioViewModel.silentPeriod = lobbyViewModel.lobby.silentDuration
                     }
                     .onChange(of: audioViewModel.audio.isRecording) { newValue in
-                        if newValue == false {
-                            startGame = true
+                        if newValue == false && multipeerController.hostPeerID == nil {
                             lobbyViewModel.pauseTimer()
+                            lobbyViewModel.getQuestion()
                             let connectedGuest = multipeerController.allGuest
                                 .filter { $0.status == .connected }
                                 .map { $0.id }

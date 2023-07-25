@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ChoosePlayerView: View {
+    @EnvironmentObject var lobbyViewModel: LobbyViewModel
     @EnvironmentObject private var multipeerController: MultipeerController
     @EnvironmentObject private var playerData: PlayerData
     
@@ -23,7 +24,7 @@ struct ChoosePlayerView: View {
             Text("Choosing...")
             Spacer()
             Text("Question")
-            Text("Lorem Ipsum Dolor")
+            Text(lobbyViewModel.lobby.question?.replacingOccurrences(of: "[Subject]", with: "Adhi") ?? "Pertanyaan di sini")
             Text("1/3")
             NavigationLink(
                 destination: AskedView() // TODO: confirm where this button goes?
