@@ -10,6 +10,7 @@ import SwiftUI
 struct ChooseRoleView: View {
     @EnvironmentObject private var multipeerController: MultipeerController
     @EnvironmentObject private var playerData: PlayerData
+    @StateObject var lobbyViewModel = LobbyViewModel()
     @State private var isWaiting = false
     @State private var lobby = Lobby(name: "", silentDuration: 10, numberOfQuestion: 1)
     @State private var waitHost = false
@@ -29,6 +30,7 @@ struct ChooseRoleView: View {
                         switch multipeerController.gameState {
                         case .listening:
                             ListenView()
+                                .environmentObject(lobbyViewModel)
                                 .environmentObject(multipeerController)
                                 .environmentObject(playerData)
                         case .waitingToStart:
@@ -67,6 +69,7 @@ struct ChooseRoleView: View {
                     else {
                         NavigationLink(
                             destination: LobbyView(lobby: lobby)
+                                .environmentObject(lobbyViewModel)
                                 .environmentObject(multipeerController)
                                 .environmentObject(playerData)
                         )
@@ -91,6 +94,7 @@ struct ChooseRoleView: View {
                         .onTapGesture {
                             multipeerController.isHost = true
                             playerData.mainPlayer.lobbyRole = .host
+                            lobbyViewModel.lobby.name = playerData.mainPlayer.name
                             lobby.name = playerData.mainPlayer.name
                         }
                         .padding(.bottom, 63)

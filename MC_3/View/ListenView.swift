@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ListenView: View {
+    @EnvironmentObject var lobbyViewModel: LobbyViewModel
     @EnvironmentObject private var multipeerController: MultipeerController
     @EnvironmentObject private var playerData: PlayerData
     @StateObject var audioViewModel = AudioViewModel()
@@ -38,6 +39,7 @@ struct ListenView: View {
                         Text("Listening..")
                             .font(.system(size: 36, weight: .semibold))
                             .foregroundColor(Color("Second"))
+//                        Text(("\(audioViewModel.audio.isSpeechDetected ?? "No"), rate: \(audioViewModel.audio.speechConfidence ?? 0.0)"))
                         ZStack{
                             RoundedRectangle(cornerRadius: 20)
                                 .stroke(Color("Second"), lineWidth: 4)
@@ -47,10 +49,16 @@ struct ListenView: View {
                                         .foregroundColor(Color("Second"))
                                         .opacity(0.2)
                                 }
-                            Text("10.30")
+                            Text(lobbyViewModel.formattedElapsedTime)
                                 .font(.system(size: 32))
                                 .fontWeight(.semibold)
                                 .foregroundColor(Color("Second"))
+                                .onAppear(perform: lobbyViewModel.startTimer)
+                                .onDisappear(perform: lobbyViewModel.pauseTimer)
+//                            Text("10.30")
+//                                .font(.system(size: 32))
+//                                .fontWeight(.semibold)
+//                                .foregroundColor(Color("Second"))
                         }
                         
                     }
@@ -80,6 +88,12 @@ struct ListenView: View {
                     .onTapGesture {
                         multipeerController.stopBrowsing()
                         multipeerController.isAdvertising = false
+                    }
+                    .onAppear{
+                        if audioViewModel.audio.isRecording == false && multipeerController.hostPeerID == nil {
+                            audioViewModel.startVoiceActivityDetection()
+                        }
+                        lobbyViewModel.startTimer()
                     }
                 }
             }

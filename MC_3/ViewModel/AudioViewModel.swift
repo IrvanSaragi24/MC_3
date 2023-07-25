@@ -50,6 +50,7 @@ class AudioViewModel: NSObject, ObservableObject {
             
             audioInputNode.installTap(onBus: 0, bufferSize: 8192, format: inputFormat, block: analyzeAudio(buffer:at:))
             
+            print("starting...")
         } catch {
             print("Error setting up audio engine: \(error.localizedDescription)")
         }
@@ -66,7 +67,7 @@ class AudioViewModel: NSObject, ObservableObject {
                 self.audio.speechConfidence = self.detector.speechConfidence
                 
                 if self.detector.isSpeechDetected == "No" {
-                    print("timer...")
+//                    print("timer...")
                     self.timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] _ in
                         self?.handleTimer()
                     }
