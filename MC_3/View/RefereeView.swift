@@ -1,8 +1,8 @@
 //
-//  JudgeView.swift
+//  RefereeView.swift
 //  MC_3
 //
-//  Created by Sayed Zulfikar on 19/07/23.
+//  Created by Sayed Zulfikar on 22/07/23.
 //
 
 import SwiftUI
@@ -107,7 +107,7 @@ struct RefereeView: View {
     }
 }
 
-struct JudgeView_Previews: PreviewProvider {
+struct RefereeView_Previews: PreviewProvider {
     static var previews: some View {
         RefereeView()
     }
@@ -207,4 +207,3 @@ struct ButtonSliderReferee: View {
         return min(1.5, scaleFactor) // Ensure the maximum scale is 1.5
     }
 }
-

@@ -13,6 +13,7 @@ class DataApp: ObservableObject {
         DataModel(title: "Aku berjanji tidak phubbing"),
 
     ]
+    @Published var isWaiting = false
 }
 
 struct DataModel: Identifiable, Hashable {

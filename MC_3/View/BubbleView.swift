@@ -113,7 +113,7 @@ struct BubbleView: View {
     }
 }
 
-struct TimerView_Previews: PreviewProvider {
+struct BubbleView_Previews: PreviewProvider {
     static var previews: some View {
         BubbleView()
     }
@@ -176,7 +176,6 @@ struct TimerView_Previews: PreviewProvider {
 //        }
 //    }
 //}
-
 //struct pickupphone : View{
 //    @State private var ButtonPick : Bool = false
 //    var body: some View{

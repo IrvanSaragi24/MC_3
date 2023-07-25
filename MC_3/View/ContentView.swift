@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @State private var playerData: PlayerData?
     @State private var multipeerController: MultipeerController?
-    var defaultPlayer = Player(name: "Player", lobbyRole: .noLobbyRole, gameRole: .noGameRole)
+    var defaultPlayer = Player(name: "Player", lobbyRole: .noLobbyRole, gameRole: .referee)
     
     @StateObject var vm = DataApp()
     @State private var navigateToNextView = false
@@ -66,12 +66,14 @@ struct ContentView: View {
                     .padding(.top, 65)
                     .simultaneousGesture(
                         TapGesture().onEnded {
-                            let player = Player(name: vm.nama, lobbyRole: .noLobbyRole, gameRole: .noGameRole)
+                            let player = Player(name: vm.nama, lobbyRole: .noLobbyRole, gameRole: .referee)
                             playerData = PlayerData(mainPlayer: player, playerList: [player])
                             multipeerController = MultipeerController(player.name)
                         }
                     )
                     .disabled(vm.nama.isEmpty)
+                    .opacity(vm.nama.isEmpty ? 0.4 : 1.0)
+            
                     
                 }//Vstack
                 .foregroundColor(Color("ColorText"))

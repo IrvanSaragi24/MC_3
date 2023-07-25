@@ -43,7 +43,6 @@ struct TrainVoiceView: View {
     }
 }
 
-
 struct TrainVoiceView_Previews: PreviewProvider {
     static var previews: some View {
         TrainVoiceView()
