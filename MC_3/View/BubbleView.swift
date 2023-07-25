@@ -36,8 +36,8 @@ struct BubbleView: View {
 //            if ButtonStop {
 //                pickupphone()
 //            }else{
-////                ListeningView(ButtonStop: $ButtonStop)
-////            }
+//                ListeningView(ButtonStop: $ButtonStop)
+//            }
         }.onAppear {
             animateCircles()
         }
@@ -118,65 +118,64 @@ struct BubbleView_Previews: PreviewProvider {
         BubbleView()
     }
 }
-
-struct ListeningView: View {
-    @Binding var ButtonStop : Bool
-    var body: some View {
-        VStack(spacing : 44){
-            Circle()
-                .stroke(Color("Main"), lineWidth: 10)
-                .frame(width: 234)
-                .overlay {
-                    Circle()
-                        .foregroundColor(Color.red)
-                    Image("Music")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 225)
-                }
-                .padding(.top, 24)
-            Text("Listening..")
-                .font(.system(size: 36, weight: .semibold))
-                .foregroundColor(Color("Second"))
-            ZStack{
-                RoundedRectangle(cornerRadius: 20)
-                    .stroke(Color("Second"), lineWidth: 4)
-                    .frame(width: 234, height: 56)
-                    .overlay {
-                        RoundedRectangle(cornerRadius: 20)
-                            .foregroundColor(Color("Second"))
-                            .opacity(0.2)
-                    }
-                Text("10.30")
-                    .font(.system(size: 32))
-                    .fontWeight(.semibold)
-                    .foregroundColor(Color("Second"))
-            }
-            Spacer()
-            Button {
-                ButtonStop = true
-            } label: {
-                ZStack{
-                    RoundedRectangle(cornerRadius: 20)
-
-                        .frame(width: 358, height: 48)
-                        .foregroundColor(Color("Main"))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 20)
-                                .stroke(Color("Second"), lineWidth: 4)
-                        )
-
-                    Text("Stop!")
-                        .font(.system(size: 28, weight: .heavy))
-                        .foregroundColor(Color("Second"))
-                }
-            }
-
-
-        }
-    }
-}
 //
+//struct ListeningView: View {
+//    @Binding var ButtonStop : Bool
+//    var body: some View {
+//        VStack(spacing : 44){
+//            Circle()
+//                .stroke(Color("Main"), lineWidth: 10)
+//                .frame(width: 234)
+//                .overlay {
+//                    Circle()
+//                        .foregroundColor(Color.red)
+//                    Image("Music")
+//                        .resizable()
+//                        .scaledToFit()
+//                        .frame(width: 225)
+//                }
+//                .padding(.top, 24)
+//            Text("Listening..")
+//                .font(.system(size: 36, weight: .semibold))
+//                .foregroundColor(Color("Second"))
+//            ZStack{
+//                RoundedRectangle(cornerRadius: 20)
+//                    .stroke(Color("Second"), lineWidth: 4)
+//                    .frame(width: 234, height: 56)
+//                    .overlay {
+//                        RoundedRectangle(cornerRadius: 20)
+//                            .foregroundColor(Color("Second"))
+//                            .opacity(0.2)
+//                    }
+//                Text("10.30")
+//                    .font(.system(size: 32))
+//                    .fontWeight(.semibold)
+//                    .foregroundColor(Color("Second"))
+//            }
+//            Spacer()
+//            Button {
+//                ButtonStop = true
+//            } label: {
+//                ZStack{
+//                    RoundedRectangle(cornerRadius: 20)
+//
+//                        .frame(width: 358, height: 48)
+//                        .foregroundColor(Color("Main"))
+//                        .overlay(
+//                            RoundedRectangle(cornerRadius: 20)
+//                                .stroke(Color("Second"), lineWidth: 4)
+//                        )
+//
+//                    Text("Stop!")
+//                        .font(.system(size: 28, weight: .heavy))
+//                        .foregroundColor(Color("Second"))
+//                }
+//            }
+//
+//
+//        }
+//    }
+//}
 //struct pickupphone : View{
 //    @State private var ButtonPick : Bool = false
 //    var body: some View{
