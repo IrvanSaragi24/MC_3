@@ -15,6 +15,7 @@ struct ChooseRoleView: View {
     @State private var lobby = Lobby(name: "", silentDuration: 10, numberOfQuestion: 1)
     @State private var waitHost = false
     @State private var hideBackButton = false
+    @State private var isLobbyViewActive = false
     
     var body: some View {
         NavigationView {
@@ -64,26 +65,31 @@ struct ChooseRoleView: View {
                             LoadingView(textWait: "Wait for the host to start...")
                                 .padding()
                             ///
-//                        case .waitingForInvitation:
-                        default:
+                            //                        case .waitingForInvitation:
+                        case .waitingForInvitation:
                             LoadingView(textWait: "Wait to be invited by the host...")
                                 .padding(.bottom, 200)
+                            
+//                        default:
+//                            LoadingView(textWait: "Wait to be invited by the host...")
+//                                .padding(.bottom, 200)
                         }
                     }
                     
                     else {
-                        NavigationLink(
-                            destination: LobbyView(lobby: lobby)
-                                .environmentObject(lobbyViewModel)
-                                .environmentObject(multipeerController)
-                                .environmentObject(playerData)
-                        )
-                        {
-                            ZStack{
+                        Button(action: {
+                            multipeerController.isHost = true
+                            playerData.mainPlayer.lobbyRole = .host
+                            lobbyViewModel.lobby.name = playerData.mainPlayer.name
+                            lobby.name = playerData.mainPlayer.name
+                            print(multipeerController.isHost)
+                            isLobbyViewActive = true // Activate the NavigationLink programmatically
+                        }) {
+                            ZStack {
                                 Circle()
                                     .frame(width: 234)
                                     .foregroundColor(Color("Second"))
-                                VStack{
+                                VStack {
                                     Image(systemName: "crown.fill")
                                         .resizable()
                                         .frame(width: 38, height: 24)
@@ -96,13 +102,19 @@ struct ChooseRoleView: View {
                                 .foregroundColor(Color("Main"))
                             }
                         }
-                        .onTapGesture {
-                            multipeerController.isHost = true
-                            playerData.mainPlayer.lobbyRole = .host
-                            lobbyViewModel.lobby.name = playerData.mainPlayer.name
-                            lobby.name = playerData.mainPlayer.name
-                        }
                         .padding(.bottom, 63)
+                        .background(
+                            NavigationLink(
+                                destination: LobbyView(lobby: lobby)
+                                    .environmentObject(lobbyViewModel)
+                                    .environmentObject(multipeerController)
+                                    .environmentObject(playerData),
+                                isActive: $isLobbyViewActive // Binding to control the NavigationLink
+                            ) {
+                                EmptyView()
+                            }
+                        )
+                        
                         
                         Button(
                             action: {
@@ -125,11 +137,12 @@ struct ChooseRoleView: View {
                             })
                         .onTapGesture {
                             playerData.mainPlayer.lobbyRole = .guest
+                            
                         }
                     }
                 }
             }
-//            .navigationTitle("\(playerData.mainPlayer.name) Choose Your Role")
+            //            .navigationTitle("\(playerData.mainPlayer.name) Choose Your Role")
         }
         
     }
