@@ -11,6 +11,7 @@ struct QuestionView: View {
     @State var colors: [Color] = [.clear, .clear, Color("Second"), .red]
     @State private var currentQuestionIndex = 0
     
+    
     let questions = [
         "Hey, Adhi! Siapa yang tadi ngomongin: 'tadi bukannya dia dapet Ravenclaw ya?'",
         "Ini pertanyaan ke-2.",

@@ -12,7 +12,7 @@ struct LobyView: View {
     var body: some View {
         ZStack{
             if ButtonListening {
-                TimerView()
+                BubbleView()
             } else{
                 Color("Background")
                     .ignoresSafeArea()
