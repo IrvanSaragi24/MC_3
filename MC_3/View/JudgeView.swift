@@ -33,8 +33,8 @@ struct JudgeView: View {
     }
 }
 
-struct JudgeView_Previews: PreviewProvider {
-    static var previews: some View {
-        JudgeView()
-    }
-}
+//struct JudgeView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        JudgeView()
+//    }
+//}
