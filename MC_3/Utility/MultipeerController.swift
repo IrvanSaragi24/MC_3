@@ -34,7 +34,7 @@ class MultipeerController: NSObject, ObservableObject {
     @Published var connectedGuest: [MCPeerID] = [] // Do not use this var
     @Published var allGuest: [Guest] = []
     @Published var gameState: GameState = .waitingForInvitation
-    @Published var receivedQuestion: String?
+    @Published var receivedQuestion: String = "QuestionDefault"
     var isReferee: Bool = false
     var isHost : Bool = false
     
@@ -234,7 +234,7 @@ extension MultipeerController: MCSessionDelegate {
     //handle data received
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         if let receivedString = String(data: data, encoding: .utf8) {
-            // Split the received string using the delimiter (":")
+                // Split the received string using the delimiter (":")
                 let components = receivedString.components(separatedBy: ":")
                 if components.count == 1 {
                     let message = components[0]
@@ -277,7 +277,7 @@ extension MultipeerController: MCSessionDelegate {
                     if typeData == "question" {
                         DispatchQueue.main.async { [weak self] in
                             // Handle the received question
-                            self?.receivedQuestion = question
+                            self!.receivedQuestion = question
                         }
                     } else {
                         // Handle other types of data if needed
@@ -286,10 +286,10 @@ extension MultipeerController: MCSessionDelegate {
                     // Invalid message format
                     print("Invalid message format: \(receivedString)")
                 }
-        } else {
-            // Failed to convert data to a string
-            print("Failed to convert data to a string.")
-        }
+            } else {
+                // Failed to convert data to a string
+                print("Failed to convert data to a string.")
+            }
         delegate?.didReceive(data: data, from: peerID)
     }
     

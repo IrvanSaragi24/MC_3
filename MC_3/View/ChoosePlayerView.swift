@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct ChoosePlayerView: View {
+    @EnvironmentObject var lobbyViewModel: LobbyViewModel
     @EnvironmentObject private var multipeerController: MultipeerController
     @EnvironmentObject private var playerData: PlayerData
-    
+    @State var question: String = "Question Default Text"
     @State private var isActive: Bool = false
     
 
@@ -23,7 +24,7 @@ struct ChoosePlayerView: View {
             Text("Choosing...")
             Spacer()
             Text("Question")
-            Text("Lorem Ipsum Dolor")
+            Text(question)
             Text("1/3")
             NavigationLink(
                 destination: AskedView() // TODO: confirm where this button goes?
@@ -41,13 +42,25 @@ struct ChoosePlayerView: View {
                 label: {
                     EmptyView()
                 }
-            ).onAppear {
-                // Start a timer to navigate to next page after x seconds
+            )
+            .onReceive(multipeerController.$receivedQuestion) { receivedQuestion in
+                if multipeerController.hostPeerID != nil {
+                    self.question = receivedQuestion
+                }
+                else {
+                    self.question = lobbyViewModel.lobby.question!
+                }
+            }
+//            .onChange(of: multipeerController.receivedQuestion) { newReceivedQuestion in
+//                    if multipeerController.hostPeerID != nil {
+//                        self.question = multipeerController.receivedQuestion
+//                    }
+//            }
+            .onAppear{
                 DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
                     isActive = true
                 }
             }
-            
         }
     }
     }
