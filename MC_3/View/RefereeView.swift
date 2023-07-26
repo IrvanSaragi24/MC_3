@@ -130,7 +130,8 @@ struct RefereeView_Previews: PreviewProvider {
         RefereeView()
             .environmentObject(lobbyViewModel)
             .environmentObject(multipeerController)
-            .environmentObject(playerData)    }
+            .environmentObject(playerData)
+    }
 }
 
 struct ButtonSliderReferee: View {
