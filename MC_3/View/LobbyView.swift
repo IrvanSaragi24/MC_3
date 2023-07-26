@@ -16,6 +16,8 @@ struct LobbyView: View {
     @State private var navigateToListenView = false
     @State private var showingConfirmationAlert = false
     @State private var guestToRemove: MCPeerID?
+    let silentDurationOptions = [10, 15, 20, 25] // Example options for silent duration in seconds
+    let numberOfQuestionOptions = [1, 2, 3, 4]
     
     var body: some View {
         NavigationView { // Add the main NavigationView here
@@ -42,30 +44,59 @@ struct LobbyView: View {
                             .foregroundColor(.white)
                             .overlay {
                                 HStack {
-                                    Text("Silent period")
+                                    Text("Silent period:")
+                                        .font(.system(size: 15, weight: .medium))
                                         .frame(width: 100)
-                                    TextField("..", value: $lobbyViewModel.lobby.silentDuration, formatter: NumberFormatter())
-                                        .keyboardType(.numberPad)
-                                        .multilineTextAlignment(.trailing)
-                                        .padding(.trailing, 20)
-                                    
+                                    Picker("Silent Period", selection: $lobbyViewModel.lobby.silentDuration) {
+                                        ForEach(silentDurationOptions, id: \.self) { duration in
+                                            Text(" \(duration)s     ")
+                                                .tag(duration)
+                                        }
+                                    }
+                                    .pickerStyle(MenuPickerStyle())
                                 }
-                                
                             }
+                        //                            .overlay {
+                        //                                HStack {
+                        //                                    Text("Silent period")
+                        //                                        .frame(width: 100)
+                        //                                    TextField("..", value: $lobbyViewModel.lobby.silentDuration, formatter: NumberFormatter())
+                        //                                        .keyboardType(.numberPad)
+                        //                                        .multilineTextAlignment(.trailing)
+                        //                                        .padding(.trailing, 20)
+                        //
+                        //                                }
+                        //
+                        //                            }
                         RoundedRectangle(cornerRadius: 10)
                             .frame(width: 148, height: 40)
                             .foregroundColor(.white)
                             .overlay {
                                 HStack {
-                                    HStack {
-                                        Text("Question:")
-                                            .frame(width: 100)
-                                        TextField("Number of question", value: $lobbyViewModel.lobby.numberOfQuestion, formatter: NumberFormatter())
-                                            .keyboardType(.numberPad)
+                                    Text("Question:")
+                                        .frame(width: 100)
+                                    Picker("Number of Questions", selection: $lobbyViewModel.lobby.numberOfQuestion) {
+                                        ForEach(numberOfQuestionOptions, id: \.self) { number in
+                                            Text(" \(number)  ")
+                                            
+                                                .tag(number)
+                                        }
                                     }
+                                    .pickerStyle(MenuPickerStyle())
                                 }
-                                
                             }
+                        
+                        //                            .overlay {
+                        //                                HStack {
+                        //                                    HStack {
+                        //                                        Text("Question:")
+                        //                                            .frame(width: 100)
+                        //                                        TextField("Number of question", value: $lobbyViewModel.lobby.numberOfQuestion, formatter: NumberFormatter())
+                        //                                            .keyboardType(.numberPad)
+                        //                                    }
+                        //                                }
+                        //
+                        //                            }
                     }
                     RoundedRectangle(cornerRadius: 21)
                         .stroke(lineWidth: 2)
@@ -153,7 +184,7 @@ struct LobbyView: View {
                     }
                     .listStyle(InsetGroupedListStyle())
                     .scrollContentBackground(.hidden)
-//                    .navigationTitle("\(lobby.name)'s Lobby")
+                    //                    .navigationTitle("\(lobby.name)'s Lobby")
                     .onAppear {
                         multipeerController.startBrowsing()
                     }
@@ -199,9 +230,9 @@ struct LobbyView: View {
 }
 
 struct LobbyView_Previews: PreviewProvider {
-
+    
     static let player = Player(name: "Player", lobbyRole: .noLobbyRole, gameRole: .asked)
-
+    
     static var playerData = PlayerData(mainPlayer: player, playerList: [player])
     
     static var lobby = Lobby(name: player.name, silentDuration: 10, numberOfQuestion: 1)
