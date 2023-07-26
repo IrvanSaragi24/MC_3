@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct RefereeView: View {
+    @EnvironmentObject var lobbyViewModel: LobbyViewModel
+    @EnvironmentObject private var multipeerController: MultipeerController
+    @EnvironmentObject private var playerData: PlayerData
     @State var colors: [Color] = [.clear, .clear, Color("Second"), .red]
     @State private var currentQuestionIndex = 0
     @State private var vibrateOnRing = false
@@ -46,7 +49,7 @@ struct RefereeView: View {
          
                 
                 ZStack{
-                    Text(vibrateOnRing || vibrateOnRing1 ? "Wait for Judges to vote \nVoting : 4/6\(dots)" : "Judges The \n Player")
+                    Text(vibrateOnRing || vibrateOnRing1 ? "Wait for Judges to vote \nVoting : \(multipeerController.countGuestsVoted())/\(multipeerController.countConnectedGuests())\(dots)" : "Judges The \n Player")
                         .font(.system(size:vibrateOnRing || vibrateOnRing1 ?  20 : 32 , weight: .bold))
                         .multilineTextAlignment(.center)
                         .foregroundColor(Color("Second"))
@@ -59,11 +62,12 @@ struct RefereeView: View {
                         .padding(.leading, 290)
                         .padding(.top, 100)
                         .opacity(vibrateOnRing || vibrateOnRing1 ? 0 : 1)
-
+                        .environmentObject(multipeerController)
                     ButtonSliderReferee(circleScale: $circleScale, vibrateOnRing: $vibrateOnRing, vibrateOnRing1: $vibrateOnRing)
                         .rotationEffect(Angle(degrees: -90))
                         .padding(.trailing, 280)
                         .opacity(vibrateOnRing || vibrateOnRing1 ? 0 : 1)
+                        .environmentObject(multipeerController)
                     Image("Like")
                         .resizable()
                         .frame(width: 132, height: 132)
@@ -121,6 +125,7 @@ struct ButtonSliderReferee: View {
     @Binding var vibrateOnRing1 : Bool
     @State private var swapOffset: CGFloat = 0
     @State private var opacity: Double = 1.0
+    @EnvironmentObject private var multipeerController: MultipeerController
     var body: some View {
         ZStack {
             ZStack {
@@ -189,6 +194,10 @@ struct ButtonSliderReferee: View {
                                         buttonOffset = 0
                                     }
                                     circleScale = 1.0
+                                    
+                                    var connectedGuest = multipeerController.getConnectedPeers()
+                                    
+                                    multipeerController.sendMessage("VoteStatus:Yes", to: connectedGuest)
                                 }
                             }
                     )

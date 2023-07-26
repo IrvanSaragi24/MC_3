@@ -10,6 +10,7 @@
 		A39597B32A70A0E100007F82 /* ChoosingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39597B22A70A0E100007F82 /* ChoosingView.swift */; };
 		A39597B52A70CF1B00007F82 /* SynthesizerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39597B42A70CF1B00007F82 /* SynthesizerViewModel.swift */; };
 		A39597B72A70D8E100007F82 /* HapticViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39597B62A70D8E100007F82 /* HapticViewModel.swift */; };
+		A39597B92A70EA6500007F82 /* Vote.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39597B82A70EA6500007F82 /* Vote.swift */; };
 		A3E9052C2A6EF495007A0E2A /* Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E9052B2A6EF495007A0E2A /* Audio.swift */; };
 		A3E9052E2A6EF4BF007A0E2A /* AudioViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E9052D2A6EF4BF007A0E2A /* AudioViewModel.swift */; };
 		A3E905302A6EF4DE007A0E2A /* VoiceActivityDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E9052F2A6EF4DE007A0E2A /* VoiceActivityDetector.swift */; };
@@ -47,6 +48,7 @@
 		A39597B22A70A0E100007F82 /* ChoosingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosingView.swift; sourceTree = "<group>"; };
 		A39597B42A70CF1B00007F82 /* SynthesizerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynthesizerViewModel.swift; sourceTree = "<group>"; };
 		A39597B62A70D8E100007F82 /* HapticViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticViewModel.swift; sourceTree = "<group>"; };
+		A39597B82A70EA6500007F82 /* Vote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vote.swift; sourceTree = "<group>"; };
 		A3E9052B2A6EF495007A0E2A /* Audio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Audio.swift; sourceTree = "<group>"; };
 		A3E9052D2A6EF4BF007A0E2A /* AudioViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioViewModel.swift; sourceTree = "<group>"; };
 		A3E9052F2A6EF4DE007A0E2A /* VoiceActivityDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceActivityDetector.swift; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 				ECAE9AA22A654C3200E46A34 /* Player.swift */,
 				A3E9052B2A6EF495007A0E2A /* Audio.swift */,
 				A3E905392A6FC280007A0E2A /* Question.swift */,
+				A39597B82A70EA6500007F82 /* Vote.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -271,6 +274,7 @@
 				E25C6E022A645D4800B4F3EC /* HangOutView.swift in Sources */,
 				A39597B72A70D8E100007F82 /* HapticViewModel.swift in Sources */,
 				A39597B52A70CF1B00007F82 /* SynthesizerViewModel.swift in Sources */,
+				A39597B92A70EA6500007F82 /* Vote.swift in Sources */,
 				EC8F9E232A683F7000E0A76B /* ListenView.swift in Sources */,
 				ECCA2FE12A6C24DF000226AD /* ContinueView.swift in Sources */,
 				E22F946E2A67B13E0088315B /* BubbleView.swift in Sources */,

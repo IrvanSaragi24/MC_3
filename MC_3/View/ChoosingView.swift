@@ -98,11 +98,11 @@ struct ChoosingView: View {
         .onReceive(multipeerController.$receivedQuestion) { receivedQuestion in
             if multipeerController.hostPeerID != nil {
                 DispatchQueue.main.async {
-                    self.question = receivedQuestion
+                    self.question = receivedQuestion.replacingOccurrences(of: "[Objek]", with: "Adhi")
                 }
             } else {
                 DispatchQueue.main.async {
-                    self.question = lobbyViewModel.lobby.question ?? "Default Question Text"
+                    self.question = lobbyViewModel.lobby.question?.replacingOccurrences(of: "[Objek]", with: "Adhi") ?? "Default Question Text"
                 }
             }
         }

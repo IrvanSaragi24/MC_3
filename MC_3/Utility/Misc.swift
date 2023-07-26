@@ -86,3 +86,9 @@ enum GameState {
     case listening
     case choosingPlayer
 }
+
+enum VoteStatus: String {
+    case yes = "Yes"
+    case no = "No"
+    case null = "Null"
+}
