@@ -7,11 +7,18 @@
 
 import SwiftUI
 
-struct SwiftUIView: View {
+struct ChoosingView: View {
+    @EnvironmentObject var lobbyViewModel: LobbyViewModel
+    @EnvironmentObject private var multipeerController: MultipeerController
+    @EnvironmentObject private var playerData: PlayerData
+    @State var question: String = "Question Default Text"
+    @State private var timerIsDone: Bool = false
+    
     @State private var progressValue: Float = 0.0
     private let totalProgress: Float = 100.0
     private let updateInterval: TimeInterval = 0.05
     private let targetProgress: Float = 100.0
+    
     var body: some View {
         ZStack{
             BubbleView()
@@ -39,7 +46,7 @@ struct SwiftUIView: View {
                         .frame(width: 290, height: 168)
                         .foregroundColor(Color("Second"))
                         .overlay {
-                            Text("Siapa yang tadi ngomongin:“tadi bukannya dia dapet Ravenclaw ya?”")
+                            Text(question)
                                 .font(.system(size: 20, weight: .medium))
                                 .multilineTextAlignment(.center)
                         }
@@ -63,14 +70,32 @@ struct SwiftUIView: View {
                             Text("1/3")
                                 .font(.system(size: 16, weight: .semibold))
                                 .foregroundColor(Color("Second"))
-
+                            
                         }
                         .padding(.top, 170)
-
+                    
+                }
+                NavigationLink(
+                    destination: AskedView()
+                        .environmentObject(lobbyViewModel)
+                        .environmentObject(multipeerController)
+                        .environmentObject(playerData),
+                    isActive: $timerIsDone,
+                    label: {
+                        EmptyView()
+                })
+            }
+        }
+        .onReceive(multipeerController.$receivedQuestion) { receivedQuestion in
+            if multipeerController.hostPeerID != nil {
+                DispatchQueue.main.async {
+                    self.question = receivedQuestion
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.question = lobbyViewModel.lobby.question ?? "Default Question Text"
                 }
             }
-
-
         }
     }
     func startUpdatingProgress() {
@@ -78,15 +103,24 @@ struct SwiftUIView: View {
             if progressValue < targetProgress {
                 progressValue += 1.0
             } else {
-                timer.invalidate() // Stop the timer when reaching the target progress
+                timer.invalidate()
+                timerIsDone = true
             }
         }
     }
 }
 
 
-struct SwiftUIView_Previews: PreviewProvider {
+struct ChoosingView_Previews: PreviewProvider {
     static var previews: some View {
-        SwiftUIView()
+        let player = Player(name: "Player", lobbyRole: .host, gameRole: .asked)
+        var playerData = PlayerData(mainPlayer: player, playerList: [player])
+        let lobbyViewModel = LobbyViewModel()
+        let multipeerController = MultipeerController("YourDisplayName")
+
+        ChoosingView()
+            .environmentObject(lobbyViewModel)
+            .environmentObject(multipeerController)
+            .environmentObject(playerData)
     }
 }
