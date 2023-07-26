@@ -25,7 +25,7 @@ struct SwiftUIView: View {
                             .frame(width: 132, height: 63)
                             .foregroundColor(Color("Second"))
                     }
-                Text("Chososing...")
+                Text("Choosing...")
                     .font(.system(size: 32, weight: .bold))
                     .foregroundColor(Color("Second"))
                 ProgressView(value: progressValue, total: totalProgress)
@@ -63,14 +63,14 @@ struct SwiftUIView: View {
                             Text("1/3")
                                 .font(.system(size: 16, weight: .semibold))
                                 .foregroundColor(Color("Second"))
-                            
+
                         }
                         .padding(.top, 170)
-                    
+
                 }
             }
-            
-            
+
+
         }
     }
     func startUpdatingProgress() {

@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct RefereeView: View {
+    @EnvironmentObject var lobbyViewModel: LobbyViewModel
+    @EnvironmentObject private var multipeerController: MultipeerController
+    @EnvironmentObject private var playerData: PlayerData
     @State var colors: [Color] = [.clear, .clear, Color("Second"), .red]
     @State private var currentQuestionIndex = 0
     @State private var vibrateOnRing = false
@@ -18,7 +21,14 @@ struct RefereeView: View {
     private let dotDelay = 0.5
     
     var body: some View {
-        ZStack{
+        if multipeerController.isPlayer {
+            AskedView()
+                .environmentObject(multipeerController) // Use the same instance
+                .environmentObject(playerData)
+                .environmentObject(LobbyViewModel()) // Provide LobbyViewModel
+        }
+        else {
+            ZStack{
             Color.clear.backgroundStyle()
             BubbleView()
             VStack{
@@ -37,16 +47,16 @@ struct RefereeView: View {
                                 .font(.system(size: 9, weight: .bold))
                         }
                         .padding(.bottom, 55)
-                    Text("Adhi")
+                    Text("\(multipeerController.myPeerId.displayName)")
                         .font(.system(size: 32, weight: .bold))
                 }
                 Image("ImageReferee")
                     .resizable()
                     .frame(width: 234, height: 234)
-         
+                
                 
                 ZStack{
-                    Text(vibrateOnRing || vibrateOnRing1 ? "Wait for Judges to vote \nVoting : 4/6\(dots)" : "Judges The \n Player")
+                    Text(vibrateOnRing || vibrateOnRing1 ? "Wait for Judges to vote \nVoting : \(multipeerController.countGuestsVoted())/\(multipeerController.getConnectedPeers().count + 1)\(dots)" : "Judges The \n Player")
                         .font(.system(size:vibrateOnRing || vibrateOnRing1 ?  20 : 32 , weight: .bold))
                         .multilineTextAlignment(.center)
                         .foregroundColor(Color("Second"))
@@ -59,11 +69,12 @@ struct RefereeView: View {
                         .padding(.leading, 290)
                         .padding(.top, 100)
                         .opacity(vibrateOnRing || vibrateOnRing1 ? 0 : 1)
-
+                        .environmentObject(multipeerController)
                     ButtonSliderReferee(circleScale: $circleScale, vibrateOnRing: $vibrateOnRing, vibrateOnRing1: $vibrateOnRing)
                         .rotationEffect(Angle(degrees: -90))
                         .padding(.trailing, 280)
                         .opacity(vibrateOnRing || vibrateOnRing1 ? 0 : 1)
+                        .environmentObject(multipeerController)
                     Image("Like")
                         .resizable()
                         .frame(width: 132, height: 132)
@@ -74,7 +85,7 @@ struct RefereeView: View {
                         .frame(width: 132, height: 132)
                         .padding(.top, 140)
                         .opacity(vibrateOnRing1 ? 1 : 0)
-
+                    
                 }
                 Text(vibrateOnRing || vibrateOnRing1 ? "You’ve Cast Your Voted!":"Swipe To Judge\n The Player" )
                     .font(.system(size: 20,weight: .semibold))
@@ -85,6 +96,8 @@ struct RefereeView: View {
             }
         }
     }
+    }
+    
     func animateDots() {
         var count = 1
         dots = ""
@@ -107,9 +120,17 @@ struct RefereeView: View {
     }
 }
 
-struct JudgeView_Previews: PreviewProvider {
+struct RefereeView_Previews: PreviewProvider {
     static var previews: some View {
+        let player = Player(name: "Player", lobbyRole: .host, gameRole: .asked)
+        let playerData = PlayerData(mainPlayer: player, playerList: [player])
+        let lobbyViewModel = LobbyViewModel()
+        let multipeerController = MultipeerController("YourDisplayName")
+
         RefereeView()
+            .environmentObject(lobbyViewModel)
+            .environmentObject(multipeerController)
+            .environmentObject(playerData)
     }
 }
 
@@ -121,6 +142,7 @@ struct ButtonSliderReferee: View {
     @Binding var vibrateOnRing1 : Bool
     @State private var swapOffset: CGFloat = 0
     @State private var opacity: Double = 1.0
+    @EnvironmentObject private var multipeerController: MultipeerController
     var body: some View {
         ZStack {
             ZStack {
@@ -189,6 +211,11 @@ struct ButtonSliderReferee: View {
                                         buttonOffset = 0
                                     }
                                     circleScale = 1.0
+                                    
+                                    let connectedGuest = multipeerController.getConnectedPeers()
+                                    print(connectedGuest)
+                                    
+                                    multipeerController.sendMessage("Yes:VoteStatus", to: connectedGuest)
                                 }
                             }
                     )

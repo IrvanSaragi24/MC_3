@@ -36,7 +36,7 @@ struct ChooseRoleView: View {
                                 .environmentObject(playerData)
                                 .padding(.bottom, 100)
                         case .choosingPlayer:
-                            ChoosePlayerView()
+                            ChoosingView()
                                 .environmentObject(lobbyViewModel)
                                 .environmentObject(multipeerController)
                                 .environmentObject(playerData)
@@ -89,7 +89,6 @@ struct ChooseRoleView: View {
                             playerData.mainPlayer.lobbyRole = .host
                             lobbyViewModel.lobby.name = playerData.mainPlayer.name
                             lobby.name = playerData.mainPlayer.name
-                            print(multipeerController.isHost)
                             isLobbyViewActive = true // Activate the NavigationLink programmatically
                         }) {
                             ZStack {

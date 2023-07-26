@@ -34,8 +34,12 @@ class MultipeerController: NSObject, ObservableObject {
     @Published var connectedGuest: [MCPeerID] = [] // Do not use this var
     @Published var allGuest: [Guest] = []
     @Published var gameState: GameState = .waitingForInvitation
-    @Published var receivedQuestion: String?
-    var isReferee: Bool = false
+    @Published var receivedQuestion: String = "QuestionDefault"
+    var isPlayer: Bool = false
+    var isHost : Bool = false
+    var isChoosingView: Bool = false
+    
+    @Published var votes: [Vote] = []
     
     init(_ displayName: String) {
         myPeerId = MCPeerID(displayName: displayName)
@@ -63,7 +67,7 @@ class MultipeerController: NSObject, ObservableObject {
         }
     }
     
-    var isHost : Bool = false
+    
     /*
     func startAdvertising() {
         advertiser.startAdvertisingPeer()
@@ -132,13 +136,8 @@ class MultipeerController: NSObject, ObservableObject {
             
             if let index = self?.allGuest.firstIndex(where: { $0.id == peerToRemove }) {
                 self?.allGuest[index].status = .discovered
-            } else {
-                print("Person with name 'Tono' not found.")
             }
         }
-//        DispatchQueue.main.async { [weak self] in
-//            self?.allGuest.append(guest)
-//        }
     }
     
 }
@@ -238,7 +237,7 @@ extension MultipeerController: MCSessionDelegate {
     //handle data received
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         if let receivedString = String(data: data, encoding: .utf8) {
-            // Split the received string using the delimiter (":")
+                // Split the received string using the delimiter (":")
                 let components = receivedString.components(separatedBy: ":")
                 if components.count == 1 {
                     let message = components[0]
@@ -252,7 +251,7 @@ extension MultipeerController: MCSessionDelegate {
                     } else if message == MsgCommandConstant.startQuiz {
                         DispatchQueue.main.async { [weak self] in
                             // Handle the "Start Quiz" command
-                            self?.gameState = .choosingPlayer
+                            self?.isChoosingView = true
                         }
                     } else if message == MsgCommandConstant.disconnect {
                         DispatchQueue.main.async { [weak self] in
@@ -261,6 +260,14 @@ extension MultipeerController: MCSessionDelegate {
                             self?.gameState = .waitingForInvitation
                             self?.isAdvertising = true
                             
+                        }
+                    } else if message == MsgCommandConstant.updatePlayerTrue {
+                        DispatchQueue.main.async { [weak self] in
+                            self?.isPlayer = true
+                        }
+                    } else if message == MsgCommandConstant.updatePlayerFalse {
+                        DispatchQueue.main.async { [weak self] in
+                            self?.isPlayer = false
                         }
                     }
                     else {
@@ -273,19 +280,34 @@ extension MultipeerController: MCSessionDelegate {
                     if typeData == "question" {
                         DispatchQueue.main.async { [weak self] in
                             // Handle the received question
-                            self?.receivedQuestion = question
+                            self!.receivedQuestion = question
                         }
-                    } else {
+                    } else if typeData == "VoteStatus" {
                         // Handle other types of data if needed
+                        let voteStatus = VoteStatus(rawValue: components[0])
+                        let vote = Vote(voterID: peerID, status: voteStatus ?? .null)
+                        updateVotes(vote: vote)
+
+                        // Update UI with live vote count
+//                        let yesVotes = countYesVotes()
+//                        let noVotes = countNoVotes()
+//                        let nullVotes = countNullVotes()
+//                        let guestsVoted = countGuestsVoted()
+//                        let connectedGuests = countConnectedGuests()
+
+                        // Now you can use the above vote counts to update your UI and show live updates to the user.
+                        // For example, you can update labels to display the vote count.
+                    } else {
+                        
                     }
                 } else {
                     // Invalid message format
                     print("Invalid message format: \(receivedString)")
                 }
-        } else {
-            // Failed to convert data to a string
-            print("Failed to convert data to a string.")
-        }
+            } else {
+                // Failed to convert data to a string
+                print("Failed to convert data to a string.")
+            }
         delegate?.didReceive(data: data, from: peerID)
     }
     
@@ -353,3 +375,49 @@ extension MultipeerController: MCNearbyServiceAdvertiserDelegate {
         
     }
 }
+
+extension MultipeerController {
+
+    // Function to update votes when a vote is received from a guest
+    func updateVotes(vote: Vote) {
+        DispatchQueue.main.async {
+            if let index = self.votes.firstIndex(where: { $0.voterID == vote.voterID }) {
+                // Remove the existing vote for the same voterID
+                self.votes[index].status = vote.status
+            } else {
+                // Add the vote to the votes array
+                self.votes.append(vote)
+            }
+        }
+    }
+
+    // Function to calculate the total count of "Yes" votes
+    func countYesVotes() -> Int {
+        return votes.filter({ $0.status == .yes }).count
+    }
+
+    // Function to calculate the total count of "No" votes
+    func countNoVotes() -> Int {
+        return votes.filter({ $0.status == .no }).count
+    }
+
+    // Function to calculate the total count of "Null" votes (guests who haven't voted)
+    func countNullVotes() -> Int {
+        return votes.filter({ $0.status == .null }).count
+    }
+
+    // Function to calculate the total number of connected guests (excluding referees)
+    func countConnectedGuests() -> Int {
+        return session.connectedPeers.filter({ $0 != hostPeerID }).count
+    }
+
+    // Function to calculate the total number of connected guests who have voted
+    func countGuestsVoted() -> Int {
+        return votes.count
+    }
+    
+    func countNonNullVotes() -> Int {
+        return votes.filter({ $0.status != .null }).count
+    }
+}
+

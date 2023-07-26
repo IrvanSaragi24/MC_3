@@ -7,10 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A39597B32A70A0E100007F82 /* ChoosingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39597B22A70A0E100007F82 /* ChoosingView.swift */; };
+		A39597B52A70CF1B00007F82 /* SynthesizerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39597B42A70CF1B00007F82 /* SynthesizerViewModel.swift */; };
+		A39597B72A70D8E100007F82 /* HapticViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39597B62A70D8E100007F82 /* HapticViewModel.swift */; };
+		A39597B92A70EA6500007F82 /* Vote.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39597B82A70EA6500007F82 /* Vote.swift */; };
 		A3E9052C2A6EF495007A0E2A /* Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E9052B2A6EF495007A0E2A /* Audio.swift */; };
 		A3E9052E2A6EF4BF007A0E2A /* AudioViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E9052D2A6EF4BF007A0E2A /* AudioViewModel.swift */; };
 		A3E905302A6EF4DE007A0E2A /* VoiceActivityDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E9052F2A6EF4DE007A0E2A /* VoiceActivityDetector.swift */; };
 		A3E905322A6F4B00007A0E2A /* LobbyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E905312A6F4B00007A0E2A /* LobbyViewModel.swift */; };
+		A3E9053A2A6FC280007A0E2A /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E905392A6FC280007A0E2A /* Question.swift */; };
+		A3E9053C2A6FC7CE007A0E2A /* questions.json in Resources */ = {isa = PBXBuildFile; fileRef = A3E9053B2A6FC7CE007A0E2A /* questions.json */; };
 		E22F946E2A67B13E0088315B /* BubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22F946D2A67B13E0088315B /* BubbleView.swift */; };
 		E22F94722A6B78F10088315B /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22F94712A6B78F10088315B /* LoadingView.swift */; };
 		E25C6DFC2A63CBAB00B4F3EC /* EndGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25C6DFB2A63CBAB00B4F3EC /* EndGameView.swift */; };
@@ -40,10 +46,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A39597B22A70A0E100007F82 /* ChoosingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosingView.swift; sourceTree = "<group>"; };
+		A39597B42A70CF1B00007F82 /* SynthesizerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynthesizerViewModel.swift; sourceTree = "<group>"; };
+		A39597B62A70D8E100007F82 /* HapticViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticViewModel.swift; sourceTree = "<group>"; };
+		A39597B82A70EA6500007F82 /* Vote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vote.swift; sourceTree = "<group>"; };
 		A3E9052B2A6EF495007A0E2A /* Audio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Audio.swift; sourceTree = "<group>"; };
 		A3E9052D2A6EF4BF007A0E2A /* AudioViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioViewModel.swift; sourceTree = "<group>"; };
 		A3E9052F2A6EF4DE007A0E2A /* VoiceActivityDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceActivityDetector.swift; sourceTree = "<group>"; };
 		A3E905312A6F4B00007A0E2A /* LobbyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyViewModel.swift; sourceTree = "<group>"; };
+		A3E905392A6FC280007A0E2A /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
+		A3E9053B2A6FC7CE007A0E2A /* questions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = questions.json; sourceTree = "<group>"; };
 		E22F946D2A67B13E0088315B /* BubbleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleView.swift; sourceTree = "<group>"; };
 		E22F94712A6B78F10088315B /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		E25C6DFB2A63CBAB00B4F3EC /* EndGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndGameView.swift; sourceTree = "<group>"; };
@@ -90,6 +102,8 @@
 				EC83186F2A65F1A200BD3A7E /* Lobby.swift */,
 				ECAE9AA22A654C3200E46A34 /* Player.swift */,
 				A3E9052B2A6EF495007A0E2A /* Audio.swift */,
+				A3E905392A6FC280007A0E2A /* Question.swift */,
+				A39597B82A70EA6500007F82 /* Vote.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -100,6 +114,8 @@
 				E25C6DFD2A63D65200B4F3EC /* ViewModel.swift */,
 				A3E9052D2A6EF4BF007A0E2A /* AudioViewModel.swift */,
 				A3E905312A6F4B00007A0E2A /* LobbyViewModel.swift */,
+				A39597B42A70CF1B00007F82 /* SynthesizerViewModel.swift */,
+				A39597B62A70D8E100007F82 /* HapticViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -123,6 +139,7 @@
 				ECCA2FE02A6C24DF000226AD /* ContinueView.swift */,
 				E22F94712A6B78F10088315B /* LoadingView.swift */,
 				E2B122542A6FBB7C00E8606C /* ChossingView.swift */,
+				A39597B22A70A0E100007F82 /* ChoosingView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -153,6 +170,7 @@
 				E22F94102A6504E90088315B /* Model */,
 				E22F94122A65051F0088315B /* View */,
 				E2AD0EB52A60EDE300E76ED3 /* Assets.xcassets */,
+				A3E9053B2A6FC7CE007A0E2A /* questions.json */,
 				E2AD0EB72A60EDE300E76ED3 /* Preview Content */,
 			);
 			path = MC_3;
@@ -235,6 +253,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3E9053C2A6FC7CE007A0E2A /* questions.json in Resources */,
 				E2AD0EB92A60EDE300E76ED3 /* Preview Assets.xcassets in Resources */,
 				E2AD0EB62A60EDE300E76ED3 /* Assets.xcassets in Resources */,
 			);
@@ -250,10 +269,15 @@
 				EC8F9E252A683FD100E0A76B /* JudgeView.swift in Sources */,
 				EC8318A92A67EBD400BD3A7E /* ButtonStyle.swift in Sources */,
 				EC8F9E2B2A69422100E0A76B /* Misc.swift in Sources */,
+				A39597B32A70A0E100007F82 /* ChoosingView.swift in Sources */,
+				A3E9053A2A6FC280007A0E2A /* Question.swift in Sources */,
 				EC8318702A65F1A200BD3A7E /* Lobby.swift in Sources */,
 				ECCA2FDD2A6C1FAF000226AD /* RefereeView.swift in Sources */,
 				E2B122552A6FBB7C00E8606C /* ChossingView.swift in Sources */,
 				E25C6E022A645D4800B4F3EC /* HangOutView.swift in Sources */,
+				A39597B72A70D8E100007F82 /* HapticViewModel.swift in Sources */,
+				A39597B52A70CF1B00007F82 /* SynthesizerViewModel.swift in Sources */,
+				A39597B92A70EA6500007F82 /* Vote.swift in Sources */,
 				EC8F9E232A683F7000E0A76B /* ListenView.swift in Sources */,
 				ECCA2FE12A6C24DF000226AD /* ContinueView.swift in Sources */,
 				E22F946E2A67B13E0088315B /* BubbleView.swift in Sources */,
@@ -405,7 +429,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MC_3/Preview Content\"";
-				DEVELOPMENT_TEAM = NYP6NH36S6;
+				DEVELOPMENT_TEAM = K6G57A2975;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -434,7 +458,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MC_3/Preview Content\"";
-				DEVELOPMENT_TEAM = NYP6NH36S6;
+				DEVELOPMENT_TEAM = K6G57A2975;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
