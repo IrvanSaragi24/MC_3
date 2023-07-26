@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ChoosingView: View {
+    @StateObject var hapticViewModel = HapticViewModel()
     @EnvironmentObject var lobbyViewModel: LobbyViewModel
     @EnvironmentObject private var multipeerController: MultipeerController
     @EnvironmentObject private var playerData: PlayerData
@@ -67,7 +68,7 @@ struct ChoosingView: View {
                         .overlay{
                             Circle()
                                 .foregroundColor(Color("Background"))
-                            Text("1/3")
+                            Text("\(lobbyViewModel.lobby.currentQuestionIndex) / \(lobbyViewModel.lobby.numberOfQuestion)")
                                 .font(.system(size: 16, weight: .semibold))
                                 .foregroundColor(Color("Second"))
                             
@@ -76,7 +77,11 @@ struct ChoosingView: View {
                     
                 }
                 NavigationLink(
-                    destination: AskedView()
+//                    destination: AskedView(question: $question)
+//                        .environmentObject(lobbyViewModel)
+//                        .environmentObject(multipeerController)
+//                        .environmentObject(playerData),
+                    destination: RefereeView()
                         .environmentObject(lobbyViewModel)
                         .environmentObject(multipeerController)
                         .environmentObject(playerData),
@@ -87,6 +92,8 @@ struct ChoosingView: View {
             }
         }
         .onAppear() {
+            // Trigger haptic feedback with the custom pattern
+            hapticViewModel.triggerThrillingHaptic()
             // yang host2 aja gaes
             if multipeerController.isHost {
             
@@ -115,11 +122,11 @@ struct ChoosingView: View {
         .onReceive(multipeerController.$receivedQuestion) { receivedQuestion in
             if multipeerController.hostPeerID != nil {
                 DispatchQueue.main.async {
-                    self.question = receivedQuestion
+                    self.question = receivedQuestion.replacingOccurrences(of: "[Objek]", with: "Adhi")
                 }
             } else {
                 DispatchQueue.main.async {
-                    self.question = lobbyViewModel.lobby.question ?? "Default Question Text"
+                    self.question = lobbyViewModel.lobby.question?.replacingOccurrences(of: "[Objek]", with: "Adhi") ?? "Default Question Text"
                 }
             }
         }

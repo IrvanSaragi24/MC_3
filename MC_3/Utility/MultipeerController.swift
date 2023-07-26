@@ -39,6 +39,8 @@ class MultipeerController: NSObject, ObservableObject {
     var isHost : Bool = false
     var isChoosingView: Bool = false
     
+    @Published var votes: [Vote] = []
+    
     init(_ displayName: String) {
         myPeerId = MCPeerID(displayName: displayName)
         self.session = MCSession(peer: myPeerId, securityIdentity: nil, encryptionPreference: .none)
@@ -280,8 +282,23 @@ extension MultipeerController: MCSessionDelegate {
                             // Handle the received question
                             self!.receivedQuestion = question
                         }
-                    } else {
+                    } else if typeData == "VoteStatus" {
                         // Handle other types of data if needed
+                        let voteStatus = VoteStatus(rawValue: components[0])
+                        let vote = Vote(voterID: peerID, status: voteStatus ?? .null)
+                        updateVotes(vote: vote)
+
+                        // Update UI with live vote count
+                        let yesVotes = countYesVotes()
+                        let noVotes = countNoVotes()
+                        let nullVotes = countNullVotes()
+                        let guestsVoted = countGuestsVoted()
+                        let connectedGuests = countConnectedGuests()
+
+                        // Now you can use the above vote counts to update your UI and show live updates to the user.
+                        // For example, you can update labels to display the vote count.
+                    } else {
+                        
                     }
                 } else {
                     // Invalid message format
@@ -358,3 +375,45 @@ extension MultipeerController: MCNearbyServiceAdvertiserDelegate {
         
     }
 }
+
+extension MultipeerController {
+
+    // Function to update votes when a vote is received from a guest
+    func updateVotes(vote: Vote) {
+        if let index = votes.firstIndex(where: { $0.voterID == vote.voterID }) {
+            votes[index].status = vote.status
+        } else {
+            votes.append(vote)
+        }
+    }
+
+    // Function to calculate the total count of "Yes" votes
+    func countYesVotes() -> Int {
+        return votes.filter({ $0.status == .yes }).count
+    }
+
+    // Function to calculate the total count of "No" votes
+    func countNoVotes() -> Int {
+        return votes.filter({ $0.status == .no }).count
+    }
+
+    // Function to calculate the total count of "Null" votes (guests who haven't voted)
+    func countNullVotes() -> Int {
+        return votes.filter({ $0.status == .null }).count
+    }
+
+    // Function to calculate the total number of connected guests (excluding referees)
+    func countConnectedGuests() -> Int {
+        return session.connectedPeers.filter({ $0 != hostPeerID }).count
+    }
+
+    // Function to calculate the total number of connected guests who have voted
+    func countGuestsVoted() -> Int {
+        return votes.count
+    }
+    
+    func countNonNullVotes() -> Int {
+        return votes.filter({ $0.status != .null }).count
+    }
+}
+

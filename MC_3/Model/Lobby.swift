@@ -15,6 +15,7 @@ struct Lobby: Identifiable {
     var question: String?
     var elapsedTime: TimeInterval = 0
     var isTimerRunning = false
+    var currentQuestionIndex: Int = 0
     
     init(name: String, silentDuration: Int, numberOfQuestion: Int) {
         self.name = name
