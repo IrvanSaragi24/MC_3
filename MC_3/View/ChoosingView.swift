@@ -94,30 +94,9 @@ struct ChoosingView: View {
         .onAppear() {
             // Trigger haptic feedback with the custom pattern
             hapticViewModel.triggerThrillingHaptic()
-            // yang host2 aja gaes
-            if multipeerController.isHost {
             
-                lobbyViewModel.getQuestion()
-                let typeData = "question"
-                let message = "\(lobbyViewModel.lobby.question ?? ""):\(typeData)"
-                
-                var connectedGuest = multipeerController.getConnectedPeers()
-                let randomInt = Int.random(in: 0...connectedGuest.count)
-                
-                if randomInt == connectedGuest.count {
-                    // host jadi player
-//                    multipeerController.sendMessage(message, to: connectedGuest)
-                }
-                else {
-                    
-                }
-                
-                //            let typeData = "question"
-                //            let message = "\(lobbyViewModel.lobby.question ?? ""):\(typeData)"
-                //
-                //            // Kirim pesan ke semua peer yang terhubung
-                //            multipeerController.sendMessage(message, to: connectedGuest)
-            }
+            randomPlayer()
+            
         }
         .onReceive(multipeerController.$receivedQuestion) { receivedQuestion in
             if multipeerController.hostPeerID != nil {
@@ -138,6 +117,24 @@ struct ChoosingView: View {
             } else {
                 timer.invalidate()
                 timerIsDone = true
+            }
+        }
+    }
+    
+    func randomPlayer() {
+//        yg host2 aja
+        if multipeerController.isHost {
+            
+            var connectedGuest = multipeerController.getConnectedPeers()
+            let randomInt = Int.random(in: 0...connectedGuest.count)
+            
+            if randomInt == connectedGuest.count {
+                // host jadi player
+                multipeerController.isPlayer = true
+            }
+            else {
+                let thePlayer = connectedGuest[randomInt]
+                multipeerController.sendMessage(MsgCommandConstant.updatePlayerTrue, to: [thePlayer])
             }
         }
     }

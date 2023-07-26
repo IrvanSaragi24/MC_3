@@ -35,7 +35,7 @@ class MultipeerController: NSObject, ObservableObject {
     @Published var allGuest: [Guest] = []
     @Published var gameState: GameState = .waitingForInvitation
     @Published var receivedQuestion: String = "QuestionDefault"
-    var isReferee: Bool = false
+    var isPlayer: Bool = false
     var isHost : Bool = false
     var isChoosingView: Bool = false
     
@@ -261,13 +261,13 @@ extension MultipeerController: MCSessionDelegate {
                             self?.isAdvertising = true
                             
                         }
-                    } else if message == MsgCommandConstant.updateRefereeTrue {
+                    } else if message == MsgCommandConstant.updatePlayerTrue {
                         DispatchQueue.main.async { [weak self] in
-                            self?.isReferee = true
+                            self?.isPlayer = true
                         }
-                    } else if message == MsgCommandConstant.updateRefereeFalse {
+                    } else if message == MsgCommandConstant.updatePlayerFalse {
                         DispatchQueue.main.async { [weak self] in
-                            self?.isReferee = false
+                            self?.isPlayer = false
                         }
                     }
                     else {

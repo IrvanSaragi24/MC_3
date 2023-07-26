@@ -21,7 +21,14 @@ struct RefereeView: View {
     private let dotDelay = 0.5
     
     var body: some View {
-        ZStack{
+        if multipeerController.isPlayer {
+            AskedView()
+                .environmentObject(multipeerController) // Use the same instance
+                .environmentObject(playerData)
+                .environmentObject(LobbyViewModel()) // Provide LobbyViewModel
+        }
+        else {
+            ZStack{
             Color.clear.backgroundStyle()
             BubbleView()
             VStack{
@@ -46,7 +53,7 @@ struct RefereeView: View {
                 Image("ImageReferee")
                     .resizable()
                     .frame(width: 234, height: 234)
-         
+                
                 
                 ZStack{
                     Text(vibrateOnRing || vibrateOnRing1 ? "Wait for Judges to vote \nVoting : \(multipeerController.countGuestsVoted())/\(multipeerController.getConnectedPeers().count + 1)\(dots)" : "Judges The \n Player")
@@ -78,7 +85,7 @@ struct RefereeView: View {
                         .frame(width: 132, height: 132)
                         .padding(.top, 140)
                         .opacity(vibrateOnRing1 ? 1 : 0)
-
+                    
                 }
                 Text(vibrateOnRing || vibrateOnRing1 ? "You’ve Cast Your Voted!":"Swipe To Judge\n The Player" )
                     .font(.system(size: 20,weight: .semibold))
@@ -89,6 +96,8 @@ struct RefereeView: View {
             }
         }
     }
+    }
+    
     func animateDots() {
         var count = 1
         dots = ""
@@ -111,19 +120,17 @@ struct RefereeView: View {
     }
 }
 
-struct JudgeView_Previews: PreviewProvider {
-    static let player = Player(name: "YourDisplayName", lobbyRole: .host, gameRole: .asked)
-    static var playerData = PlayerData(mainPlayer: player, playerList: [player])
-    static let multipeerController = MultipeerController("YourDisplayName") // Use the same instance
-    @StateObject var synthesizerViewModel = SynthesizerViewModel()
-    
-    @State static var previewQuestion = "Sample Question"
-    
+struct RefereeView_Previews: PreviewProvider {
     static var previews: some View {
+        let player = Player(name: "Player", lobbyRole: .host, gameRole: .asked)
+        let playerData = PlayerData(mainPlayer: player, playerList: [player])
+        let lobbyViewModel = LobbyViewModel()
+        let multipeerController = MultipeerController("YourDisplayName")
+
         RefereeView()
-            .environmentObject(multipeerController) // Use the same instance
+            .environmentObject(lobbyViewModel)
+            .environmentObject(multipeerController)
             .environmentObject(playerData)
-            .environmentObject(LobbyViewModel()) // Provide LobbyViewModel here
     }
 }
 
