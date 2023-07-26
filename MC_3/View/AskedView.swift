@@ -13,7 +13,7 @@ struct AskedView: View {
     @EnvironmentObject var lobbyViewModel: LobbyViewModel
     @EnvironmentObject private var multipeerController: MultipeerController
     @EnvironmentObject private var playerData: PlayerData
-    @Binding var question: String
+//    @Binding var question: String
     @State var colors: [Color] = [.clear, .clear, Color("Second"), .red]
     @State private var AnswerNo : Bool = false
     @State private var dots: String = ""
@@ -57,7 +57,7 @@ struct AskedView: View {
                         .frame(width: 290, height: 168)
                         .foregroundColor(Color("Second"))
                         .overlay {
-                            Text(question)
+                            Text(multipeerController.receivedQuestion)
                                 .font(.system(size: 17, weight: .medium))
                                 .multilineTextAlignment(.center)
                                 .padding()
@@ -90,7 +90,7 @@ struct AskedView: View {
                 
                 
                 Button {
-                    synthesizerViewModel.startSpeaking(spokenString: question.replacingOccurrences(of: "[Object]", with: "Adhi" ))
+                    synthesizerViewModel.startSpeaking(spokenString: multipeerController.receivedQuestion)
                 } label: {
                     ZStack{
                         RoundedRectangle(cornerRadius: 20)
@@ -106,7 +106,7 @@ struct AskedView: View {
             }
         }
         .task {
-            synthesizerViewModel.startSpeaking(spokenString: question.replacingOccurrences(of: "[Object]", with: "Adhi" ))
+            synthesizerViewModel.startSpeaking(spokenString: multipeerController.receivedQuestion)
         }
     }
     
@@ -141,7 +141,8 @@ struct AskedView_Previews: PreviewProvider {
     @State static var previewQuestion = "Sample Question"
     
     static var previews: some View {
-        AskedView(question: .constant("Hello"))
+//        AskedView(question: .constant("Hello"))
+        AskedView()
             .environmentObject(multipeerController) // Use the same instance
             .environmentObject(playerData)
             .environmentObject(LobbyViewModel()) // Provide LobbyViewModel here
