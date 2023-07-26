@@ -107,7 +107,7 @@ struct LooseView: View {
             Image(systemName: "hand.thumbsdown.fill")
             Text("Lorem Ipsum Dolor")
             NavigationLink(
-                destination: AskedView()
+                destination: AskedView(question: .constant("Test"))
             )
             {
                 Label("\u{200B}", systemImage: "arrow.right.to.line")

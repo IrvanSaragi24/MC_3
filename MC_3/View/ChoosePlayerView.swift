@@ -26,23 +26,23 @@ struct ChoosePlayerView: View {
             Text("Question")
             Text(question)
             Text("1/3")
-            NavigationLink(
-                destination: AskedView() // TODO: confirm where this button goes?
-            )
-            {
-                Label("", systemImage: "gobackward")
-            }
+//            NavigationLink(
+//                destination: AskedView() // TODO: confirm where this button goes?
+//            )
+//            {
+//                Label("", systemImage: "gobackward")
+//            }
             .buttonStyle(MultipeerButtonStyle())
             .onTapGesture {
                 
             }
-            NavigationLink(
-                destination: multipeerController.isReferee ? AnyView(RefereeView()) : AnyView(AskedView()),
-                isActive: $isActive,
-                label: {
-                    EmptyView()
-                }
-            )
+//            NavigationLink(
+//                destination: multipeerController.isReferee ? AnyView(RefereeView()) : AnyView(AskedView()),
+//                isActive: $isActive,
+//                label: {
+//                    EmptyView()
+//                }
+//            )
             .onReceive(multipeerController.$receivedQuestion) { receivedQuestion in
                 if multipeerController.hostPeerID != nil {
                     self.question = receivedQuestion

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		A39597B32A70A0E100007F82 /* ChoosingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39597B22A70A0E100007F82 /* ChoosingView.swift */; };
+		A39597B52A70CF1B00007F82 /* SynthesizerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39597B42A70CF1B00007F82 /* SynthesizerViewModel.swift */; };
+		A39597B72A70D8E100007F82 /* HapticViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39597B62A70D8E100007F82 /* HapticViewModel.swift */; };
 		A3E9052C2A6EF495007A0E2A /* Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E9052B2A6EF495007A0E2A /* Audio.swift */; };
 		A3E9052E2A6EF4BF007A0E2A /* AudioViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E9052D2A6EF4BF007A0E2A /* AudioViewModel.swift */; };
 		A3E905302A6EF4DE007A0E2A /* VoiceActivityDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E9052F2A6EF4DE007A0E2A /* VoiceActivityDetector.swift */; };
@@ -43,6 +45,8 @@
 
 /* Begin PBXFileReference section */
 		A39597B22A70A0E100007F82 /* ChoosingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosingView.swift; sourceTree = "<group>"; };
+		A39597B42A70CF1B00007F82 /* SynthesizerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynthesizerViewModel.swift; sourceTree = "<group>"; };
+		A39597B62A70D8E100007F82 /* HapticViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticViewModel.swift; sourceTree = "<group>"; };
 		A3E9052B2A6EF495007A0E2A /* Audio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Audio.swift; sourceTree = "<group>"; };
 		A3E9052D2A6EF4BF007A0E2A /* AudioViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioViewModel.swift; sourceTree = "<group>"; };
 		A3E9052F2A6EF4DE007A0E2A /* VoiceActivityDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceActivityDetector.swift; sourceTree = "<group>"; };
@@ -105,6 +109,8 @@
 				E25C6DFD2A63D65200B4F3EC /* ViewModel.swift */,
 				A3E9052D2A6EF4BF007A0E2A /* AudioViewModel.swift */,
 				A3E905312A6F4B00007A0E2A /* LobbyViewModel.swift */,
+				A39597B42A70CF1B00007F82 /* SynthesizerViewModel.swift */,
+				A39597B62A70D8E100007F82 /* HapticViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -263,6 +269,8 @@
 				ECCA2FDD2A6C1FAF000226AD /* RefereeView.swift in Sources */,
 				E2B122552A6FBB7C00E8606C /* ChossingView.swift in Sources */,
 				E25C6E022A645D4800B4F3EC /* HangOutView.swift in Sources */,
+				A39597B72A70D8E100007F82 /* HapticViewModel.swift in Sources */,
+				A39597B52A70CF1B00007F82 /* SynthesizerViewModel.swift in Sources */,
 				EC8F9E232A683F7000E0A76B /* ListenView.swift in Sources */,
 				ECCA2FE12A6C24DF000226AD /* ContinueView.swift in Sources */,
 				E22F946E2A67B13E0088315B /* BubbleView.swift in Sources */,
@@ -413,7 +421,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MC_3/Preview Content\"";
-				DEVELOPMENT_TEAM = NYP6NH36S6;
+				DEVELOPMENT_TEAM = K6G57A2975;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -442,7 +450,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MC_3/Preview Content\"";
-				DEVELOPMENT_TEAM = NYP6NH36S6;
+				DEVELOPMENT_TEAM = K6G57A2975;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

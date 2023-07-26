@@ -116,6 +116,7 @@ struct ListenView: View {
                                 
                                 multipeerController.sendMessage("START QUIZ", to: connectedGuest)
                                 startGame = true
+                                lobbyViewModel.lobby.currentQuestionIndex += 1
                                 connectedGuest = multipeerController.allGuest
                                     .filter { $0.status == .connected }
                                     .map { $0.id }
@@ -145,5 +146,6 @@ struct ListenView_Previews: PreviewProvider {
         ListenView()
             .environmentObject(multipeerController) // Use the same instance
             .environmentObject(playerData)
+            .environmentObject(LobbyViewModel()) // Provide LobbyViewModel here
     }
 }
