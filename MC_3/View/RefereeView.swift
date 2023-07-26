@@ -47,7 +47,7 @@ struct RefereeView: View {
                                 .font(.system(size: 9, weight: .bold))
                         }
                         .padding(.bottom, 55)
-                    Text("Adhi")
+                    Text("\(multipeerController.myPeerId.displayName)")
                         .font(.system(size: 32, weight: .bold))
                 }
                 Image("ImageReferee")
@@ -56,7 +56,7 @@ struct RefereeView: View {
                 
                 
                 ZStack{
-                    Text(vibrateOnRing || vibrateOnRing1 ? "Wait for Judges to vote \nVoting : \(multipeerController.countGuestsVoted())/\(multipeerController.countConnectedGuests())\(dots)" : "Judges The \n Player")
+                    Text(vibrateOnRing || vibrateOnRing1 ? "Wait for Judges to vote \nVoting : \(multipeerController.countGuestsVoted())/\(multipeerController.getConnectedPeers().count + 1)\(dots)" : "Judges The \n Player")
                         .font(.system(size:vibrateOnRing || vibrateOnRing1 ?  20 : 32 , weight: .bold))
                         .multilineTextAlignment(.center)
                         .foregroundColor(Color("Second"))
@@ -130,9 +130,7 @@ struct RefereeView_Previews: PreviewProvider {
         RefereeView()
             .environmentObject(lobbyViewModel)
             .environmentObject(multipeerController)
-            .environmentObject(playerData)
-
-    }
+            .environmentObject(playerData)    }
 }
 
 struct ButtonSliderReferee: View {
@@ -213,9 +211,10 @@ struct ButtonSliderReferee: View {
                                     }
                                     circleScale = 1.0
                                     
-                                    var connectedGuest = multipeerController.getConnectedPeers()
+                                    let connectedGuest = multipeerController.getConnectedPeers()
+                                    print(connectedGuest)
                                     
-                                    multipeerController.sendMessage("VoteStatus:Yes", to: connectedGuest)
+                                    multipeerController.sendMessage("Yes:VoteStatus", to: connectedGuest)
                                 }
                             }
                     )
