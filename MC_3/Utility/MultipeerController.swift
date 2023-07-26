@@ -288,11 +288,11 @@ extension MultipeerController: MCSessionDelegate {
                         updateVotes(vote: vote)
 
                         // Update UI with live vote count
-                        let yesVotes = countYesVotes()
-                        let noVotes = countNoVotes()
-                        let nullVotes = countNullVotes()
-                        let guestsVoted = countGuestsVoted()
-                        let connectedGuests = countConnectedGuests()
+//                        let yesVotes = countYesVotes()
+//                        let noVotes = countNoVotes()
+//                        let nullVotes = countNullVotes()
+//                        let guestsVoted = countGuestsVoted()
+//                        let connectedGuests = countConnectedGuests()
 
                         // Now you can use the above vote counts to update your UI and show live updates to the user.
                         // For example, you can update labels to display the vote count.
@@ -379,10 +379,14 @@ extension MultipeerController {
 
     // Function to update votes when a vote is received from a guest
     func updateVotes(vote: Vote) {
-        if let index = votes.firstIndex(where: { $0.voterID == vote.voterID }) {
-            votes[index].status = vote.status
-        } else {
-            votes.append(vote)
+        DispatchQueue.main.async {
+            if let index = self.votes.firstIndex(where: { $0.voterID == vote.voterID }) {
+                // Remove the existing vote for the same voterID
+                self.votes[index].status = vote.status
+            } else {
+                // Add the vote to the votes array
+                self.votes.append(vote)
+            }
         }
     }
 

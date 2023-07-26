@@ -106,7 +106,7 @@ struct AskedView: View {
             }
         }
         .task {
-            synthesizerViewModel.startSpeaking(spokenString: question.replacingOccurrences(of: "[Object]", with: "Adhi" ))
+            synthesizerViewModel.startSpeaking(spokenString: question.replacingOccurrences(of: "[Objek]", with: "Adhi" ))
         }
     }
     
