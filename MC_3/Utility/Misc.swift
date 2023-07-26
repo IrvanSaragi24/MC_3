@@ -16,6 +16,8 @@ enum MsgCommandConstant {
     static let startListen = "START LISTEN"
     static let startQuiz = "START QUIZ"
     static let disconnect = "DISCONNECT FROM MY SESSION"
+    static let updateRefereeTrue = "REFEREE TRUE"
+    static let updateRefereeFalse = "REFEREE FALSE"
 }
 
 enum LobbyRole: CaseIterable {

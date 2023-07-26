@@ -124,7 +124,6 @@ struct LobbyView: View {
                                                             if guest.status == .connected {
                                                                 guestToRemove = guest.id
                                                                 showingConfirmationAlert = true
-//                                                                multipeerController.disconnectPeer(peerToRemove: guest.id)
                                                             }
                                                             else {
                                                                 multipeerController.invitePeer(guest.id, to: lobby)
@@ -137,8 +136,8 @@ struct LobbyView: View {
                                     .alert(isPresented: $showingConfirmationAlert) {
                                                 Alert(
                                                     title: Text("Disconnect Peer"),
-                                                    message: Text("Are you sure you want to disconnect this peer?"),
-                                                    primaryButton: .destructive(Text("Yes")) {
+                                                    message: Text("Are you sure you want to disconnect \(guestToRemove?.displayName ?? "this peer")?"),
+                                                                  primaryButton: .destructive(Text("Yes")) {
                                                         if let peerToRemove = guestToRemove {
                                                             multipeerController.disconnectPeer(peerToRemove: peerToRemove)
                                                         }

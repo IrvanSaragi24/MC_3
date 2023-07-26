@@ -82,7 +82,6 @@ struct ChooseRoleView: View {
                             playerData.mainPlayer.lobbyRole = .host
                             lobbyViewModel.lobby.name = playerData.mainPlayer.name
                             lobby.name = playerData.mainPlayer.name
-                            print(multipeerController.isHost)
                             isLobbyViewActive = true // Activate the NavigationLink programmatically
                         }) {
                             ZStack {
