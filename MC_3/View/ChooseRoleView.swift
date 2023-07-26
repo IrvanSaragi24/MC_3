@@ -35,7 +35,7 @@ struct ChooseRoleView: View {
                                 .environmentObject(multipeerController)
                                 .environmentObject(playerData)
                         case .choosingPlayer:
-                            ChoosePlayerView()
+                            ChoosingView()
                                 .environmentObject(lobbyViewModel)
                                 .environmentObject(multipeerController)
                                 .environmentObject(playerData)

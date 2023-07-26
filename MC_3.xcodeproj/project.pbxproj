@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A39597B32A70A0E100007F82 /* ChoosingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39597B22A70A0E100007F82 /* ChoosingView.swift */; };
 		A3E9052C2A6EF495007A0E2A /* Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E9052B2A6EF495007A0E2A /* Audio.swift */; };
 		A3E9052E2A6EF4BF007A0E2A /* AudioViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E9052D2A6EF4BF007A0E2A /* AudioViewModel.swift */; };
 		A3E905302A6EF4DE007A0E2A /* VoiceActivityDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E9052F2A6EF4DE007A0E2A /* VoiceActivityDetector.swift */; };
@@ -41,6 +42,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A39597B22A70A0E100007F82 /* ChoosingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosingView.swift; sourceTree = "<group>"; };
 		A3E9052B2A6EF495007A0E2A /* Audio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Audio.swift; sourceTree = "<group>"; };
 		A3E9052D2A6EF4BF007A0E2A /* AudioViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioViewModel.swift; sourceTree = "<group>"; };
 		A3E9052F2A6EF4DE007A0E2A /* VoiceActivityDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceActivityDetector.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 				ECCA2FE02A6C24DF000226AD /* ContinueView.swift */,
 				E22F94712A6B78F10088315B /* LoadingView.swift */,
 				E2B122542A6FBB7C00E8606C /* ChossingView.swift */,
+				A39597B22A70A0E100007F82 /* ChoosingView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -254,6 +257,7 @@
 				EC8F9E252A683FD100E0A76B /* JudgeView.swift in Sources */,
 				EC8318A92A67EBD400BD3A7E /* ButtonStyle.swift in Sources */,
 				EC8F9E2B2A69422100E0A76B /* Misc.swift in Sources */,
+				A39597B32A70A0E100007F82 /* ChoosingView.swift in Sources */,
 				A3E9053A2A6FC280007A0E2A /* Question.swift in Sources */,
 				EC8318702A65F1A200BD3A7E /* Lobby.swift in Sources */,
 				ECCA2FDD2A6C1FAF000226AD /* RefereeView.swift in Sources */,

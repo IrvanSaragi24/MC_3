@@ -273,9 +273,7 @@ extension MultipeerController: MCSessionDelegate {
                     if typeData == "question" {
                         DispatchQueue.main.async { [weak self] in
                             // Handle the received question
-                            print(question)
-                            self?.receivedQuestion = question
-                            print(self?.receivedQuestion)
+                            self!.receivedQuestion = question
                         }
                     } else {
                         // Handle other types of data if needed

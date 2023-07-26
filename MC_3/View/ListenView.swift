@@ -66,7 +66,7 @@ struct ListenView: View {
                     .padding(.top, 100)
                     Spacer()
                     NavigationLink(
-                        destination: ChoosePlayerView()
+                        destination: ChoosingView()
                             .environmentObject(lobbyViewModel)
                             .environmentObject(multipeerController)
                             .environmentObject(playerData)
@@ -80,7 +80,7 @@ struct ListenView: View {
                         
                     }
                     NavigationLink(
-                        destination: ChoosePlayerView()
+                        destination: ChoosingView()
                             .environmentObject(lobbyViewModel)
                             .environmentObject(multipeerController)
                             .environmentObject(playerData),
@@ -112,21 +112,17 @@ struct ListenView: View {
                             if multipeerController.hostPeerID == nil {
                                 lobbyViewModel.pauseTimer()
                                 lobbyViewModel.getQuestion()
-//                                lobbyViewModel.lobby.question
                                 var connectedGuest = multipeerController.getConnectedPeers()
-//                                multipeerController.allGuest
-//                                    .filter { $0.status == .connected }
-//                                    .map { $0.id }
                                 
-                                multipeerController.sendMessage("[START QUIZ]", to: connectedGuest)
+                                multipeerController.sendMessage("START QUIZ", to: connectedGuest)
                                 startGame = true
                                 connectedGuest = multipeerController.allGuest
                                     .filter { $0.status == .connected }
                                     .map { $0.id }
+                                
                                 // Di sisi pengirim
-                                let question = "Apa ibukota Indonesia?"
                                 let typeData = "question"
-                                let message = "\(question):\(typeData)"
+                                let message = "\(lobbyViewModel.lobby.question ?? ""):\(typeData)"
 
                                 // Kirim pesan ke semua peer yang terhubung
                                 multipeerController.sendMessage(message, to: connectedGuest)
@@ -141,12 +137,13 @@ struct ListenView: View {
 }
 
 struct ListenView_Previews: PreviewProvider {
-    static let player = Player(name: "Player", lobbyRole: .host, gameRole: .asked)
+    static let player = Player(name: "YourDisplayName", lobbyRole: .host, gameRole: .asked)
     static var playerData = PlayerData(mainPlayer: player, playerList: [player])
-    
+    static let multipeerController = MultipeerController("YourDisplayName") // Use the same instance
+
     static var previews: some View {
         ListenView()
-            .environmentObject(MultipeerController(player.name))
+            .environmentObject(multipeerController) // Use the same instance
             .environmentObject(playerData)
     }
 }
