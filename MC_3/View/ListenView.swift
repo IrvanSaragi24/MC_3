@@ -145,5 +145,6 @@ struct ListenView_Previews: PreviewProvider {
         ListenView()
             .environmentObject(multipeerController) // Use the same instance
             .environmentObject(playerData)
+            .environmentObject(LobbyViewModel())
     }
 }

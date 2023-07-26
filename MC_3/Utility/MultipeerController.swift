@@ -37,6 +37,7 @@ class MultipeerController: NSObject, ObservableObject {
     @Published var receivedQuestion: String = "QuestionDefault"
     var isReferee: Bool = false
     var isHost : Bool = false
+    var isChoosingView: Bool = false
     
     init(_ displayName: String) {
         myPeerId = MCPeerID(displayName: displayName)
@@ -248,7 +249,7 @@ extension MultipeerController: MCSessionDelegate {
                     } else if message == MsgCommandConstant.startQuiz {
                         DispatchQueue.main.async { [weak self] in
                             // Handle the "Start Quiz" command
-                            self?.gameState = .choosingPlayer
+                            self?.isChoosingView = true
                         }
                     } else if message == MsgCommandConstant.disconnect {
                         DispatchQueue.main.async { [weak self] in
