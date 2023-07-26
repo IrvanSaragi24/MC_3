@@ -17,7 +17,9 @@ struct ListenView: View {
     var body: some View {
         NavigationView {
             ZStack{
+//                Color.clear.backgroundStyle()
                 BubbleView()
+                    .ignoresSafeArea()
                 VStack (spacing : 16) {
                     VStack{
                         //                        if let peerID = multipeerController.hostPeerID {
