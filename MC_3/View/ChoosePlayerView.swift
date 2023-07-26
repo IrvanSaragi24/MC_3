@@ -13,56 +13,108 @@ struct ChoosePlayerView: View {
     @EnvironmentObject private var playerData: PlayerData
     @State var question: String = "Question Default Text"
     @State private var isActive: Bool = false
+    @State private var progressValue: Float = 0.0
+    private let totalProgress: Float = 100.0
+    private let updateInterval: TimeInterval = 0.05
+    private let targetProgress: Float = 100.0
     
-
+    
     var body: some View {
         NavigationView {
-        VStack {
-            Spacer()
-            Image(systemName: "person.3.fill")
-            Spacer()
-            Text("Choosing...")
-            Spacer()
-            Text("Question")
-            Text(question)
-            Text("1/3")
-//            NavigationLink(
-//                destination: AskedView() // TODO: confirm where this button goes?
-//            )
-//            {
-//                Label("", systemImage: "gobackward")
-//            }
-            .buttonStyle(MultipeerButtonStyle())
-            .onTapGesture {
+            ZStack{
+                BubbleView()
+                VStack {
+                    VStack(spacing : 30){
+                        Circle()
+                            .stroke(Color("Second"), lineWidth : 8)
+                            .frame(width: 234)
+                            .overlay {
+                                Image(systemName: "person.3.fill")
+                                    .resizable()
+                                    .frame(width: 132, height: 63)
+                                    .foregroundColor(Color("Second"))
+                            }
+                        Text("Chososing...")
+                            .font(.system(size: 32, weight: .bold))
+                            .foregroundColor(Color("Second"))
+                        ProgressView(value: progressValue, total: totalProgress)
+                            .progressViewStyle(LinearProgressViewStyle(tint: Color("Second")))
+                            .frame(width: 234, height: 4)
+                            .onAppear {
+                                startUpdatingProgress()
+                            }
+                        ZStack{
+                            RoundedRectangle(cornerRadius: 12)
+                                .frame(width: 290, height: 168)
+                                .foregroundColor(Color("Second"))
+                                .overlay {
+                                    Text("Siapa yang tadi ngomongin:“tadi bukannya dia dapet Ravenclaw ya?”")
+                                        .font(.system(size: 20, weight: .medium))
+                                        .multilineTextAlignment(.center)
+                                }
+                            Capsule()
+                                .stroke(Color("Second"), lineWidth: 3)
+                                .frame(width: 120, height: 28)
+                                .overlay {
+                                    Capsule()
+                                        .foregroundColor(Color("Background"))
+                                    Text("Question")
+                                        .foregroundColor(Color("Second"))
+                                        .font(.system(size: 16, weight: .bold))
+                                }
+                                .padding(.bottom, 160)
+                            Circle()
+                                .stroke(Color("Second"), lineWidth : 4)
+                                .frame(width: 50)
+                                .overlay{
+                                    Circle()
+                                        .foregroundColor(Color("Background"))
+                                    Text("1/3")
+                                        .font(.system(size: 16, weight: .semibold))
+                                        .foregroundColor(Color("Second"))
+                                    
+                                }
+                                .padding(.top, 170)
+                            
+                        }
+                    }
+//                    NavigationLink(
+//                        destination: AskedView() // TODO: confirm where this button goes?
+//                    )
+//                    {
+//                        Label("", systemImage: "gobackward")
+//                    }
+//                    .buttonStyle(MultipeerButtonStyle())
+//                    .onTapGesture {
+//
+//                    }
+//                    NavigationLink(
+//                        destination: multipeerController.isReferee ? AnyView(RefereeView()) : AnyView(AskedView()),
+//                        isActive: $isActive,
+//                        label: {
+//                            EmptyView()
+//                        }
+//                    ).onAppear {
+//
+//                        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+//                            isActive = true
+//                        }
+//                    }
+                    
+                }
                 
             }
-//            NavigationLink(
-//                destination: multipeerController.isReferee ? AnyView(RefereeView()) : AnyView(AskedView()),
-//                isActive: $isActive,
-//                label: {
-//                    EmptyView()
-//                }
-//            )
-            .onReceive(multipeerController.$receivedQuestion) { receivedQuestion in
-                if multipeerController.hostPeerID != nil {
-                    self.question = receivedQuestion
-                }
-                else {
-                    self.question = lobbyViewModel.lobby.question!
-                }
-            }
-//            .onChange(of: multipeerController.receivedQuestion) { newReceivedQuestion in
-//                    if multipeerController.hostPeerID != nil {
-//                        self.question = multipeerController.receivedQuestion
-//                    }
-//            }
-            .onAppear{
-                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                    isActive = true
-                }
-            }
+            
         }
     }
+    func startUpdatingProgress() {
+        Timer.scheduledTimer(withTimeInterval: updateInterval, repeats: true) { timer in
+            if progressValue < targetProgress {
+                progressValue += 1.0
+            } else {
+                timer.invalidate() // Stop the timer when reaching the target progress
+            }
+        }
     }
 }
 
