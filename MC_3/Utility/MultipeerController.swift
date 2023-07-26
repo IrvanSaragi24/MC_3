@@ -36,6 +36,7 @@ class MultipeerController: NSObject, ObservableObject {
     @Published var gameState: GameState = .waitingForInvitation
     @Published var receivedQuestion: String?
     var isReferee: Bool = false
+    var isHost : Bool = false
     
     init(_ displayName: String) {
         myPeerId = MCPeerID(displayName: displayName)
@@ -63,7 +64,7 @@ class MultipeerController: NSObject, ObservableObject {
         }
     }
     
-    var isHost : Bool = false
+    
     /*
     func startAdvertising() {
         advertiser.startAdvertisingPeer()
@@ -132,13 +133,8 @@ class MultipeerController: NSObject, ObservableObject {
             
             if let index = self?.allGuest.firstIndex(where: { $0.id == peerToRemove }) {
                 self?.allGuest[index].status = .discovered
-            } else {
-                print("Person with name 'Tono' not found.")
             }
         }
-//        DispatchQueue.main.async { [weak self] in
-//            self?.allGuest.append(guest)
-//        }
     }
     
 }
@@ -261,6 +257,14 @@ extension MultipeerController: MCSessionDelegate {
                             self?.gameState = .waitingForInvitation
                             self?.isAdvertising = true
                             
+                        }
+                    } else if message == MsgCommandConstant.updateRefereeTrue {
+                        DispatchQueue.main.async { [weak self] in
+                            self?.isReferee = true
+                        }
+                    } else if message == MsgCommandConstant.updateRefereeFalse {
+                        DispatchQueue.main.async { [weak self] in
+                            self?.isReferee = false
                         }
                     }
                     else {
