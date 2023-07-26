@@ -91,9 +91,33 @@ struct ChoosingView: View {
                 })
             }
         }
-        .onAppear{
+        .onAppear() {
             // Trigger haptic feedback with the custom pattern
             hapticViewModel.triggerThrillingHaptic()
+            // yang host2 aja gaes
+            if multipeerController.isHost {
+            
+                lobbyViewModel.getQuestion()
+                let typeData = "question"
+                let message = "\(lobbyViewModel.lobby.question ?? ""):\(typeData)"
+                
+                var connectedGuest = multipeerController.getConnectedPeers()
+                let randomInt = Int.random(in: 0...connectedGuest.count)
+                
+                if randomInt == connectedGuest.count {
+                    // host jadi player
+//                    multipeerController.sendMessage(message, to: connectedGuest)
+                }
+                else {
+                    
+                }
+                
+                //            let typeData = "question"
+                //            let message = "\(lobbyViewModel.lobby.question ?? ""):\(typeData)"
+                //
+                //            // Kirim pesan ke semua peer yang terhubung
+                //            multipeerController.sendMessage(message, to: connectedGuest)
+            }
         }
         .onReceive(multipeerController.$receivedQuestion) { receivedQuestion in
             if multipeerController.hostPeerID != nil {
@@ -123,7 +147,7 @@ struct ChoosingView: View {
 struct ChoosingView_Previews: PreviewProvider {
     static var previews: some View {
         let player = Player(name: "Player", lobbyRole: .host, gameRole: .asked)
-        var playerData = PlayerData(mainPlayer: player, playerList: [player])
+        let playerData = PlayerData(mainPlayer: player, playerList: [player])
         let lobbyViewModel = LobbyViewModel()
         let multipeerController = MultipeerController("YourDisplayName")
 

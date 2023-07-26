@@ -76,5 +76,9 @@ class LobbyViewModel: ObservableObject {
             print("Error loading or decoding JSON: \(error)")
         }
     }
+    
+    func getRandomPlayer(countPlayer: Int) {
+        
+    }
 
 }
