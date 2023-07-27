@@ -10,11 +10,17 @@ import SwiftUI
 struct LoadingView: View {
     @State private var IsWaiting : Bool = false
     @State var textWait : String
+    @State var cicleSize : CGFloat
+    @State var LineWidtCircle : CGFloat
+    @State var LineWidtCircle2 : CGFloat
+    
+    
     
     var body: some View {
      
         ZStack{
             Color.clear.backgroundStyle()
+               
            
                 
             Circle()
@@ -31,22 +37,24 @@ struct LoadingView: View {
                 ZStack{
                     
                     Circle()
-                        .stroke(Color("Second"), lineWidth : 40)
-                        .frame(width: 166)
+                        .stroke(Color("Second"), lineWidth : LineWidtCircle)
+                        .frame(width: cicleSize)
                         .opacity(0.4)
                     Circle()
                         .trim(from: 0.4, to: 0.8)
-                        .stroke( Color("Second"), style: StrokeStyle(lineWidth: 35, lineCap: .round))
-                        .frame(width: 166)
+                        .stroke( Color("Second"), style: StrokeStyle(lineWidth: LineWidtCircle2, lineCap: .round))
+                        .frame(width: cicleSize)
                         .rotationEffect(Angle(degrees: IsWaiting ? 0 : -360))
                         .animation(Animation.linear(duration: 2)
                         .repeatForever(autoreverses: false))
                 }
+
                 
                 Text(textWait)
                     .foregroundColor(Color("Second"))
                     .font(.system(size: 24, weight: .medium))
             }
+           
             .padding(.top, 50)
         }
         .onAppear{
@@ -57,6 +65,6 @@ struct LoadingView: View {
 
 struct LoadingView_Previews: PreviewProvider {
     static var previews: some View {
-        LoadingView(textWait: "")
+        LoadingView(textWait: "Hello", cicleSize: 166, LineWidtCircle: 40, LineWidtCircle2: 35)
     }
 }

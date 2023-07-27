@@ -28,6 +28,7 @@
 		E2AD0EB92A60EDE300E76ED3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2AD0EB82A60EDE300E76ED3 /* Preview Assets.xcassets */; };
 		E2B122552A6FBB7C00E8606C /* ChossingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B122542A6FBB7C00E8606C /* ChossingView.swift */; };
 		E2B122572A6FDD2B00E8606C /* ResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B122562A6FDD2B00E8606C /* ResultView.swift */; };
+		E2B337372A71237600F9384D /* Try.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B337362A71237600F9384D /* Try.swift */; };
 		EC8318702A65F1A200BD3A7E /* Lobby.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC83186F2A65F1A200BD3A7E /* Lobby.swift */; };
 		EC8318722A66050C00BD3A7E /* ChooseRoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8318712A66050C00BD3A7E /* ChooseRoleView.swift */; };
 		EC8318742A66A11B00BD3A7E /* LobbyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8318732A66A11B00BD3A7E /* LobbyView.swift */; };
@@ -67,6 +68,7 @@
 		E2AD0EB82A60EDE300E76ED3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		E2B122542A6FBB7C00E8606C /* ChossingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChossingView.swift; sourceTree = "<group>"; };
 		E2B122562A6FDD2B00E8606C /* ResultView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultView.swift; sourceTree = "<group>"; };
+		E2B337362A71237600F9384D /* Try.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Try.swift; sourceTree = "<group>"; };
 		EC83186F2A65F1A200BD3A7E /* Lobby.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lobby.swift; sourceTree = "<group>"; };
 		EC8318712A66050C00BD3A7E /* ChooseRoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseRoleView.swift; sourceTree = "<group>"; };
 		EC8318732A66A11B00BD3A7E /* LobbyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyView.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 		E2AD0EA52A60EDE100E76ED3 = {
 			isa = PBXGroup;
 			children = (
+				E2B337362A71237600F9384D /* Try.swift */,
 				E2AD0EB02A60EDE100E76ED3 /* MC_3 */,
 				E2AD0EAF2A60EDE100E76ED3 /* Products */,
 			);
@@ -282,6 +285,7 @@
 				A3E9052E2A6EF4BF007A0E2A /* AudioViewModel.swift in Sources */,
 				E2B122572A6FDD2B00E8606C /* ResultView.swift in Sources */,
 				E2AD0EB42A60EDE100E76ED3 /* ContentView.swift in Sources */,
+				E2B337372A71237600F9384D /* Try.swift in Sources */,
 				EC8318742A66A11B00BD3A7E /* LobbyView.swift in Sources */,
 				EC8318722A66050C00BD3A7E /* ChooseRoleView.swift in Sources */,
 				A3E905322A6F4B00007A0E2A /* LobbyViewModel.swift in Sources */,

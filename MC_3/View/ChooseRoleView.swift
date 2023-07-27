@@ -26,7 +26,7 @@ struct ChooseRoleView: View {
                         .foregroundColor(Color("Second"))
                         .font(.system(size: 36, weight: .regular))
                         .fontWeight(.bold)
-                        .padding(.bottom, 63)
+//                        .padding(.top, 40)
                     if isWaiting {
                         switch multipeerController.gameState {
                         case .listening:
@@ -34,6 +34,7 @@ struct ChooseRoleView: View {
                                 .environmentObject(lobbyViewModel)
                                 .environmentObject(multipeerController)
                                 .environmentObject(playerData)
+                                .padding(.bottom, 100)
                         case .choosingPlayer:
                             ChoosingView()
                                 .environmentObject(lobbyViewModel)
@@ -61,13 +62,19 @@ struct ChooseRoleView: View {
                                         
                                     }
                                     .foregroundColor(Color("Second"))
+                                Image("Phone")
+                                    .padding(.top, 20)
                             }
-                            LoadingView(textWait: "Wait for the host to start...")
-                                .padding()
-                            ///
-                            //                        case .waitingForInvitation:
+                            .padding(.top, 40)
+                            Text("Wait for the host to start...")
+                                .foregroundColor(Color("Second"))
+                                .font(.system(size: 30, weight: .light))
+                                .padding(.top, 50)
+                            LoadingView(textWait: "", cicleSize: 38, LineWidtCircle: 5, LineWidtCircle2: 3)
+
+                           
                         case .waitingForInvitation:
-                            LoadingView(textWait: "Wait to be invited by the host...")
+                            LoadingView(textWait: "Wait to be invited by the host...",cicleSize: 166, LineWidtCircle: 40, LineWidtCircle2: 35)
                                 .padding(.bottom, 200)
                             
 //                        default:
@@ -141,23 +148,12 @@ struct ChooseRoleView: View {
                     }
                 }
             }
-            //            .navigationTitle("\(playerData.mainPlayer.name) Choose Your Role")
         }
         
     }
 }
 
-//struct LoaderView: View {
-//    var tintColor: Color = .blue
-//    var scaleSize: CGFloat = 1.0
-//
-//    var body: some View {
-//        ProgressView()
-//            .scaleEffect(scaleSize, anchor: .center)
-//            .progressViewStyle(CircularProgressViewStyle(tint: tintColor))
-//
-//    }
-//}
+
 
 struct ChooseRoleView_Previews: PreviewProvider {
     static let player = Player(name: "Player", lobbyRole: .noLobbyRole, gameRole: .asked)
