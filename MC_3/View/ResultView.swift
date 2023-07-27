@@ -185,9 +185,6 @@ struct ResultView: View {
                 if multipeerController.lobby.numberOfQuestion == multipeerController.lobby.currentQuestionIndex {
                     isDoneAllQuestion = true
                 }
-                
-                print("multipeerController.lobby.currentQuestionIndex: \(multipeerController.lobby.currentQuestionIndex)")
-                print("multipeerController.lobby.numberOfQuestion: \(multipeerController.lobby.numberOfQuestion)")
             }
         }
         
