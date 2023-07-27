@@ -24,6 +24,15 @@ struct MultipeerButtonStyle: ButtonStyle {
   }
 }
 
+struct HeaderButtonStyle : ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .foregroundColor(.white)
+            .font(.headline)
+            .padding(8)
+    }
+}
+
 
 struct ChatMessageButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
