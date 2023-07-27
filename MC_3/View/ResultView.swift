@@ -44,7 +44,7 @@ struct ResultView: View {
         {
             ZStack {
                 BubbleView()
-                VStack(spacing : 20) {
+                VStack(spacing : 10) {
                     ZStack{
                         RoundedRectangle(cornerRadius: 12)
                             .frame(width: 170, height: 60)
@@ -52,9 +52,8 @@ struct ResultView: View {
                             .overlay {
                                 Text("\(multipeerController.myPeerId.displayName)")
                                     .frame(width: 170, height: 60)
-                                    .font(.system(size: 32, design: .rounded))
+                                    .font(.system(size: 24, design: .rounded))
                                     .fontWeight(.bold)
-                                //                                .fontWeight(.bold)
                                     .foregroundColor(Color("Background"))
                                     .multilineTextAlignment(.center)
                             }
@@ -64,19 +63,20 @@ struct ResultView: View {
                             .overlay {
                                 Capsule()
                                     .foregroundColor(Color("Background"))
-                                Text(multipeerController.isPlayer ? "PLAYER" : "REFEREE")
+                                Text("PLAYER")
                                     .foregroundColor(Color("Second"))
-                                    .font(.system(size: 9, weight: .bold))
+                                    .font(.system(size: 10, design: .rounded))
+                                    .fontWeight(.bold)
                                 
                             }
                             .padding(.bottom, 55)
-                        
                     }
+                    
                     Image(isWin ? "Anjayy" : "Noob" )
                         .resizable()
                         .frame(width: 278, height: 278)
                     Text(isWin ? "\(multipeerController.currentPlayer) Here \n\(multipeerController.currentPlayer) Hears" : "Find a New \nFriend" )
-                        .font(.system(size: 32, design: .rounded))
+                        .font(.system(size: 28, design: .rounded))
                         .fontWeight(.bold)
                         .foregroundColor(Color("Second"))
                         .multilineTextAlignment(.center)
@@ -102,8 +102,9 @@ struct ResultView: View {
                                 }
                             }
                         Capsule()
-                            .stroke(Color("Second"), lineWidth: 3)
-                            .frame(width: 120, height: 28)                        .overlay {
+                            .stroke(Color("Second"), lineWidth: 4)
+                            .frame(width: 120, height: 28)
+                            .overlay {
                                 Capsule()
                                     .foregroundColor(Color("Background"))
                                 Text(isWin ? "Anjayy" : "Noob" )
@@ -114,13 +115,14 @@ struct ResultView: View {
                             .padding(.bottom, 160)
                         Circle()
                             .stroke(Color("Second"), lineWidth : 4)
-                            .frame(width: 100)
+                            .frame(width: 60)
                             .overlay{
                                 Circle()
+                                    .frame(width: 60)
                                     .foregroundColor(Color("Background"))
                                 Text("\(multipeerController.lobby.currentQuestionIndex) / \(multipeerController.lobby.numberOfQuestion)")
                                     .font(.system(size: 16, design: .rounded))
-                                    .fontWeight(.bold)
+                                    .fontWeight(.semibold)
                                     .foregroundColor(Color("Second"))
                                 
                             }
