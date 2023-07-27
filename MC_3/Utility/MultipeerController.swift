@@ -35,6 +35,9 @@ class MultipeerController: NSObject, ObservableObject {
     @Published var allGuest: [Guest] = []
     @Published var gameState: GameState = .waitingForInvitation
     @Published var receivedQuestion: String = "QuestionDefault"
+    @Published var nonNullVotes: Int = 0
+    @Published var currentQuestionIndex: Int = 0
+    
     var isPlayer: Bool = false
     var isHost : Bool = false
     var isChoosingView: Bool = false
@@ -274,20 +277,22 @@ extension MultipeerController: MCSessionDelegate {
                         // Handle other types of commands or messages if needed
                     }
                 } else if components.count == 2 {
-                    let question = components[0]
                     let typeData = components[1]
 
                     if typeData == "question" {
                         DispatchQueue.main.async { [weak self] in
                             // Handle the received question
-                            self!.receivedQuestion = question
+                            self!.receivedQuestion = components[0]
                         }
                     } else if typeData == "VoteStatus" {
                         // Handle other types of data if needed
-                        let voteStatus = VoteStatus(rawValue: components[0])
-                        let vote = Vote(voterID: peerID, status: voteStatus ?? .null)
-                        updateVotes(vote: vote)
-
+                        DispatchQueue.main.async {
+                            let voteStatus = VoteStatus(rawValue: components[0])
+                            let vote = Vote(voterID: peerID, status: voteStatus!)
+                            print("Vote : \(vote)")
+                            self.updateVotes(vote: vote)
+                            self.nonNullVotes = self.countNonNullVotes()
+                        }
                         // Update UI with live vote count
 //                        let yesVotes = countYesVotes()
 //                        let noVotes = countNoVotes()
@@ -381,13 +386,14 @@ extension MultipeerController {
     // Function to update votes when a vote is received from a guest
     func updateVotes(vote: Vote) {
         DispatchQueue.main.async {
-            if let index = self.votes.firstIndex(where: { $0.voterID == vote.voterID }) {
+//            if let index = self.votes.firstIndex(where: { $0.voterID == vote.voterID }) {
                 // Remove the existing vote for the same voterID
-                self.votes[index].status = vote.status
-            } else {
+//                self.votes[index].status = vote.status
+//            } else {
                 // Add the vote to the votes array
                 self.votes.append(vote)
-            }
+            self.nonNullVotes = self.countNonNullVotes()
+//            }
         }
     }
 
