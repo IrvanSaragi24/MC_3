@@ -23,7 +23,7 @@ struct AskedView: View {
     var body: some View {
         ZStack{
             BubbleView()
-            VStack(spacing : 20) {
+            VStack(spacing : 10) {
                 ZStack{
                     RoundedRectangle(cornerRadius: 12)
                         .frame(width: 170, height: 60)
@@ -75,9 +75,10 @@ struct AskedView: View {
                         .padding(.bottom, 160)
                     Circle()
                         .stroke(Color("Second"), lineWidth : 4)
-                        .frame(width: 100)
+                        .frame(width: 60)
                         .overlay{
                             Circle()
+                                .frame(width: 60)
                                 .foregroundColor(Color("Background"))
                             Text("\(lobbyViewModel.lobby.currentQuestionIndex) / \(lobbyViewModel.lobby.numberOfQuestion)")
                                 .font(.system(size: 16, weight: .semibold))
@@ -111,7 +112,7 @@ struct AskedView: View {
     }
     
     func animateDots() {
-        var count = 1
+        var count = 0
         dots = ""
         
         func addDot() {

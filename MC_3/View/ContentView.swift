@@ -51,7 +51,7 @@ struct ContentView: View {
                         ZStack{
                             Capsule()
                                 .stroke(Color("Second"), lineWidth : 2)
-                                .frame(width: 358, height: 47)
+                                .frame(width: 314, height: 47)
                                 .overlay {
                                     Capsule()
                                         .foregroundColor(Color("Main"))
