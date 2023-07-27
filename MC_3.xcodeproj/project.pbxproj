@@ -47,6 +47,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A37E2CB62A72237400CE935F /* MC-3-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "MC-3-Info.plist"; sourceTree = SOURCE_ROOT; };
 		A39597B22A70A0E100007F82 /* ChoosingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosingView.swift; sourceTree = "<group>"; };
 		A39597B42A70CF1B00007F82 /* SynthesizerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynthesizerViewModel.swift; sourceTree = "<group>"; };
 		A39597B62A70D8E100007F82 /* HapticViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticViewModel.swift; sourceTree = "<group>"; };
@@ -166,6 +167,7 @@
 		E2AD0EB02A60EDE100E76ED3 /* MC_3 */ = {
 			isa = PBXGroup;
 			children = (
+				A37E2CB62A72237400CE935F /* MC-3-Info.plist */,
 				E2B337382A7171CB00F9384D /* SplashScreenView.swift */,
 				E2AD0EB12A60EDE100E76ED3 /* MC_3App.swift */,
 				ECAE9AA42A65528400E46A34 /* Utility */,
@@ -436,6 +438,7 @@
 				DEVELOPMENT_TEAM = K6G57A2975;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "MC-3-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -465,6 +468,7 @@
 				DEVELOPMENT_TEAM = K6G57A2975;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "MC-3-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
