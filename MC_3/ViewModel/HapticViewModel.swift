@@ -11,12 +11,28 @@ import CoreHaptics
 class HapticViewModel: ObservableObject {
     private var engine: CHHapticEngine?
     
+    // check device compatibility
+    lazy var supportHaptics: Bool = {
+        return CHHapticEngine.capabilitiesForHardware().supportsHaptics
+    }()
+    
     init() {
         do {
             engine = try CHHapticEngine()
             try engine?.start()
         } catch {
             print("Error starting haptic engine: \(error)")
+        }
+    }
+    
+    func prepareHaptics() {
+        guard supportHaptics else { return }
+        
+        do {
+            engine = try CHHapticEngine()
+            try engine?.start()
+        } catch {
+            print("There was an error creating the engine: \(error.localizedDescription)")
         }
     }
     
