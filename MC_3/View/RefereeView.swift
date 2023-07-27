@@ -62,12 +62,13 @@ struct RefereeView: View {
                             .padding(.bottom, 55)
                         
                     }
-                    Image("ImageReferee")
-                        .resizable()
-                        .frame(width: 234, height: 234)
+//                    .padding(.bottom, 50)
                     
                     
                     ZStack{
+                        GifImage("Time")
+                        .frame(width: 400, height: 400)
+                        .padding(.bottom, 350)
                         ZStack{
                             Text(vibrateOnRing || vibrateOnRing1 ? "Wait for referees to vote \nVoting : \(multipeerController.nonNullVotes)/\(multipeerController.getConnectedPeers().count)\(dots)" : "Judge The \n Player")
                             
@@ -108,7 +109,8 @@ struct RefereeView: View {
                             .multilineTextAlignment(.center)
                             .padding(.top, 350)
                     }
-                }
+                    .padding(.bottom, 50)
+                }.padding(.top, 200)
             }
         }
     }
