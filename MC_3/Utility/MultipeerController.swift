@@ -49,7 +49,7 @@ class MultipeerController: NSObject, ObservableObject {
     var isHost : Bool = false
     var isChoosingView: Bool = false
     var isResultView: Bool = false
-    var isEndView: Bool = false
+    @Published var isEndView: Bool = false
     var isWin: Bool = true
     
     @Published var votes: [Vote] = []
