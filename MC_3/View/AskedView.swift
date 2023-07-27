@@ -45,7 +45,7 @@ struct AskedView: View {
                 Image(AnswerNo ? "Noob" : "Anjayy")
                     .resizable()
                     .frame(width: 278, height: 278)
-                Text("Waiting for Judges to vote \nVoting : 4/6\(dots)")
+                Text("Wait for referees to vote \nVoting : \(multipeerController.nonNullVotes)/\(multipeerController.getConnectedPeers().count)\(dots)")
                     .font(.system(size: 28, weight: .bold))
                     .foregroundColor(Color("Second"))
                     .multilineTextAlignment(.center)

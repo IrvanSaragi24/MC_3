@@ -130,15 +130,17 @@ struct ListenView: View {
             
             let objekIndex = lobbyViewModel.getQuestion(candidates: candidates)
             
+            multipeerController.receivedQuestion = lobbyViewModel.lobby.question!
+            
             if objekIndex == candidates.count-1 {
                 // host yg kepilih jadi object
-                
             }
             
             multipeerController.sendMessage(MsgCommandConstant.startQuiz, to: connectedGuest)
             
             startGame = true
             lobbyViewModel.lobby.currentQuestionIndex += 1
+            
             connectedGuest = multipeerController.allGuest
                 .filter { $0.status == .connected }
                 .map { $0.id }
@@ -151,6 +153,10 @@ struct ListenView: View {
             multipeerController.sendMessage(message, to: connectedGuest)
             
             multipeerController.isChoosingView = true
+        }
+        else{
+            multipeerController.currentQuestionIndex += 1
+            lobbyViewModel.lobby.currentQuestionIndex = multipeerController.currentQuestionIndex
         }
     }
 }

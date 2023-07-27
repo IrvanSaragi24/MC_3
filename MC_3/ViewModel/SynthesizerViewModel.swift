@@ -13,7 +13,7 @@ class SynthesizerViewModel: ObservableObject {
     let synthesizer = AVSpeechSynthesizer()
     
     // Retrieve the British English voice.
-    let voice = AVSpeechSynthesisVoice(language: "en-GB")
+    let voice = AVSpeechSynthesisVoice(language: "id-ID")
     
     func startSpeaking(spokenString: String){
         // Create an utterance.
