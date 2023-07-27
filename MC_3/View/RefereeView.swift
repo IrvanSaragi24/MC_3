@@ -58,6 +58,7 @@ struct RefereeView: View {
                 
                 
                 ZStack{
+                ZStack{
                     Text(vibrateOnRing || vibrateOnRing1 ? "Wait for referees to vote \nVoting : \(multipeerController.nonNullVotes)/\(multipeerController.getConnectedPeers().count)\(dots)" : "Judge The \n Player")
                         .font(.system(size:vibrateOnRing || vibrateOnRing1 ?  20 : 32 , weight: .bold))
                         .multilineTextAlignment(.center)
