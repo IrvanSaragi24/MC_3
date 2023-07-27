@@ -10,6 +10,13 @@ import SwiftUI
 
 
 struct ResultView: View {
+    var screenWidth: CGFloat {
+        UIScreen.main.bounds.width
+    }
+    
+    var screenHeight: CGFloat {
+        UIScreen.main.bounds.height
+    }
     //    @State private var AnswerNo : Bool = false
     @StateObject var synthesizerViewModel = SynthesizerViewModel()
     @EnvironmentObject var lobbyViewModel: LobbyViewModel
@@ -38,38 +45,6 @@ struct ResultView: View {
             ZStack {
                 BubbleView()
                 VStack(spacing : 20) {
-                    if multipeerController.isPlayer {
-                        Button {
-                            
-                            let connectedGuest = multipeerController.getConnectedPeers()
-                            
-                            if isDoneAllQuestion {
-                                // Go to End
-                                multipeerController.sendMessage(MsgCommandConstant.updateIsEndViewTrue, to: connectedGuest)
-                                multipeerController.isEndView = true
-                                
-                            }
-                            else {
-                                // reset previous setting
-                                
-                                multipeerController.sendMessage(MsgCommandConstant.resetAllVarToDefault, to: connectedGuest)
-                                multipeerController.resetVarToDefault()
-                                
-                                multipeerController.sendMessage(MsgCommandConstant.updateIsChoosingViewTrue, to: connectedGuest)
-                                multipeerController.isChoosingView = true
-                            }
-                            print("isDoneAllQuestion: \(isDoneAllQuestion)")
-                            print("multipeerController.isEndView: \(multipeerController.isEndView)")
-                            print("multipeerController.isChoosingView: \(multipeerController.isChoosingView)")
-                            
-                        } label: {
-                            Text(isDoneAllQuestion ? "Continue" : "Next")
-                                .font(.system(size: 28, weight : .bold))
-                        }
-                        .buttonStyle(MultipeerButtonStyle())
-                        .padding(.top, 20)
-                        
-                    }
                     ZStack{
                         RoundedRectangle(cornerRadius: 12)
                             .frame(width: 170, height: 60)
@@ -171,7 +146,38 @@ struct ResultView: View {
                     }
                     
                 }
-                Spacer()
+                .padding(.top, 40)
+                
+                if multipeerController.isPlayer {
+                    Button {
+                        
+                        let connectedGuest = multipeerController.getConnectedPeers()
+                        
+                        if isDoneAllQuestion {
+                            // Go to End
+                            multipeerController.sendMessage(MsgCommandConstant.updateIsEndViewTrue, to: connectedGuest)
+                            multipeerController.isEndView = true
+                            
+                        }
+                        else {
+                            // reset previous setting
+                            
+                            multipeerController.sendMessage(MsgCommandConstant.resetAllVarToDefault, to: connectedGuest)
+                            multipeerController.resetVarToDefault()
+                            
+                            multipeerController.sendMessage(MsgCommandConstant.updateIsChoosingViewTrue, to: connectedGuest)
+                            multipeerController.isChoosingView = true
+                        }
+                        
+                    } label: {
+                        Text(isDoneAllQuestion ? "Continue >" : "Next >")
+                            .font(.system(size: 14, weight : .bold))
+                    }
+                    .buttonStyle(HeaderButtonStyle())
+                    .padding(.bottom, screenHeight * 0.85)
+                    .padding(.leading, screenWidth * 0.7)
+                    
+                }
             }
             .onAppear() {
                 if multipeerController.lobby.numberOfQuestion == multipeerController.lobby.currentQuestionIndex {
@@ -210,7 +216,7 @@ struct ResultView_Previews: PreviewProvider {
     static let multipeerController = MultipeerController("YourDisplayName")
     
     static var previews: some View {
-        ResultView(isWin: true)
+        ResultView(isWin: false)
             .environmentObject(multipeerController)
             .environmentObject(playerData)
             .environmentObject(LobbyViewModel())
