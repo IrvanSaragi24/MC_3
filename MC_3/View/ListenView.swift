@@ -136,7 +136,7 @@ struct ListenView: View {
                 // host yg kepilih jadi object
             }
             
-            multipeerController.sendMessage(MsgCommandConstant.startQuiz, to: connectedGuest)
+            multipeerController.sendMessage(MsgCommandConstant.updateIsChoosingViewTrue, to: connectedGuest)
             
             startGame = true
             lobbyViewModel.lobby.currentQuestionIndex += 1

@@ -22,11 +22,6 @@ struct ChooseRoleView: View {
             ZStack {
                 Color.clear.backgroundStyle()
                 VStack {
-                    Text("HANGOUT MODE")
-                        .foregroundColor(Color("Second"))
-                        .font(.system(size: 36, weight: .regular))
-                        .fontWeight(.bold)
-//                        .padding(.top, 40)
                     if isWaiting {
                         switch multipeerController.gameState {
                         case .listening:
@@ -84,12 +79,20 @@ struct ChooseRoleView: View {
                     }
                     
                     else {
+                        Text("HANGOUT MODE")
+                            .foregroundColor(Color("Second"))
+                            .font(.system(size: 36, weight: .regular))
+                            .fontWeight(.bold)
+                            .padding(.bottom, 63)
+                        
                         Button(action: {
                             multipeerController.isHost = true
+                            multipeerController.lobby.name = multipeerController.myPeerId.displayName
                             playerData.mainPlayer.lobbyRole = .host
                             lobbyViewModel.lobby.name = playerData.mainPlayer.name
                             lobby.name = playerData.mainPlayer.name
                             isLobbyViewActive = true // Activate the NavigationLink programmatically
+                            
                         }) {
                             ZStack {
                                 Circle()
