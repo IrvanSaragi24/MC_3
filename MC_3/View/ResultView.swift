@@ -10,11 +10,14 @@ import SwiftUI
 
 
 struct ResultView: View {
-    @State private var AnswerNo : Bool = false
+    @State private var AnswerNo : Bool = true
     
     var body: some View {
         ZStack{
             BubbleView()
+            GifImage(AnswerNo ? "Huh!" : "Cool")
+            .frame(width: 300, height: 300)
+            .padding(.bottom, 170)
             VStack(spacing : 20) {
                 ZStack{
                     RoundedRectangle(cornerRadius: 12)
@@ -36,9 +39,7 @@ struct ResultView: View {
                         .font(.system(size: 32, design: .rounded))
                         .fontWeight(.bold)
                 }
-                Image(AnswerNo ? "Noob" : "Anjayy")
-                    .resizable()
-                    .frame(width: 278, height: 278)
+                .padding(.bottom, 300)
                 Text(AnswerNo ? "Find a New \nFriend" : "Sayed’s Here \nSayed Hears")
                     .font(.system(size: 32, design: .rounded))
                     .fontWeight(.bold)
@@ -100,7 +101,8 @@ struct ResultView: View {
                 }
                 
             }
-            Spacer()
+            
+//            Spacer()
         }
     }
 }
