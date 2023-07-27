@@ -13,7 +13,8 @@ struct EndGameView: View {
             BubbleView()
             VStack(spacing : 16){
                 Text("CONTINUE\nHANGOUT?")
-                    .font(.system(size: 40, weight: .bold))
+                    .font(.system(size: 40, design: .rounded))
+                    .fontWeight(.bold)
                     .foregroundColor(Color("Second"))
                     .multilineTextAlignment(.center)
                     .padding(.bottom, 100)
@@ -22,7 +23,8 @@ struct EndGameView: View {
                     print("Continue Listening")
                 } label: {
                     Text("Continue")
-                        .font(.system(size: 28, weight: .bold))
+                        .font(.system(size: 28, design: .rounded))
+                        .fontWeight(.bold)
                 }
                 .buttonStyle(MultipeerButtonStyle())
                
@@ -34,7 +36,8 @@ struct EndGameView: View {
                         .frame(width: 314, height: 48)
                         .overlay {
                             Text("Stop")
-                                .font(.system(size: 28, weight: .bold))
+                                .font(.system(size: 28, design: .rounded))
+                                .fontWeight(.bold)
                                 .foregroundColor(Color("Second"))
                         }
                     

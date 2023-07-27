@@ -30,21 +30,22 @@ struct LobbyView: View {
                     .ignoresSafeArea()
                     .padding(.top, 130)
                 Text("8 player \n maximum limit")
-                    .font(.system(size: 36, weight: .bold))
+                    .font(.system(size: 36, weight: .bold,design: .rounded))
                     .multilineTextAlignment(.center)
                     .foregroundColor(Color("Second"))
-                    .opacity(0.3)
+                    .opacity(multipeerController.allGuest.count == 0 ? 0.3 : 0.0)
                 VStack (spacing : 25){
                     Text("Lobby")
                         .foregroundColor(Color("Second"))
-                        .font(.system(size: 38, weight: .bold))
+                        .font(.system(size: 38, design: .rounded))
+                        .fontWeight(.bold)
                     HStack(spacing : 30){
                         RoundedRectangle(cornerRadius: 10)
                             .frame(width: 148, height: 40)
                             .foregroundColor(.white)
                             .overlay {
                                 HStack {
-                                    Text("Silent period:")
+                                    Text("Silent Period:")
                                         .font(.system(size: 15, weight: .medium))
                                         .frame(width: 100)
                                     Picker("Silent Period", selection: $lobbyViewModel.lobby.silentDuration) {
@@ -55,19 +56,8 @@ struct LobbyView: View {
                                     }
                                     .pickerStyle(MenuPickerStyle())
                                 }
+                                .foregroundColor(.black)
                             }
-                        //                            .overlay {
-                        //                                HStack {
-                        //                                    Text("Silent period")
-                        //                                        .frame(width: 100)
-                        //                                    TextField("..", value: $lobbyViewModel.lobby.silentDuration, formatter: NumberFormatter())
-                        //                                        .keyboardType(.numberPad)
-                        //                                        .multilineTextAlignment(.trailing)
-                        //                                        .padding(.trailing, 20)
-                        //
-                        //                                }
-                        //
-                        //                            }
                         RoundedRectangle(cornerRadius: 10)
                             .frame(width: 148, height: 40)
                             .foregroundColor(.white)
@@ -84,19 +74,8 @@ struct LobbyView: View {
                                     }
                                     .pickerStyle(MenuPickerStyle())
                                 }
+                                .foregroundColor(.black)
                             }
-                        
-                        //                            .overlay {
-                        //                                HStack {
-                        //                                    HStack {
-                        //                                        Text("Question:")
-                        //                                            .frame(width: 100)
-                        //                                        TextField("Number of question", value: $lobbyViewModel.lobby.numberOfQuestion, formatter: NumberFormatter())
-                        //                                            .keyboardType(.numberPad)
-                        //                                    }
-                        //                                }
-                        //
-                        //                            }
                     }
                     RoundedRectangle(cornerRadius: 21)
                         .stroke(lineWidth: 2)
@@ -104,7 +83,9 @@ struct LobbyView: View {
                         .overlay {
                             HStack{
                                 Image(systemName: "person.3.fill")
-                                Text("Joined Player")
+                                Text("JOINED PLAYER")
+                                    .font(.system(size: 12, design: .rounded))
+                                    .fontWeight(.medium)
                                 Spacer()
                                 Text("\(multipeerController.allGuest.filter { $0.status == .connected }.count)")
                             }
@@ -144,7 +125,8 @@ struct LobbyView: View {
                                                         Text(guest.id.displayName)
                                                             .font(.system(size : 24, weight : .bold))
                                                         Text(guest.status.stringValue)
-                                                            .font(.system(size : 12, weight : .regular))
+                                                            .font(.system(size: 12, design: .rounded))
+                                                            .fontWeight(.regular)
                                                     }
                                                     
                                                     Spacer()
@@ -193,6 +175,7 @@ struct LobbyView: View {
                     }
                     
                     Button {
+                        print(lobbyViewModel.lobby.silentDuration)
                         let connectedGuest = multipeerController.getConnectedPeers()
                         
                         multipeerController.sendMessage(MsgCommandConstant.startListen, to: connectedGuest)
@@ -202,7 +185,8 @@ struct LobbyView: View {
                         
                         
                         Text("Start!")
-                            .font(.system(size: 28, weight : .bold))
+                            .font(.system(size: 28, design: .rounded))
+                            .fontWeight(.bold)
                         
                         
                     }

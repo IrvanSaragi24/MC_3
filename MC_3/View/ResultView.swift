@@ -28,17 +28,20 @@ struct ResultView: View {
                                 .foregroundColor(Color("Background"))
                             Text("Referee")
                                 .foregroundColor(Color("Second"))
-                                .font(.system(size: 9, weight: .bold))
+                                .font(.system(size: 9, design: .rounded))
+                                .fontWeight(.bold)
                         }
                         .padding(.bottom, 55)
                     Text("Adhi")
-                        .font(.system(size: 32, weight: .bold))
+                        .font(.system(size: 32, design: .rounded))
+                        .fontWeight(.bold)
                 }
                 Image(AnswerNo ? "Noob" : "Anjayy")
                     .resizable()
                     .frame(width: 278, height: 278)
                 Text(AnswerNo ? "Find a New \nFriend" : "Sayed’s Here \nSayed Hears")
-                    .font(.system(size: 32, weight: .bold))
+                    .font(.system(size: 32, design: .rounded))
+                    .fontWeight(.bold)
                     .foregroundColor(Color("Second"))
                     .multilineTextAlignment(.center)
                 ZStack{
@@ -47,7 +50,8 @@ struct ResultView: View {
                         .foregroundColor(Color("Second"))
                         .overlay {
                             Text(AnswerNo ? "Keren banget lo!Beneran perhatiin yak ternyata 😆" : "Hey, teman kamu mendengarkan dengan baik, ayo traktir dia kopi susu gula aren" )
-                                .font(.system(size: 17, weight: .medium))
+                                .font(.system(size: 17, design: .rounded))
+                                .fontWeight(.medium)
                                 .multilineTextAlignment(.center)
                                 .padding()
                         }
@@ -69,7 +73,8 @@ struct ResultView: View {
                             Circle()
                                 .foregroundColor(Color("Background"))
                             Text("1/3")
-                                .font(.system(size: 16, weight: .semibold))
+                                .font(.system(size: 16, design: .rounded))
+                                .fontWeight(.bold)
                                 .foregroundColor(Color("Second"))
                             
                         }

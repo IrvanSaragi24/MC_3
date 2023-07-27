@@ -35,7 +35,8 @@ struct ChoosePlayerView: View {
                                     .foregroundColor(Color("Second"))
                             }
                         Text("Chososing...")
-                            .font(.system(size: 32, weight: .bold))
+                            .font(.system(size: 32, design: .rounded))
+                            .fontWeight(.bold)
                             .foregroundColor(Color("Second"))
                         ProgressView(value: progressValue, total: totalProgress)
                             .progressViewStyle(LinearProgressViewStyle(tint: Color("Second")))
@@ -49,7 +50,8 @@ struct ChoosePlayerView: View {
                                 .foregroundColor(Color("Second"))
                                 .overlay {
                                     Text("Siapa yang tadi ngomongin:“tadi bukannya dia dapet Ravenclaw ya?”")
-                                        .font(.system(size: 20, weight: .medium))
+                                        .font(.system(size: 20, design: .rounded))
+                                        .fontWeight(.medium)
                                         .multilineTextAlignment(.center)
                                 }
                             Capsule()
@@ -60,7 +62,8 @@ struct ChoosePlayerView: View {
                                         .foregroundColor(Color("Background"))
                                     Text("Question")
                                         .foregroundColor(Color("Second"))
-                                        .font(.system(size: 16, weight: .bold))
+                                        .font(.system(size: 16, design: .rounded))
+                                        .fontWeight(.bold)
                                 }
                                 .padding(.bottom, 160)
                             Circle()
@@ -70,7 +73,8 @@ struct ChoosePlayerView: View {
                                     Circle()
                                         .foregroundColor(Color("Background"))
                                     Text("1/3")
-                                        .font(.system(size: 16, weight: .semibold))
+                                        .font(.system(size: 16, design: .rounded))
+                                        .fontWeight(.semibold)
                                         .foregroundColor(Color("Second"))
                                     
                                 }

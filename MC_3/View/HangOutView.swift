@@ -29,10 +29,10 @@ struct HangOutView: View {
                     }
                     .scaleEffect(circleScale)
                     VStack{
-                        Text("HangOut\nMode")
+                        Text("HANGOUT\nMODE")
                             .multilineTextAlignment(.center)
                             .foregroundColor(Color("Second"))
-                            .font(.system(size: 50))
+                            .font(.system(size: 50, design: .rounded))
                             .fontWeight(.bold)
                         //                        ExtractedView()
                         ButtonSlider(circleScale: $circleScale, vibrateOnRing: $vibrateOnRing)
@@ -63,10 +63,11 @@ struct ButtonSlider: View {
                 Capsule()
                     .fill(Color("Second").opacity(0.2))
                     .padding(8)
-                Text("Get Started")
-                    .font(.system(.title3, design: .rounded))
-                    .fontWeight(.bold)
+                Text("Let's Play!")
+                    .font(.system(size: 20, design: .rounded))
+                    .fontWeight(.medium)
                     .foregroundColor(Color("Second"))
+                    .opacity(0.6)
                     .offset(x: 20)
                 HStack {
                     Capsule()

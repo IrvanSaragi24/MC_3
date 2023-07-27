@@ -13,6 +13,8 @@ struct ListenView: View {
     @EnvironmentObject private var playerData: PlayerData
     @StateObject var audioViewModel = AudioViewModel()
     @State private var startGame = false
+    @State private var currentColorIndex = 0
+    private let colors: [Color] = [.blue, .black, .indigo, .red]
     
     var body: some View {
         NavigationView {
@@ -27,20 +29,28 @@ struct ListenView: View {
                     BubbleView()
                     VStack (spacing : 16) {
                         VStack{
-                            Circle()
-                                .stroke(Color("Main"), lineWidth: 10)
-                                .frame(width: 234)
-                                .overlay {
-                                    Circle()
-                                        .foregroundColor(Color.red)
-                                    Image("Music")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 225)
-                                }
-                                .padding(.top, 24)
+                            ZStack{
+                                Circle()
+                                    .stroke(Color("Main"), lineWidth: 10)
+                                    .frame(width: 234)
+                                    .overlay {
+                                        Circle()
+                                            .foregroundColor(colors[currentColorIndex])
+                                        
+                                            .opacity(0.8)
+                                        Image("Music")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 225)
+                                    }
+                                    .padding(.top, 24)
+                                    .onAppear {
+                                        startColorChangeTimer()
+                                    }
+                            }
                             Text("Listening..")
-                                .font(.system(size: 36, weight: .semibold))
+                                .font(.system(size: 36, design: .rounded))
+                                .fontWeight(.semibold)
                                 .foregroundColor(Color("Second"))
                             //                        Text(("\(audioViewModel.audio.isSpeechDetected ?? "No"), rate: \(audioViewModel.audio.speechConfidence ?? 0.0)"))
                             ZStack{
@@ -71,30 +81,38 @@ struct ListenView: View {
                             } label: {
                                 
                                 Text("Quiz Time!")
-                                    .font(.system(size: 28, weight : .bold))
+                                    .font(.system(size: 28, design: .rounded))
+                                    .fontWeight(.bold)
                                 
                                 
                             }
                             .buttonStyle(MultipeerButtonStyle())
                             
-//                            NavigationLink(
-//                                destination: ChoosingView()
-//                                    .environmentObject(lobbyViewModel)
-//                                    .environmentObject(multipeerController)
-//                                    .environmentObject(playerData),
-//                                isActive: $startGame,
-//                                label: {
-//                                    EmptyView()
-//                                })
+                            //                            NavigationLink(
+                            //                                destination: ChoosingView()
+                            //                                    .environmentObject(lobbyViewModel)
+                            //                                    .environmentObject(multipeerController)
+                            //                                    .environmentObject(playerData),
+                            //                                isActive: $startGame,
+                            //                                label: {
+                            //                                    EmptyView()
+                            //                                })
                             
                             NavigationLink(
                                 destination: HangOutView()
                             )
                             {
-                                Text("End Session")
-                                    .font(.system(size: 28, weight: .bold))
+                                RoundedRectangle(cornerRadius: 40)
+                                    .stroke(Color("Main"), lineWidth : 2)
+                                    .frame(width: 314, height: 48)
+                                    .overlay {
+                                        Text("End Session")
+                                            .font(.system(size: 28, design: .rounded))
+                                            .fontWeight(.bold)
+                                            .foregroundColor(Color("Second"))
+                                    }
                             }
-                            .buttonStyle(MultipeerButtonStyle())
+                            
                             .onTapGesture {
                                 multipeerController.stopBrowsing()
                                 multipeerController.isAdvertising = false
@@ -117,6 +135,14 @@ struct ListenView: View {
             }
         }
     }
+    func startColorChangeTimer() {
+        Timer.scheduledTimer(withTimeInterval: 1.5, repeats: true) { timer in
+                withAnimation {
+                    // Increment the currentColorIndex or reset to 0 if it reaches the last color
+                    currentColorIndex = (currentColorIndex + 1) % colors.count
+                }
+            }
+        }
     func quizTime() {
         if multipeerController.isHost {
             var connectedGuest = multipeerController.getConnectedPeers()
