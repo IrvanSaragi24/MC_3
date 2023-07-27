@@ -2,20 +2,16 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_Dra9onXz._tcp</string>
+		<string>_Dra9onXz._udp</string>
+	</array>
 	<key>NSUserNotificationsUsageDescription</key>
 	<string></string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>audio</string>
 	</array>
-    <key>NSLocalNetworkUsageDescription</key>
-    <string>Exchange data with nearby devices running the MC_3.</string>
-    <key>NSBonjourServices</key>
-    <array>
-        <string>_Dra9onXz._tcp</string>
-        <string>_Dra9onXz._udp</string>
-<!--        <string>_MC_3._tcp</string>-->
-<!--        <string>_MC_3._udp</string>-->
-    </array>
 </dict>
 </plist>

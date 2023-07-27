@@ -116,7 +116,7 @@ struct AskedView: View {
             }
         }
         .task {
-            synthesizerViewModel.startSpeaking(spokenString: multipeerController.receivedQuestion.replacingOccurrences(of: "[Objek]", with: "Adhi" ))
+            synthesizerViewModel.startSpeaking(spokenString: multipeerController.receivedQuestion)
         }
     }
     
