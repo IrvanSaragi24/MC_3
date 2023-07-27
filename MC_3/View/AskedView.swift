@@ -24,7 +24,7 @@ struct AskedView: View {
     
     var body: some View {
         if multipeerController.isResultView {
-            ResultView(isWin: multipeerController.isWin)
+            ResultView()
                 .environmentObject(multipeerController)
                 .environmentObject(playerData)
                 .environmentObject(lobbyViewModel)
@@ -89,6 +89,7 @@ struct AskedView: View {
                                 multipeerController.sendMessage(MsgCommandConstant.updateIsResultViewTrue, to: multipeerController.getConnectedPeers())
                                 multipeerController.isResultView = true
                                 
+                                multipeerController.gameState = .result
                             }
                         }
                     ZStack{

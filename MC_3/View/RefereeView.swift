@@ -30,7 +30,7 @@ struct RefereeView: View {
         }
         else {
             if multipeerController.isResultView {
-                ResultView(isWin: multipeerController.isWin)
+                ResultView()
                     .environmentObject(multipeerController)
                     .environmentObject(playerData)
                     .environmentObject(lobbyViewModel)

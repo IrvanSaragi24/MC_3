@@ -47,6 +47,7 @@ struct ContentView: View {
                         destination: ChooseRoleView()
                             .environmentObject(playerData ?? PlayerData(mainPlayer: defaultPlayer, playerList: [defaultPlayer]))
                         .environmentObject(multipeerController ?? MultipeerController(UIDevice.current.name))
+                        .environmentObject(LobbyViewModel())
                     )
                     {
                         ZStack{

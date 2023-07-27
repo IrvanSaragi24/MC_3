@@ -175,7 +175,6 @@ struct LobbyView: View {
                     }
                     
                     Button {
-                        print(lobbyViewModel.lobby.silentDuration)
                         let connectedGuest = multipeerController.getConnectedPeers()
                         multipeerController.lobby.silentDuration = lobbyViewModel.lobby.silentDuration
                         multipeerController.lobby.numberOfQuestion = lobbyViewModel.lobby.numberOfQuestion
