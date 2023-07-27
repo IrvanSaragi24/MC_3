@@ -17,7 +17,7 @@ struct RefereeView: View {
     @State private var vibrateOnRing1 = false
     @State private var circleScale: CGFloat = 1.0
     @State private var dots: String = ""
-    private let dotCount = 3
+    private let dotCount = 5
     private let dotDelay = 0.5
     
     var body: some View {
@@ -36,6 +36,14 @@ struct RefereeView: View {
                     RoundedRectangle(cornerRadius: 12)
                         .frame(width: 170, height: 60)
                         .foregroundColor(Color("Second"))
+                        .overlay {
+                            Text("\(multipeerController.myPeerId.displayName)")
+                                .frame(width: 170, height: 60)
+                                .font(.system(size: 20, weight: .bold))
+//                                .fontWeight(.bold)
+                                .foregroundColor(Color("Background"))
+                                .multilineTextAlignment(.center)
+                        }
                     Capsule()
                         .stroke(Color("Second"), lineWidth: 3)
                         .frame(width: 58, height: 14)
@@ -45,10 +53,10 @@ struct RefereeView: View {
                             Text("REFEREE")
                                 .foregroundColor(Color("Second"))
                                 .font(.system(size: 9, weight: .bold))
+                            
                         }
                         .padding(.bottom, 55)
-                    Text("\(multipeerController.myPeerId.displayName)")
-                        .font(.system(size: 32, weight: .bold))
+                   
                 }
                 Image("ImageReferee")
                     .resizable()
@@ -56,14 +64,17 @@ struct RefereeView: View {
                 
                 
                 ZStack{
-                    Text(vibrateOnRing || vibrateOnRing1 ? "Wait for Judges to vote \nVoting : \(multipeerController.countGuestsVoted())/\(multipeerController.getConnectedPeers().count + 1)\(dots)" : "Judges The \n Player")
-                        .font(.system(size:vibrateOnRing || vibrateOnRing1 ?  20 : 32 , weight: .bold))
-                        .multilineTextAlignment(.center)
-                        .foregroundColor(Color("Second"))
-                        .padding(.bottom, 100)
-                        .onAppear {
-                            animateDots()
-                        }
+                    HStack{
+                        Text(vibrateOnRing || vibrateOnRing1 ? "Wait for Judges to \nvote Voting : \(multipeerController.countGuestsVoted())/\(multipeerController.getConnectedPeers().count + 1)\n\(dots)" : "Judges The \n Player")
+                            .font(.system(size:vibrateOnRing || vibrateOnRing1 ?  28 : 32 , weight: .bold))
+                            .multilineTextAlignment(.center)
+                            .foregroundColor(Color("Second"))
+                            .padding(.bottom, 100)
+                            .onAppear {
+                                animateDots()
+                            }
+                        
+                    }
                     ButtonSliderReferee(circleScale: $circleScale, vibrateOnRing: $vibrateOnRing1, vibrateOnRing1: $vibrateOnRing1)
                         .rotationEffect(Angle(degrees: 90))
                         .padding(.leading, 290)

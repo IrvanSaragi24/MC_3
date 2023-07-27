@@ -7,13 +7,26 @@
 
 import SwiftUI
 
-  @main 
+@main
 struct MC_3App: App {
-    
+    @State private var showSplash = true
+   
     var body: some Scene {
         WindowGroup {
-//            ContentView()
-            HangOutView()
+            if showSplash {
+                SplashScreenView()
+                    
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                            withAnimation {
+                                showSplash = false
+                            }
+                        }
+                    }
+            } else {
+                HangOutView()
+                    
+            }
         }
     }
 }
