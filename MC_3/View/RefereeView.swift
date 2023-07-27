@@ -18,7 +18,7 @@ struct RefereeView: View {
     @State private var circleScale: CGFloat = 1.0
     @State private var dots: String = ""
     @State private var message: String = "Default"
-    private let dotCount = 5
+    private let dotCount = 3
     private let dotDelay = 0.5
     
     var body: some View {
@@ -48,7 +48,8 @@ struct RefereeView: View {
                                 .overlay {
                                     Text("\(multipeerController.myPeerId.displayName)")
                                         .frame(width: 170, height: 60)
-                                        .font(.system(size: 20, weight: .bold))
+                                        .font(.system(size: 24, design: .rounded))
+                                        .fontWeight(.bold)
                                     //                                .fontWeight(.bold)
                                         .foregroundColor(Color("Background"))
                                         .multilineTextAlignment(.center)
@@ -61,7 +62,8 @@ struct RefereeView: View {
                                         .foregroundColor(Color("Background"))
                                     Text("REFEREE")
                                         .foregroundColor(Color("Second"))
-                                        .font(.system(size: 9, weight: .bold))
+                                        .font(.system(size: 9, design: .rounded))
+                                        .fontWeight(.bold)
                                     
                                 }
                                 .padding(.bottom, 55)
@@ -75,8 +77,8 @@ struct RefereeView: View {
                         ZStack{
                             ZStack{
                                 Text(vibrateOnRing || vibrateOnRing1 ? "Wait for referees to vote \nVoting : \(multipeerController.totalVote)/\(multipeerController.getConnectedPeers().count)\(dots)" : "Judge The \n Player")
-                                    .font(.system(size:vibrateOnRing || vibrateOnRing1 ?  20 : 32 , weight: .bold))
-                                    .multilineTextAlignment(.center)
+                                    .font(.system(size:vibrateOnRing || vibrateOnRing1 ?  20 : 32 ,weight: .bold, design: .rounded))
+                                .multilineTextAlignment(.center)
                                     .foregroundColor(Color("Second"))
                                     .padding(.bottom, 170)
                                     .onAppear {
@@ -106,11 +108,11 @@ struct RefereeView: View {
                                 
                             }
                             Text(vibrateOnRing || vibrateOnRing1 ? "You’ve Casted Your Vote!":"Swipe To Judge\n The Player" )
-                                .font(.system(size: 20,weight: .semibold))
+                                .font(.system(size: 20,weight: .semibold, design: .rounded))
                                 .foregroundColor(Color("Second"))
                                 .opacity(0.4)
                                 .multilineTextAlignment(.center)
-                                .padding(.top, 240)
+                                .padding(.top, 350)
                         }
                     }
                 }
@@ -170,24 +172,26 @@ struct ButtonSliderReferee: View {
     var body: some View {
         ZStack {
             ZStack {
-                HStack{
-                    Image(systemName: "chevron.right.2")
-                        .font(.system(size: 50, weight: .bold))
-                        .foregroundColor(Color("Main"))
-                        .offset(x: swapOffset)
-                        .opacity(opacity)
-                        .animation(Animation.easeInOut(duration: 1.0).repeatForever())
-                    Image(systemName: "chevron.right.2")
-                        .font(.system(size: 50, weight: .bold))
-                        .foregroundColor(Color("Main"))
-                        .offset(x: swapOffset)
-                        .opacity(opacity)
-                        .animation(Animation.easeInOut(duration: 1.0).repeatForever())
-                }
-                .onAppear {
-                    withAnimation(Animation.easeInOut(duration: 3.0).repeatForever()) {
-                        swapOffset = 5 // Set the desired horizontal offset for swapping
-                        opacity = 0 // Set the desired opacity for the animation
+                ZStack {
+                    HStack{
+                        Image(systemName: "chevron.right.2")
+                            .font(.system(size: 50, weight: .bold, design: .rounded))
+                            .foregroundColor(Color("Main"))
+                            .offset(x: swapOffset)
+                            .opacity(opacity)
+                            .animation(Animation.easeInOut(duration: 1.0).repeatForever())
+                        Image(systemName: "chevron.right.2")
+                            .font(.system(size: 50, weight: .bold, design: .rounded))
+                            .foregroundColor(Color("Main"))
+                            .offset(x: swapOffset)
+                            .opacity(opacity)
+                            .animation(Animation.easeInOut(duration: 1.0).repeatForever())
+                    }
+                    .onAppear {
+                        withAnimation(Animation.easeInOut(duration: 3.0).repeatForever()) {
+                            swapOffset = 5 // Set the desired horizontal offset for swapping
+                            opacity = 0 // Set the desired opacity for the animation
+                        }
                     }
                 }
                 

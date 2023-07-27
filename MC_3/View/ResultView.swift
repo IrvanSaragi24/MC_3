@@ -77,7 +77,8 @@ struct ResultView: View {
                             .overlay {
                                 Text("\(multipeerController.myPeerId.displayName)")
                                     .frame(width: 170, height: 60)
-                                    .font(.system(size: 20, weight: .bold))
+                                    .font(.system(size: 32, design: .rounded))
+                                    .fontWeight(.bold)
                                 //                                .fontWeight(.bold)
                                     .foregroundColor(Color("Background"))
                                     .multilineTextAlignment(.center)
@@ -100,7 +101,8 @@ struct ResultView: View {
                         .resizable()
                         .frame(width: 278, height: 278)
                     Text(isWin ? "\(multipeerController.currentPlayer) Here \n\(multipeerController.currentPlayer) Hears" : "Find a New \nFriend" )
-                        .font(.system(size: 32, weight: .bold))
+                        .font(.system(size: 32, design: .rounded))
+                        .fontWeight(.bold)
                         .foregroundColor(Color("Second"))
                         .multilineTextAlignment(.center)
                     ZStack{
@@ -111,13 +113,15 @@ struct ResultView: View {
                                 
                                 if multipeerController.isPlayer {
                                     Text(multipeerController.isWin ? "Keren banget lo! Beneran perhatiin yak ternyata 😆" : "Eh lo! Lain kali perhatikan yak 🤬!")
-                                        .font(.system(size: 17, weight: .medium))
-                                        .multilineTextAlignment(.center)
-                                        .padding()
+                                         .font(.system(size: 17, design: .rounded))
+                                         .fontWeight(.medium)
+                                         .multilineTextAlignment(.center)
+                                         .padding()
                                 }
                                 else {
                                     Text(multipeerController.isWin ? "Hey, teman kamu mendengarkan dengan baik, ayo traktir dia kopi susu gula aren" : "Lu cari temen baru aja breeee")
-                                        .font(.system(size: 17, weight: .medium))
+                                        .font(.system(size: 17, design: .rounded))
+                                        .fontWeight(.medium)
                                         .multilineTextAlignment(.center)
                                         .padding()
                                 }
@@ -129,7 +133,8 @@ struct ResultView: View {
                                     .foregroundColor(Color("Background"))
                                 Text(isWin ? "Anjayy" : "Noob" )
                                     .foregroundColor(Color("Second"))
-                                    .font(.system(size: 12, weight: .bold))
+                                    .font(.system(size: 12, design: .rounded))
+                                    .fontWeight(.bold)
                             }
                             .padding(.bottom, 160)
                         Circle()
@@ -139,7 +144,8 @@ struct ResultView: View {
                                 Circle()
                                     .foregroundColor(Color("Background"))
                                 Text("\(multipeerController.lobby.currentQuestionIndex) / \(multipeerController.lobby.numberOfQuestion)")
-                                    .font(.system(size: 16, weight: .semibold))
+                                    .font(.system(size: 16, design: .rounded))
+                                    .fontWeight(.bold)
                                     .foregroundColor(Color("Second"))
                                 
                             }

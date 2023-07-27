@@ -57,7 +57,7 @@ struct ChooseRoleView: View {
                                         
                                     }
                                     .foregroundColor(Color("Second"))
-                                Image("Phone")
+                                Image("phone")
                                     .padding(.top, 20)
                             }
                             .padding(.top, 40)
@@ -65,7 +65,7 @@ struct ChooseRoleView: View {
                                 .foregroundColor(Color("Second"))
                                 .font(.system(size: 30, weight: .light))
                                 .padding(.top, 50)
-                            LoadingView(textWait: "", cicleSize: 38, LineWidtCircle: 5, LineWidtCircle2: 3)
+                            LoadingView(textWait: "", cicleSize: 60, LineWidtCircle: 20, LineWidtCircle2: 15)
 
                            
                         case .waitingForInvitation:
@@ -106,7 +106,8 @@ struct ChooseRoleView: View {
                                         .resizable()
                                         .frame(width: 74, height: 74)
                                     Text("HOST")
-                                        .font(.system(size: 36, weight: .bold))
+                                        .font(.system(size: 36, design: .rounded))
+                                        .fontWeight(.bold)
                                 }
                                 .foregroundColor(Color("Main"))
                             }
@@ -139,7 +140,8 @@ struct ChooseRoleView: View {
                                             .resizable()
                                             .frame(width: 74, height: 74)
                                         Text("GUEST")
-                                            .font(.system(size: 36, weight: .bold))
+                                            .font(.system(size: 36, design: .rounded))
+                                            .fontWeight(.bold)
                                     }
                                     .foregroundColor(Color("Main"))
                                 }

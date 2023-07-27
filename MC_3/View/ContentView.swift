@@ -22,10 +22,11 @@ struct ContentView: View {
                 Color("Background")
                     .ignoresSafeArea()
                 VStack {
-                    Text("Welcome")
+                    Text("Welcome!")
                         .font(.system(.largeTitle, design: .rounded, weight: .semibold))
                     Text("Before starting, let's fill in your name first!")
-                        .font(.system(size: 18))
+                        .font(.system(size: 18, weight: .light,design: .rounded))
+                        
                     Image("Image1")
                         .resizable()
                         .frame(width: 260, height: 260)
@@ -58,7 +59,8 @@ struct ContentView: View {
                                         .opacity(0.4)
                                 }
                             Text("ENTER")
-                                .font(.system(size: 18, weight: .bold))
+                                .font(.system(size: 28, design: .rounded))
+                                .fontWeight(.bold)
                                 
                                 
                         }
