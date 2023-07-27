@@ -12,7 +12,7 @@ struct ChoosingView: View {
     @EnvironmentObject var lobbyViewModel: LobbyViewModel
     @EnvironmentObject private var multipeerController: MultipeerController
     @EnvironmentObject private var playerData: PlayerData
-    @State var question: String = "Question Default Text"
+//    @State var question: String = "Question Default Text"
     @State private var timerIsDone: Bool = false
     
     @State private var progressValue: Float = 0.0
@@ -47,7 +47,7 @@ struct ChoosingView: View {
                         .frame(width: 290, height: 168)
                         .foregroundColor(Color("Second"))
                         .overlay {
-                            Text(question)
+                            Text(multipeerController.receivedQuestion)
                                 .font(.system(size: 20, weight: .medium, design: .rounded))
                                 .multilineTextAlignment(.center)
                         }
@@ -68,7 +68,7 @@ struct ChoosingView: View {
                         .overlay{
                             Circle()
                                 .foregroundColor(Color("Background"))
-                            Text("\(lobbyViewModel.lobby.currentQuestionIndex) / \(lobbyViewModel.lobby.numberOfQuestion)")
+                            Text("\(multipeerController.lobby.currentQuestionIndex) / \(multipeerController.lobby.numberOfQuestion)")
                                 .font(.system(size: 16, weight: .semibold, design: .rounded))
                                 .foregroundColor(Color("Second"))
                             
@@ -77,10 +77,6 @@ struct ChoosingView: View {
                     
                 }
                 NavigationLink(
-//                    destination: AskedView(question: $question)
-//                        .environmentObject(lobbyViewModel)
-//                        .environmentObject(multipeerController)
-//                        .environmentObject(playerData),
                     destination: RefereeView()
                         .environmentObject(lobbyViewModel)
                         .environmentObject(multipeerController)
@@ -98,17 +94,17 @@ struct ChoosingView: View {
             randomPlayer()
             
         }
-        .onReceive(multipeerController.$receivedQuestion) { receivedQuestion in
-            if multipeerController.hostPeerID != nil {
-                DispatchQueue.main.async {
-                    self.question = receivedQuestion
-                }
-            } else {
-                DispatchQueue.main.async {
-                    self.question = lobbyViewModel.lobby.question ?? "Default Question Text"
-                }
-            }
-        }
+//        .onReceive(multipeerController.$receivedQuestion) { receivedQuestion in
+//            if multipeerController.hostPeerID != nil {
+//                DispatchQueue.main.async {
+//                    self.question = receivedQuestion
+//                }
+//            } else {
+//                DispatchQueue.main.async {
+//                    self.question = lobbyViewModel.lobby.question ?? "Default Question Text"
+//                }
+//            }
+//        }
     }
     func startUpdatingProgress() {
         Timer.scheduledTimer(withTimeInterval: updateInterval, repeats: true) { timer in
@@ -127,15 +123,21 @@ struct ChoosingView: View {
             
             var connectedGuest = multipeerController.getConnectedPeers()
             let randomInt = Int.random(in: 0...connectedGuest.count)
-            
+            var playerName = "Player"
             if randomInt == connectedGuest.count {
                 // host jadi player
                 multipeerController.isPlayer = true
+                playerName = multipeerController.myPeerId.displayName
             }
             else {
                 let thePlayer = connectedGuest[randomInt]
+                playerName = thePlayer.displayName
                 multipeerController.sendMessage(MsgCommandConstant.updatePlayerTrue, to: [thePlayer])
             }
+            multipeerController.currentPlayer = playerName
+            playerName = MsgCommandConstant.updateCurrentPlayer + playerName
+            multipeerController.sendMessage(playerName, to: connectedGuest)
+            
         }
     }
 }

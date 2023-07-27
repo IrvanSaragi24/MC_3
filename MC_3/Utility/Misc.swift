@@ -9,15 +9,29 @@ import Foundation
 import SwiftUI
 
 enum MCConstants {
-    static let service = "Dra9onXz" // bonjour limit: 15 char
+    static let service = "Dra9on" // bonjour limit: 15 char
 }
 
 enum MsgCommandConstant {
     static let startListen = "START LISTEN"
-    static let startQuiz = "START QUIZ"
+//    static let startQuiz = "START QUIZ"
+    static let updateIsChoosingViewTrue = "ISCHOOSING TRUE"
+    static let updateIsChoosingViewFalse = "ISCHOOSING FALSE"
     static let disconnect = "DISCONNECT FROM MY SESSION"
     static let updatePlayerTrue = "PLAYER TRUE"
     static let updatePlayerFalse = "PLAYER FALSE"
+    static let updateCurrentTotalPlayer = "UPDATE TOTAL PLAYER"
+    static let voteYes = "VOTE YES"
+    static let voteNo = "VOTE NO"
+    static let updateIsResultViewTrue = "ISRESULTVIEW TRUE"
+    static let updateIsResultViewFalse = "ISRESULTVIEW FALSE"
+    static let updateIsEndViewTrue = "ISENDVIEW TRUE"
+    static let updateIsEndViewFalse = "ISENDVIEW FALSE"
+    static let updateIsWinTrue = "ISWIN TRUE"
+    static let updateIsWinFalse = "ISWIN FALSE"
+    static let updateCurrentPlayer = "[PLAYER]"
+    static let resetAllVarToDefault = "RESETALLVARTODEFAULT"
+    
 }
 
 enum LobbyRole: CaseIterable {

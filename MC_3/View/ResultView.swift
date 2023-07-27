@@ -10,98 +10,176 @@ import SwiftUI
 
 
 struct ResultView: View {
-    @State private var AnswerNo : Bool = false
+    //    @State private var AnswerNo : Bool = false
+    @StateObject var synthesizerViewModel = SynthesizerViewModel()
+    @EnvironmentObject var lobbyViewModel: LobbyViewModel
+    @EnvironmentObject private var multipeerController: MultipeerController
+    @EnvironmentObject private var playerData: PlayerData
+    
+    @State private var isDoneAllQuestion = false
+    var isWin: Bool
     
     var body: some View {
-        ZStack{
-            BubbleView()
-            VStack(spacing : 20) {
-                ZStack{
-                    RoundedRectangle(cornerRadius: 12)
-                        .frame(width: 170, height: 60)
-                        .foregroundColor(Color("Second"))
-                    Capsule()
-                        .stroke(Color("Second"), lineWidth: 3)
-                        .frame(width: 58, height: 14)
-                        .overlay {
-                            Capsule()
-                                .foregroundColor(Color("Background"))
-                            Text("Referee")
-                                .foregroundColor(Color("Second"))
-                                .font(.system(size: 9, design: .rounded))
-                                .fontWeight(.bold)
+        
+        if multipeerController.isEndView {
+            EndGameView()
+                .environmentObject(lobbyViewModel)
+                .environmentObject(multipeerController)
+                .environmentObject(playerData)
+        }
+        else if multipeerController.isChoosingView {
+            ChoosingView()
+                .environmentObject(lobbyViewModel)
+                .environmentObject(multipeerController)
+                .environmentObject(playerData)
+        }
+        else
+        {
+            ZStack {
+                BubbleView()
+                VStack(spacing : 20) {
+                    if multipeerController.isPlayer {
+                        Button {
+                            
+                            let connectedGuest = multipeerController.getConnectedPeers()
+                            
+                            if isDoneAllQuestion {
+                                // Go to End
+                                multipeerController.sendMessage(MsgCommandConstant.updateIsEndViewTrue, to: connectedGuest)
+                                multipeerController.isEndView = true
+                                
+                            }
+                            else {
+                                // reset previous setting
+                                
+                                multipeerController.sendMessage(MsgCommandConstant.resetAllVarToDefault, to: connectedGuest)
+                                multipeerController.resetVarToDefault()
+                                
+                                multipeerController.sendMessage(MsgCommandConstant.updateIsChoosingViewTrue, to: connectedGuest)
+                                multipeerController.isChoosingView = true
+                            }
+                            print("isDoneAllQuestion: \(isDoneAllQuestion)")
+                            print("multipeerController.isEndView: \(multipeerController.isEndView)")
+                            print("multipeerController.isChoosingView: \(multipeerController.isChoosingView)")
+                            
+                        } label: {
+                            Text(isDoneAllQuestion ? "Continue" : "Next")
+                                .font(.system(size: 28, weight : .bold))
                         }
-                        .padding(.bottom, 55)
-                    Text("Adhi")
+                        .buttonStyle(MultipeerButtonStyle())
+                        .padding(.top, 20)
+                        
+                    }
+                    ZStack{
+                        RoundedRectangle(cornerRadius: 12)
+                            .frame(width: 170, height: 60)
+                            .foregroundColor(Color("Second"))
+                            .overlay {
+                                Text("\(multipeerController.myPeerId.displayName)")
+                                    .frame(width: 170, height: 60)
+                                    .font(.system(size: 32, design: .rounded))
+                                    .fontWeight(.bold)
+                                //                                .fontWeight(.bold)
+                                    .foregroundColor(Color("Background"))
+                                    .multilineTextAlignment(.center)
+                            }
+                        Capsule()
+                            .stroke(Color("Second"), lineWidth: 3)
+                            .frame(width: 58, height: 14)
+                            .overlay {
+                                Capsule()
+                                    .foregroundColor(Color("Background"))
+                                Text(multipeerController.isPlayer ? "PLAYER" : "REFEREE")
+                                    .foregroundColor(Color("Second"))
+                                    .font(.system(size: 9, weight: .bold))
+                                
+                            }
+                            .padding(.bottom, 55)
+                        
+                    }
+                    Image(isWin ? "Anjayy" : "Noob" )
+                        .resizable()
+                        .frame(width: 278, height: 278)
+                    Text(isWin ? "\(multipeerController.currentPlayer) Here \n\(multipeerController.currentPlayer) Hears" : "Find a New \nFriend" )
                         .font(.system(size: 32, design: .rounded))
                         .fontWeight(.bold)
-                }
-                Image(AnswerNo ? "Noob" : "Anjayy")
-                    .resizable()
-                    .frame(width: 278, height: 278)
-                Text(AnswerNo ? "Find a New \nFriend" : "Sayed’s Here \nSayed Hears")
-                    .font(.system(size: 32, design: .rounded))
-                    .fontWeight(.bold)
-                    .foregroundColor(Color("Second"))
-                    .multilineTextAlignment(.center)
-                ZStack{
-                    RoundedRectangle(cornerRadius: 12)
-                        .frame(width: 290, height: 168)
                         .foregroundColor(Color("Second"))
-                        .overlay {
-                            Text(AnswerNo ? "Keren banget lo!Beneran perhatiin yak ternyata 😆" : "Hey, teman kamu mendengarkan dengan baik, ayo traktir dia kopi susu gula aren" )
-                                .font(.system(size: 17, design: .rounded))
-                                .fontWeight(.medium)
-                                .multilineTextAlignment(.center)
-                                .padding()
-                        }
-                    Capsule()
-                        .stroke(Color("Second"), lineWidth: 3)
-                        .frame(width: 120, height: 28)
-                        .overlay {
-                            Capsule()
-                                .foregroundColor(Color("Background"))
-                            Text("Anjay")
-                                .foregroundColor(Color("Second"))
-                                .font(.system(size: 12, weight: .bold))
-                        }
-                        .padding(.bottom, 160)
-                    Circle()
-                        .stroke(Color("Second"), lineWidth : 4)
-                        .frame(width: 100)
-                        .overlay{
-                            Circle()
-                                .foregroundColor(Color("Background"))
-                            Text("1/3")
-                                .font(.system(size: 16, design: .rounded))
-                                .fontWeight(.bold)
+                        .multilineTextAlignment(.center)
+                    ZStack{
+                        RoundedRectangle(cornerRadius: 12)
+                            .frame(width: 290, height: 168)
+                            .foregroundColor(Color("Second"))
+                            .overlay {
+                                
+                                if multipeerController.isPlayer {
+                                    Text(multipeerController.isWin ? "Keren banget lo! Beneran perhatiin yak ternyata 😆" : "Eh lo! Lain kali perhatikan yak 🤬!")
+                                         .font(.system(size: 17, design: .rounded))
+                                         .fontWeight(.medium)
+                                         .multilineTextAlignment(.center)
+                                         .padding()
+                                }
+                                else {
+                                    Text(multipeerController.isWin ? "Hey, teman kamu mendengarkan dengan baik, ayo traktir dia kopi susu gula aren" : "Lu cari temen baru aja breeee")
+                                        .font(.system(size: 17, design: .rounded))
+                                        .fontWeight(.medium)
+                                        .multilineTextAlignment(.center)
+                                        .padding()
+                                }
+                            }
+                        Capsule()
+                            .stroke(Color("Second"), lineWidth: 3)
+                            .frame(width: 120, height: 28)                        .overlay {
+                                Capsule()
+                                    .foregroundColor(Color("Background"))
+                                Text(isWin ? "Anjayy" : "Noob" )
+                                    .foregroundColor(Color("Second"))
+                                    .font(.system(size: 12, design: .rounded))
+                                    .fontWeight(.bold)
+                            }
+                            .padding(.bottom, 160)
+                        Circle()
+                            .stroke(Color("Second"), lineWidth : 4)
+                            .frame(width: 100)
+                            .overlay{
+                                Circle()
+                                    .foregroundColor(Color("Background"))
+                                Text("\(multipeerController.lobby.currentQuestionIndex) / \(multipeerController.lobby.numberOfQuestion)")
+                                    .font(.system(size: 16, design: .rounded))
+                                    .fontWeight(.bold)
+                                    .foregroundColor(Color("Second"))
+                                
+                            }
+                            .padding(.top, 170)
+                        
+                    }
+                    
+                    
+                    Button {
+                        print("Repeat Sound")
+                        //                    AnswerNo = true
+                    } label: {
+                        ZStack{
+                            RoundedRectangle(cornerRadius: 20)
+                                .frame(width: 76, height: 30)
+                                .foregroundColor(Color("Main"))
+                            Image(systemName: "speaker.wave.3.fill")
+                                .resizable()
+                                .frame(width: 22, height: 16)
                                 .foregroundColor(Color("Second"))
                             
                         }
-                        .padding(.top, 170)
+                    }
                     
                 }
-                
-                
-                Button {
-                    print("Repeat Sound")
-                    AnswerNo = true
-                } label: {
-                    ZStack{
-                        RoundedRectangle(cornerRadius: 20)
-                            .frame(width: 76, height: 30)
-                            .foregroundColor(Color("Main"))
-                        Image(systemName: "speaker.wave.3.fill")
-                            .resizable()
-                            .frame(width: 22, height: 16)
-                            .foregroundColor(Color("Second"))
-                        
-                    }
-                }
-                
+                Spacer()
             }
-            Spacer()
+            .onAppear() {
+                if multipeerController.lobby.numberOfQuestion == multipeerController.lobby.currentQuestionIndex {
+                    isDoneAllQuestion = true
+                }
+            }
         }
+        
     }
 }
 
@@ -127,7 +205,14 @@ struct LooseView: View {
 }
 
 struct ResultView_Previews: PreviewProvider {
+    static let player = Player(name: "YourDisplayName", lobbyRole: .host, gameRole: .asked)
+    static var playerData = PlayerData(mainPlayer: player, playerList: [player])
+    static let multipeerController = MultipeerController("YourDisplayName")
+    
     static var previews: some View {
-        ResultView()
+        ResultView(isWin: true)
+            .environmentObject(multipeerController)
+            .environmentObject(playerData)
+            .environmentObject(LobbyViewModel())
     }
 }

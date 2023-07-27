@@ -177,18 +177,16 @@ struct LobbyView: View {
                     Button {
                         print(lobbyViewModel.lobby.silentDuration)
                         let connectedGuest = multipeerController.getConnectedPeers()
+                        multipeerController.lobby.silentDuration = lobbyViewModel.lobby.silentDuration
+                        multipeerController.lobby.numberOfQuestion = lobbyViewModel.lobby.numberOfQuestion
                         
                         multipeerController.sendMessage(MsgCommandConstant.startListen, to: connectedGuest)
                         navigateToListenView = true
                         
                     } label: {
-                        
-                        
                         Text("Start!")
                             .font(.system(size: 28, design: .rounded))
                             .fontWeight(.bold)
-                        
-                        
                     }
                     .buttonStyle(MultipeerButtonStyle())
                     .padding(.bottom, 50)

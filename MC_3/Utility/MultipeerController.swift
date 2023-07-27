@@ -34,18 +34,29 @@ class MultipeerController: NSObject, ObservableObject {
     @Published var connectedGuest: [MCPeerID] = [] // Do not use this var
     @Published var allGuest: [Guest] = []
     @Published var gameState: GameState = .waitingForInvitation
-    @Published var receivedQuestion: String = "QuestionDefault"
+    @Published var receivedQuestion: String = "Default Question"
     @Published var nonNullVotes: Int = 0
     @Published var currentQuestionIndex: Int = 0
     
+    @Published var lobby = Lobby(name: "", silentDuration: 10, numberOfQuestion: 1)
+    
+    @Published var yesVote: Int = 0
+    @Published var noVote: Int = 0
+    @Published var totalVote: Int = 0
+    
     var isPlayer: Bool = false
+    var currentPlayer: String = "Player"
     var isHost : Bool = false
     var isChoosingView: Bool = false
+    var isResultView: Bool = false
+    @Published var isEndView: Bool = false
+    var isWin: Bool = true
     
     @Published var votes: [Vote] = []
     
     init(_ displayName: String) {
         myPeerId = MCPeerID(displayName: displayName)
+        
         self.session = MCSession(peer: myPeerId, securityIdentity: nil, encryptionPreference: .none)
         self.browser = MCNearbyServiceBrowser(peer: myPeerId, serviceType: serviceType)
         self.advertiser = MCNearbyServiceAdvertiser(peer: myPeerId, discoveryInfo: nil, serviceType: serviceType)
@@ -84,6 +95,20 @@ class MultipeerController: NSObject, ObservableObject {
     }
     */
     //Sending Data
+    
+    func resetVarToDefault(){
+        isPlayer = false
+        currentPlayer = "Player"
+        isResultView = false
+        isEndView = false
+        isWin = true
+        
+        yesVote = 0
+        noVote = 0
+        totalVote = 0
+        lobby.currentQuestionIndex += 1
+    }
+    
     func sendMessage(_ message: String, to peers: [MCPeerID]) {
         guard
             let data = message.data(using: .utf8),
@@ -251,10 +276,15 @@ extension MultipeerController: MCSessionDelegate {
                             // Handle the "Start Listen" command
                             self?.gameState = .listening
                         }
-                    } else if message == MsgCommandConstant.startQuiz {
+                    } else if message == MsgCommandConstant.updateIsChoosingViewTrue {
                         DispatchQueue.main.async { [weak self] in
                             // Handle the "Start Quiz" command
                             self?.isChoosingView = true
+                        }
+                    } else if message == MsgCommandConstant.updateIsChoosingViewFalse {
+                        DispatchQueue.main.async { [weak self] in
+                            // Handle the "Start Quiz" command
+                            self?.isChoosingView = false
                         }
                     } else if message == MsgCommandConstant.disconnect {
                         DispatchQueue.main.async { [weak self] in
@@ -272,7 +302,68 @@ extension MultipeerController: MCSessionDelegate {
                         DispatchQueue.main.async { [weak self] in
                             self?.isPlayer = false
                         }
+                    } else if message == MsgCommandConstant.voteYes {
+                        DispatchQueue.main.async { [weak self] in
+                            self?.yesVote += 1
+                            self?.totalVote += 1
+                        }
+                    } else if message == MsgCommandConstant.voteNo {
+                        DispatchQueue.main.async { [weak self] in
+                            self?.noVote += 1
+                            self?.totalVote += 1
+                        }
+                    } else if message == MsgCommandConstant.updateIsResultViewTrue {
+                        DispatchQueue.main.async { [weak self] in
+                            self?.isResultView = true
+                        }
+                    }else if message == MsgCommandConstant.updateIsWinTrue {
+                        DispatchQueue.main.async { [weak self] in
+                            self?.isWin = true
+                        }
+                    } else if message == MsgCommandConstant.updateIsWinFalse {
+                        DispatchQueue.main.async { [weak self] in
+                            self?.isWin = false
+                        }
+                    } else if message.contains(MsgCommandConstant.updateCurrentPlayer) {
+                        DispatchQueue.main.async { [weak self] in
+                            let originalString = message
+                            let substringToRemove = MsgCommandConstant.updateCurrentPlayer
+
+                            let updatedString = originalString.replacingOccurrences(of: substringToRemove, with: "")
+
+                            self?.currentPlayer = updatedString
+                        }
+                    } else if message == MsgCommandConstant.updateIsEndViewTrue {
+                        DispatchQueue.main.async { [weak self] in
+                            self?.isEndView = true
+                        }
+                    } else if message == MsgCommandConstant.updateIsEndViewFalse {
+                        DispatchQueue.main.async { [weak self] in
+                            self?.isEndView = false
+                        }
+                    } else if message == MsgCommandConstant.resetAllVarToDefault {
+                        DispatchQueue.main.async { [weak self] in
+                            self?.resetVarToDefault()
+//                            self?.isPlayer = false
+//                            self?.currentPlayer = "Player"
+//                            self?.isResultView = false
+//                            self?.isEndView = false
+//                            self?.isWin = true
+//
+//                            self?.yesVote = 0
+//                            self?.noVote = 0
+//                            self?.totalVote = 0
+//                            self?.lobby.currentQuestionIndex += 1
+                        }
                     }
+                    
+//                    @Published var yesVote: Int = 0
+//                    @Published var noVote: Int = 0
+//                    @Published var totalVote: Int = 0
+//                    var isResultView: Bool = false
+//                    var isEndView: Bool = false
+//                    var isWin: Bool = true
+                    
                     else {
                         // Handle other types of commands or messages if needed
                     }
