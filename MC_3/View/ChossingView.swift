@@ -26,7 +26,7 @@ struct SwiftUIView: View {
                             .foregroundColor(Color("Second"))
                     }
                 Text("Choosing...")
-                    .font(.system(size: 32, weight: .bold))
+                    .font(.system(size: 32, weight: .bold, design: .rounded))
                     .foregroundColor(Color("Second"))
                 ProgressView(value: progressValue, total: totalProgress)
                     .progressViewStyle(LinearProgressViewStyle(tint: Color("Second")))
@@ -40,7 +40,7 @@ struct SwiftUIView: View {
                         .foregroundColor(Color("Second"))
                         .overlay {
                             Text("Siapa yang tadi ngomongin:“tadi bukannya dia dapet Ravenclaw ya?”")
-                                .font(.system(size: 20, weight: .medium))
+                                .font(.system(size: 20, weight: .medium, design: .rounded))
                                 .multilineTextAlignment(.center)
                         }
                     Capsule()
@@ -51,7 +51,7 @@ struct SwiftUIView: View {
                                 .foregroundColor(Color("Background"))
                             Text("Question")
                                 .foregroundColor(Color("Second"))
-                                .font(.system(size: 16, weight: .bold))
+                                .font(.system(size: 16, weight: .bold, design: .rounded))
                         }
                         .padding(.bottom, 160)
                     Circle()
@@ -61,7 +61,7 @@ struct SwiftUIView: View {
                             Circle()
                                 .foregroundColor(Color("Background"))
                             Text("1/3")
-                                .font(.system(size: 16, weight: .semibold))
+                                .font(.system(size: 16, weight: .semibold, design: .rounded))
                                 .foregroundColor(Color("Second"))
 
                         }

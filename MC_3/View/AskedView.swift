@@ -28,6 +28,11 @@ struct AskedView: View {
                     RoundedRectangle(cornerRadius: 12)
                         .frame(width: 170, height: 60)
                         .foregroundColor(Color("Second"))
+                        .overlay {
+                            Text("Adhi")
+                                .font(.system(size: 24, design: .rounded))
+                                .fontWeight(.bold)
+                        }
                     Capsule()
                         .stroke(Color("Second"), lineWidth: 3)
                         .frame(width: 58, height: 14)
@@ -36,17 +41,18 @@ struct AskedView: View {
                                 .foregroundColor(Color("Background"))
                             Text("Player")
                                 .foregroundColor(Color("Second"))
-                                .font(.system(size: 10, weight: .bold))
+                                .font(.system(size: 10, design: .rounded))
+                                .fontWeight(.bold)
                         }
                         .padding(.bottom, 55)
-                    Text("Adhi")
-                        .font(.system(size: 32, weight: .bold))
+                    
                 }
                 Image(AnswerNo ? "Noob" : "Anjayy")
                     .resizable()
                     .frame(width: 278, height: 278)
                 Text("Wait for referees to vote \nVoting : \(multipeerController.nonNullVotes)/\(multipeerController.getConnectedPeers().count)\(dots)")
-                    .font(.system(size: 28, weight: .bold))
+                    .font(.system(size: 28, design: .rounded))
+                    .fontWeight(.bold)
                     .foregroundColor(Color("Second"))
                     .multilineTextAlignment(.center)
                     .onAppear {
@@ -58,7 +64,8 @@ struct AskedView: View {
                         .foregroundColor(Color("Second"))
                         .overlay {
                             Text(multipeerController.receivedQuestion)
-                                .font(.system(size: 17, weight: .medium))
+                                .font(.system(size: 17, design: .rounded))
+                                .fontWeight(.medium)
                                 .multilineTextAlignment(.center)
                                 .padding()
                         }
@@ -70,7 +77,8 @@ struct AskedView: View {
                                 .foregroundColor(Color("Background"))
                             Text("Question")
                                 .foregroundColor(Color("Second"))
-                                .font(.system(size: 12, weight: .bold))
+                                .font(.system(size: 12, design: .rounded))
+                                .fontWeight(.bold)
                         }
                         .padding(.bottom, 160)
                     Circle()
@@ -81,7 +89,8 @@ struct AskedView: View {
                                 .frame(width: 60)
                                 .foregroundColor(Color("Background"))
                             Text("\(lobbyViewModel.lobby.currentQuestionIndex) / \(lobbyViewModel.lobby.numberOfQuestion)")
-                                .font(.system(size: 16, weight: .semibold))
+                                .font(.system(size: 16, design: .rounded))
+                                .fontWeight(.semibold)
                                 .foregroundColor(Color("Second"))
                             
                         }

@@ -6,34 +6,11 @@ struct Try: View {
     private let dotDelay = 0.5 // Adjust the delay between dots
     
     var body: some View {
-        HStack(spacing: 5) { // Adjust spacing as needed
-            Text("Awdawd \(dots)")
-//            Spacer() // Keep the dots centered in place
-        }
-        .onAppear {
-            animateDots()
-        }
-    }
-    
-    func animateDots() {
-        var count = 0
-        dots = ""
-        
-        func addDot() {
-            dots += "."
-            count += 1
-            if count <= dotCount {
-                DispatchQueue.main.asyncAfter(deadline: .now() + dotDelay) {
-                    addDot()
-                }
-            } else {
-                DispatchQueue.main.asyncAfter(deadline: .now() + dotDelay) {
-                    animateDots() // Start the animation again
-                }
-            }
-        }
-        
-        addDot()
+        Text("Hello WorlT")
+
+            .font(.system(size: 50, design: .rounded))
+            .fontWeight(.bold)
+
     }
 }
 
