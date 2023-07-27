@@ -15,7 +15,6 @@ struct MC_3App: App {
         WindowGroup {
             if showSplash {
                 SplashScreenView()
-                    
                     .onAppear {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                             withAnimation {
