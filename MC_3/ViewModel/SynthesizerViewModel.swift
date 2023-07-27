@@ -21,8 +21,8 @@ class SynthesizerViewModel: ObservableObject {
 
 
         // Configure the utterance.
-        utterance.rate = 0.2
-        utterance.pitchMultiplier = 0.5
+        utterance.rate = 0.57
+        utterance.pitchMultiplier = 0.7
         utterance.postUtteranceDelay = 0.2
         utterance.volume = 1.0
 

@@ -131,7 +131,12 @@ struct ResultView: View {
                     
                     Button {
                         print("Repeat Sound")
-                        //                    AnswerNo = true
+                        if multipeerController.isPlayer {
+                            synthesizerViewModel.startSpeaking(spokenString: multipeerController.isWin ? "Keren banget lo! Beneran perhatiin yak ternyata 😆" : "Eh lo! Lain kali perhatikan yak 🤬!")
+                        }
+                        else{
+                            synthesizerViewModel.startSpeaking(spokenString: multipeerController.isWin ? "Hey, teman kamu mendengarkan dengan baik! Ayo traktir dia kopi susu gula aren." : "Lu cari temen baru aja breeee.")
+                        }
                     } label: {
                         ZStack{
                             RoundedRectangle(cornerRadius: 20)
@@ -182,6 +187,12 @@ struct ResultView: View {
             .onAppear() {
                 if multipeerController.lobby.numberOfQuestion == multipeerController.lobby.currentQuestionIndex {
                     isDoneAllQuestion = true
+                }
+                if multipeerController.isPlayer {
+                    synthesizerViewModel.startSpeaking(spokenString: multipeerController.isWin ? "Keren banget lo! Beneran perhatiin yak ternyata 😆" : "Eh lo! Lain kali perhatikan yak 🤬!")
+                }
+                else{
+                    synthesizerViewModel.startSpeaking(spokenString: multipeerController.isWin ? "Hey, teman kamu mendengarkan dengan baik! Ayo traktir dia kopi susu gula aren." : "Lu cari temen baru aja breeee")
                 }
             }
         }
