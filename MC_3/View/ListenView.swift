@@ -12,7 +12,6 @@ struct ListenView: View {
     @EnvironmentObject private var multipeerController: MultipeerController
     @EnvironmentObject private var playerData: PlayerData
     @StateObject var audioViewModel = AudioViewModel()
-    @State private var startGame = false
     @State private var currentColorIndex = 0
     private let colors: [Color] = [.blue, .black, .indigo, .red]
     
@@ -94,17 +93,7 @@ struct ListenView: View {
                                 
                             }
                             .buttonStyle(MultipeerButtonStyle())
-                            
-                            //                            NavigationLink(
-                            //                                destination: ChoosingView()
-                            //                                    .environmentObject(lobbyViewModel)
-                            //                                    .environmentObject(multipeerController)
-                            //                                    .environmentObject(playerData),
-                            //                                isActive: $startGame,
-                            //                                label: {
-                            //                                    EmptyView()
-                            //                                })
-                            
+        
                             NavigationLink(
                                 destination: HangOutView()
                             )
@@ -145,6 +134,7 @@ struct ListenView: View {
                 }
             }
         }
+        
     }
     
     func startColorChangeTimer() {
@@ -201,7 +191,6 @@ struct ListenView: View {
             
             multipeerController.sendMessage(MsgCommandConstant.updateIsChoosingViewTrue, to: connectedGuest)
             
-            startGame = true
             lobbyViewModel.lobby.currentQuestionIndex += 1
             
             connectedGuest = multipeerController.allGuest

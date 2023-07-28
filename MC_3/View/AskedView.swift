@@ -23,6 +23,7 @@ struct AskedView: View {
     @State var isWin = true
     
     var body: some View {
+        
         if multipeerController.isResultView {
             ResultView()
                 .environmentObject(multipeerController)
@@ -162,6 +163,7 @@ struct AskedView: View {
                 multipeerController.isChoosingView = false
             }
         }
+        
     }
     
     func animateDots() {

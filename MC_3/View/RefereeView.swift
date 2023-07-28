@@ -23,6 +23,7 @@ struct RefereeView: View {
     private let dotDelay = 0.5
     
     var body: some View {
+        
         if multipeerController.isPlayer {
             AskedView()
                 .environmentObject(multipeerController)
@@ -38,7 +39,6 @@ struct RefereeView: View {
             }
             else {
                 ZStack{
-                    Color.clear.backgroundStyle()
                     BubbleView()
                     VStack{
                         //                Text(message)
@@ -79,7 +79,7 @@ struct RefereeView: View {
                             ZStack{
                                 Text(vibrateOnRing || vibrateOnRing1 ? "Wait for referees to vote \nVoting : \(multipeerController.totalVote)/\(multipeerController.getConnectedPeers().count)\(dots)" : "Judge The \n Player")
                                     .font(.system(size:vibrateOnRing || vibrateOnRing1 ?  20 : 32 ,weight: .bold, design: .rounded))
-                                .multilineTextAlignment(.center)
+                                    .multilineTextAlignment(.center)
                                     .foregroundColor(Color("Second"))
                                     .padding(.bottom, 170)
                                     .onAppear {
@@ -119,6 +119,8 @@ struct RefereeView: View {
                 }
                 .onAppear() {
                     multipeerController.isChoosingView = false
+                    vibrateOnRing = false
+                    vibrateOnRing1 = false
                     motionViewModel.startNoddingDetection()
                     motionViewModel.startShakingDetection()
                 }
@@ -138,6 +140,7 @@ struct RefereeView: View {
                 }
             }
         }
+        
     }
     
     func animateDots() {
@@ -250,22 +253,20 @@ struct ButtonSliderReferee: View {
                                     if buttonOffset > buttonWidth / 2 {
                                         
                                         let selectedMessage = message
-                                        //                                            multipeerController.sendMessage(selectedMessage, to: multipeerController.getConnectedPeers())
+                                        
                                         
                                         if selectedMessage == "Yes:VoteStatus" {
                                             multipeerController.sendMessage(MsgCommandConstant.voteYes, to: multipeerController.getConnectedPeers())
                                             multipeerController.yesVote += 1
                                             multipeerController.totalVote += 1
-                                            //                                                multipeerController.updateVotes(vote: Vote(voterID: multipeerController.myPeerId, status: .yes))
+                                            
                                         } else if selectedMessage == "No:VoteStatus" {
                                             multipeerController.sendMessage(MsgCommandConstant.voteNo, to: multipeerController.getConnectedPeers())
                                             multipeerController.noVote += 1
                                             multipeerController.totalVote += 1
-                                            //                                                multipeerController.updateVotes(vote: Vote(voterID: multipeerController.myPeerId, status: .no))
+                                            
                                         }
-                                        //                                        message = message
-                                        //                                        multipeerController.sendMessage("Yes:VoteStatus", to: multipeerController.getConnectedPeers())
-                                        //                                        multipeerController.updateVotes(vote: Vote(voterID: multipeerController.myPeerId, status: .yes))
+                                        
                                         buttonOffset = buttonWidth - 80
                                         vibrateOnRing = true
                                         vibrateOnRing1 = true

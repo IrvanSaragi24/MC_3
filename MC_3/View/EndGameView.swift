@@ -13,6 +13,7 @@ struct EndGameView: View {
     @EnvironmentObject private var playerData: PlayerData
     
     var body: some View {
+        
         if multipeerController.gameState == .listening {
             ListenView()
                 .environmentObject(lobbyViewModel)
@@ -20,10 +21,11 @@ struct EndGameView: View {
                 .environmentObject(playerData)
         }
         else if multipeerController.gameState == .reset {
-            ChooseRoleView()
-                .environmentObject(playerData)
-                .environmentObject(multipeerController)
-                .environmentObject(lobbyViewModel)
+            //                ChooseRoleView()
+            //                    .environmentObject(playerData)
+            //                    .environmentObject(multipeerController)
+            //                    .environmentObject(lobbyViewModel)
+            HangOutView()
         }
         else {
             ZStack {
@@ -45,6 +47,7 @@ struct EndGameView: View {
                         //back to ListenView
                         multipeerController.sendMessage(MsgCommandConstant.startListen, to: connectedGuest)
                         multipeerController.gameState = .listening
+                        
                         print("Continue Listening")
                     } label: {
                         Text("Continue")
@@ -58,6 +61,8 @@ struct EndGameView: View {
                         let connectedGuest = multipeerController.getConnectedPeers()
                         multipeerController.sendMessage(MsgCommandConstant.resetGame, to: connectedGuest)
                         multipeerController.resetGame()
+                        
+                        //                            goToChooseRoleView = true
                         print("STOP ")
                     } label: {
                         RoundedRectangle(cornerRadius: 40)
@@ -69,14 +74,25 @@ struct EndGameView: View {
                                     .fontWeight(.bold)
                                     .foregroundColor(Color("Second"))
                             }
-                        
                     }
                     
+                    //                        if multipeerController.isPlayer {
+                    //
+                    //
+                    //                        }
+                    //                        else {
+                    //                            Text("WAITING\nDECISSION")
+                    //                                .font(.system(size: 40, design: .rounded))
+                    //                                .fontWeight(.bold)
+                    //                                .foregroundColor(Color("Second"))
+                    //                                .multilineTextAlignment(.center)
+                    //                        }
                     
                     
                 }
             }
         }
+        
     }
 }
 
