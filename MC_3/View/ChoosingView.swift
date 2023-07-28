@@ -17,7 +17,7 @@ struct ChoosingView: View {
     
     @State private var progressValue: Float = 0.0
     private let totalProgress: Float = 100.0
-    private let updateInterval: TimeInterval = 0.05
+    private let updateInterval: TimeInterval = 0.03
     private let targetProgress: Float = 100.0
     
     var body: some View {
@@ -91,6 +91,7 @@ struct ChoosingView: View {
             // Trigger haptic feedback with the custom pattern
             hapticViewModel.triggerThrillingHaptic()
             
+            print("dah manggil haptic")
             randomPlayer()
             
         }

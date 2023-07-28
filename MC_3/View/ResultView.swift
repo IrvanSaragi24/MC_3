@@ -186,6 +186,9 @@ struct ResultView: View {
                     
                 }
             }
+            .onDisappear{
+                synthesizerViewModel.stopSpeaking()
+            }
             .onAppear() {
                 if multipeerController.lobby.numberOfQuestion == multipeerController.lobby.currentQuestionIndex {
                     isDoneAllQuestion = true

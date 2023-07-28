@@ -76,8 +76,8 @@ struct ListenView: View {
                         
                         if multipeerController.isHost {
                             Button {
+                                audioViewModel.stopVoiceActivityDetection()
                                 quizTime()
-                                
                             } label: {
                                 
                                 Text("Quiz Time!")

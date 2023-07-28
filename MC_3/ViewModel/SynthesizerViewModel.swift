@@ -34,4 +34,8 @@ class SynthesizerViewModel: ObservableObject {
 
 //        synthesizer.stopSpeaking()
     }
+    
+    func stopSpeaking(){
+        synthesizer.stopSpeaking(at: .immediate)
+    }
 }

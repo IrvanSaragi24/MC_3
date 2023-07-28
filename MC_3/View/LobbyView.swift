@@ -16,7 +16,7 @@ struct LobbyView: View {
     @State private var navigateToListenView = false
     @State private var showingConfirmationAlert = false
     @State private var guestToRemove: MCPeerID?
-    let silentDurationOptions = [10, 15, 20, 25] // Example options for silent duration in seconds
+    let silentDurationOptions = [10, 15, 20] // Example options for silent duration in seconds
     let numberOfQuestionOptions = [1, 2, 3, 4]
     
     var body: some View {
@@ -29,7 +29,7 @@ struct LobbyView: View {
                     .scaledToFill()
                     .ignoresSafeArea()
                     .padding(.top, 130)
-                Text("8 player \n maximum limit")
+                Text("Waiting For Friends \n (Max: 8)")
                     .font(.system(size: 36, weight: .bold,design: .rounded))
                     .multilineTextAlignment(.center)
                     .foregroundColor(Color("Second"))
