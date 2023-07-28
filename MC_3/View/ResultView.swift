@@ -25,6 +25,8 @@ struct ResultView: View {
     
     @State private var isDoneAllQuestion = false
     
+    @State private var AnswerNo : Bool = true
+    
     var body: some View {
         
         if multipeerController.isEndView {
@@ -43,7 +45,10 @@ struct ResultView: View {
         {
             ZStack {
                 BubbleView()
-                VStack(spacing : 10) {
+                GifImage(AnswerNo ? "Huh!" : "Cool")
+                .frame(width: 300, height: 300)
+                .padding(.bottom, 170)
+                VStack(spacing : 20) {
                     ZStack{
                         RoundedRectangle(cornerRadius: 12)
                             .frame(width: 170, height: 60)
@@ -75,7 +80,7 @@ struct ResultView: View {
                         .resizable()
                         .frame(width: 278, height: 278)
                     Text(multipeerController.isWin ? "\(multipeerController.currentPlayer) Here \n\(multipeerController.currentPlayer) Hears" : "Find a New \nFriend" )
-                        .font(.system(size: 28, design: .rounded))
+                        .font(.system(size: 32, design: .rounded))
                         .fontWeight(.bold)
                         .foregroundColor(Color("Second"))
                         .multilineTextAlignment(.center)
