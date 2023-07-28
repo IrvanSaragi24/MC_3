@@ -33,7 +33,6 @@
 		E2B3374F2A72825F00F9384D /* LOL3.gif in Resources */ = {isa = PBXBuildFile; fileRef = E2B3374E2A72825F00F9384D /* LOL3.gif */; };
 		E2E460C12A72D50300F97324 /* Huh!.gif in Resources */ = {isa = PBXBuildFile; fileRef = E2E460C02A72D50300F97324 /* Huh!.gif */; };
 		E2E460C32A72D76D00F97324 /* Cool.gif in Resources */ = {isa = PBXBuildFile; fileRef = E2E460C22A72D76D00F97324 /* Cool.gif */; };
-		E2E460C72A72DE5700F97324 /* NameView.gif in Resources */ = {isa = PBXBuildFile; fileRef = E2E460C62A72DE5700F97324 /* NameView.gif */; };
 		E2E460C92A72E1A900F97324 /* NameAnimation.gif in Resources */ = {isa = PBXBuildFile; fileRef = E2E460C82A72E1A900F97324 /* NameAnimation.gif */; };
 		E2E460CB2A72E6E100F97324 /* Time.gif in Resources */ = {isa = PBXBuildFile; fileRef = E2E460CA2A72E6E100F97324 /* Time.gif */; };
 		E2E460CD2A72E95700F97324 /* Hmm.gif in Resources */ = {isa = PBXBuildFile; fileRef = E2E460CC2A72E95700F97324 /* Hmm.gif */; };
@@ -82,7 +81,6 @@
 		E2B3374E2A72825F00F9384D /* LOL3.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = LOL3.gif; sourceTree = "<group>"; };
 		E2E460C02A72D50300F97324 /* Huh!.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "Huh!.gif"; sourceTree = "<group>"; };
 		E2E460C22A72D76D00F97324 /* Cool.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Cool.gif; sourceTree = "<group>"; };
-		E2E460C62A72DE5700F97324 /* NameView.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = NameView.gif; sourceTree = "<group>"; };
 		E2E460C82A72E1A900F97324 /* NameAnimation.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = NameAnimation.gif; sourceTree = "<group>"; };
 		E2E460CA2A72E6E100F97324 /* Time.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Time.gif; sourceTree = "<group>"; };
 		E2E460CC2A72E95700F97324 /* Hmm.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Hmm.gif; sourceTree = "<group>"; };
@@ -169,7 +167,6 @@
 				E2E460C02A72D50300F97324 /* Huh!.gif */,
 				E2E460C22A72D76D00F97324 /* Cool.gif */,
 				E2E460CA2A72E6E100F97324 /* Time.gif */,
-				E2E460C62A72DE5700F97324 /* NameView.gif */,
 				E2E460C82A72E1A900F97324 /* NameAnimation.gif */,
 				E2B3374A2A7281C600F9384D /* Gifimage.swift */,
 				E2AD0EB02A60EDE100E76ED3 /* MC_3 */,
@@ -281,7 +278,6 @@
 			files = (
 				A3E9053C2A6FC7CE007A0E2A /* questions.json in Resources */,
 				E2AD0EB92A60EDE300E76ED3 /* Preview Assets.xcassets in Resources */,
-				E2E460C72A72DE5700F97324 /* NameView.gif in Resources */,
 				E2E460CD2A72E95700F97324 /* Hmm.gif in Resources */,
 				E2AD0EB62A60EDE300E76ED3 /* Assets.xcassets in Resources */,
 				E2E460C12A72D50300F97324 /* Huh!.gif in Resources */,
