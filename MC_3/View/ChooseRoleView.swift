@@ -118,14 +118,14 @@ struct ChooseRoleView: View {
                         }
                     }
                 }
-                
-            }
-            .onAppear() {
-//                multipeerController.isAdvertising = false
-//                        multipeerController.gameState = .waitingForInvitation
-                lobbyViewModel.lobby = Lobby(name: "", silentDuration: 30, numberOfQuestion: 1)
-                
-                print("Su disini kk!")
+                .onAppear() {
+                    if multipeerController.gameState == .reset {
+                        multipeerController.isAdvertising = false
+                        multipeerController.gameState = .waitingForInvitation
+                        lobbyViewModel.lobby = Lobby(name: "", silentDuration: 30, numberOfQuestion: 1)
+                        
+                    }
+                }
             }
         }
         

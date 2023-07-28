@@ -50,8 +50,6 @@ class MultipeerController: NSObject, ObservableObject {
     var isChoosingView: Bool = false
     var isResultView: Bool = false
     @Published var isEndView: Bool = false
-    @Published var isChooseRoleView: Bool = false
-    @Published var isListenView: Bool = false
     var isWin: Bool = true
     
     
@@ -99,10 +97,10 @@ class MultipeerController: NSObject, ObservableObject {
     
     func resetVarToDefault(){
         isPlayer = false
-//        currentPlayer = "Player"
-//        isResultView = false
-//        isEndView = false
-//        isWin = true
+        currentPlayer = "Player"
+        isResultView = false
+        isEndView = false
+        isWin = true
         
         yesVote = 0
         noVote = 0
@@ -111,13 +109,12 @@ class MultipeerController: NSObject, ObservableObject {
     }
     
     func resetGame() {
-        isChooseRoleView = true
         allGuest = []
         gameState = .reset
         receivedQuestion = "Default Question"
-
+        
         lobby = Lobby(name: "", silentDuration: 10, numberOfQuestion: 1)
-
+        
         yesVote = 0
         noVote = 0
         totalVote = 0
@@ -125,13 +122,10 @@ class MultipeerController: NSObject, ObservableObject {
         isPlayer = false // is this okay?
         currentPlayer = "Player"
         isHost = false
-        isWin = true
         isChoosingView = false
-        isAdvertising = false
-//        isResultView = false
-//        isEndView = false
-
-        session.disconnect()
+        isResultView = false
+        isEndView = false
+        isWin = true
     }
     
     func sendMessage(_ message: String, to peers: [MCPeerID]) {
