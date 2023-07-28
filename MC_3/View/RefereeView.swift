@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct RefereeView: View {
+    @StateObject var motionViewModel = MotionViewModel()
     @EnvironmentObject var lobbyViewModel: LobbyViewModel
     @EnvironmentObject private var multipeerController: MultipeerController
     @EnvironmentObject private var playerData: PlayerData
@@ -120,6 +121,22 @@ struct RefereeView: View {
                     multipeerController.isChoosingView = false
                     vibrateOnRing = false
                     vibrateOnRing1 = false
+                    motionViewModel.startNoddingDetection()
+                    motionViewModel.startShakingDetection()
+                }
+                .onChange(of: motionViewModel.isShakingDetected) { newValue in
+                    if newValue == true {
+                        multipeerController.sendMessage(MsgCommandConstant.voteNo, to: multipeerController.getConnectedPeers())
+                        multipeerController.noVote += 1
+                        multipeerController.totalVote += 1
+                    }
+                }
+                .onChange(of: motionViewModel.isNoddingDetected) { newValue in
+                    if newValue == true {
+                        multipeerController.sendMessage(MsgCommandConstant.voteYes, to: multipeerController.getConnectedPeers())
+                        multipeerController.yesVote += 1
+                        multipeerController.totalVote += 1
+                    }
                 }
             }
         }

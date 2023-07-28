@@ -16,7 +16,8 @@ struct LobbyView: View {
     @State private var navigateToListenView = false
     @State private var showingConfirmationAlert = false
     @State private var guestToRemove: MCPeerID?
-    let silentDurationOptions = [10, 15, 20, 25] // Example options for silent duration in seconds
+    let silentDurationOptions = [10, 15, 20] // Example options for silent duration in seconds
+    @State private var isInformasiModal = false
     let numberOfQuestionOptions = [1, 2, 3, 4]
     
     var body: some View {
@@ -29,33 +30,54 @@ struct LobbyView: View {
                     .scaledToFill()
                     .ignoresSafeArea()
                     .padding(.top, 130)
-                Text("8 player \n maximum limit")
+                Text("Waiting For Friends \n (Max: 8)")
                     .font(.system(size: 36, weight: .bold,design: .rounded))
                     .multilineTextAlignment(.center)
                     .foregroundColor(Color("Second"))
                     .opacity(multipeerController.allGuest.count == 0 ? 0.3 : 0.0)
                 VStack (spacing : 25){
-                    Text("Lobby")
-                        .foregroundColor(Color("Second"))
-                        .font(.system(size: 38, design: .rounded))
-                        .fontWeight(.bold)
+                    HStack{
+                        Spacer()
+                        Text("Lobby")
+                            .foregroundColor(Color("Second"))
+                            .font(.system(size: 38, design: .rounded))
+                            .fontWeight(.bold)
+                        Spacer()
+                        Button {
+                            isInformasiModal = true
+                        } label: {
+                            Image(systemName: "info.circle")
+                                .resizable()
+                                .frame(width: 25, height: 25)
+                                .foregroundColor(Color("Informasi"))
+                        }
+                        .sheet(isPresented: $isInformasiModal) {
+                            InformasiModal()
+                                .presentationDetents([.height(600)])
+                            }
+                        .padding(.trailing, 30)
+
+                    }
+                    .padding(.leading, 40)
                     HStack(spacing : 30){
                         RoundedRectangle(cornerRadius: 10)
                             .frame(width: 148, height: 40)
                             .foregroundColor(.white)
                             .overlay {
                                 HStack {
-                                    Text("Silent Period:")
-                                        .font(.system(size: 15, weight: .medium))
-                                        .frame(width: 100)
+                                    Text("SP:")
+                                        .fontWeight(.bold)
+//                                        .frame(width: 100)
+                                    Spacer()
                                     Picker("Silent Period", selection: $lobbyViewModel.lobby.silentDuration) {
                                         ForEach(silentDurationOptions, id: \.self) { duration in
-                                            Text(" \(duration)s     ")
+                                            Text("\(duration)s")
                                                 .tag(duration)
                                         }
                                     }
                                     .pickerStyle(MenuPickerStyle())
                                 }
+                                .padding()
                                 .foregroundColor(.black)
                             }
                         RoundedRectangle(cornerRadius: 10)
@@ -63,17 +85,19 @@ struct LobbyView: View {
                             .foregroundColor(.white)
                             .overlay {
                                 HStack {
-                                    Text("Question:")
-                                        .frame(width: 100)
+                                    Text("QA:")
+                                        .fontWeight(.bold)
+                                    Spacer()
                                     Picker("Number of Questions", selection: $lobbyViewModel.lobby.numberOfQuestion) {
                                         ForEach(numberOfQuestionOptions, id: \.self) { number in
-                                            Text(" \(number)  ")
+                                            Text("\(number)")
                                             
                                                 .tag(number)
                                         }
                                     }
                                     .pickerStyle(MenuPickerStyle())
                                 }
+                                .padding()
                                 .foregroundColor(.black)
                             }
                     }
@@ -223,5 +247,36 @@ struct LobbyView_Previews: PreviewProvider {
             .environmentObject(MultipeerController(player.name))
             .environmentObject(playerData)
             .environmentObject(LobbyViewModel())
+    }
+}
+
+struct InformasiModal: View {
+    
+    
+    var body: some View {
+        VStack(alignment: .center, spacing: 10){
+            Text("How it Works ?")
+//                .padding(.leading, 120)
+                .fontWeight(.semibold)
+            Divider()
+            //SP
+            Text("SP")
+                .fontWeight(.semibold)
+            Text("So what is SP (Silent Period) and what does it do? ")
+                .fontWeight(.bold)
+            Text("SP or Silent Period is a moment of time when the conversation goes silent. Within that period, no one talks and it could be because you have no more topics to talk about and somehow someone told a joke and no one laughed because it wasn’t funny.")
+                .fontWeight(.light)
+            Text("If you set the Silent Period to 10 seconds (default), the game will start automatically after no one is talking in 10 seconds. Otherwise, you can start manually by clicking on the “Quiz Time!” button.")
+                .fontWeight(.light)
+            Divider()
+                /// QA
+            Text("QA")
+                .fontWeight(.bold)
+            Text("So what is QA (Question Amount) and what does it do?")
+                .fontWeight(.bold)
+            Text("Question Amount is the total of questions asked to players chosen randomly. Each question will be asked to random players.")
+                .fontWeight(.light)
+        }
+        .padding()
     }
 }

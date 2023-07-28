@@ -8,7 +8,7 @@
 import Foundation
 
 class LobbyViewModel: ObservableObject {
-    @Published var lobby = Lobby(name: "", silentDuration: 30, numberOfQuestion: 1)
+    @Published var lobby = Lobby(name: "", silentDuration: 10, numberOfQuestion: 1)
     
     private var timer: Timer?
     private var startTime: Date?

@@ -18,6 +18,7 @@ class HapticViewModel: ObservableObject {
     
     init() {
         do {
+//            print("engine kebuat")
             engine = try CHHapticEngine()
             try engine?.start()
         } catch {
@@ -54,7 +55,7 @@ class HapticViewModel: ObservableObject {
         let rhythmicSharpness: Float = 0.8
         let interval: TimeInterval = 0.15
         let duration: TimeInterval = 0.1
-        for i in 1...15 {
+        for i in 1...5 {
             let intensity = CHHapticEventParameter(parameterID: .hapticIntensity, value: rhythmicIntensity)
             let sharpness = CHHapticEventParameter(parameterID: .hapticSharpness, value: rhythmicSharpness)
             let event = CHHapticEvent(eventType: .hapticTransient, parameters: [intensity, sharpness], relativeTime: Double(i) * interval, duration: duration)
@@ -64,11 +65,12 @@ class HapticViewModel: ObservableObject {
         // Add a final intense and long buzz event for the surprise
         let surpriseIntensity = CHHapticEventParameter(parameterID: .hapticIntensity, value: 1.0)
         let surpriseSharpness = CHHapticEventParameter(parameterID: .hapticSharpness, value: 1.0)
-        let surpriseEvent = CHHapticEvent(eventType: .hapticContinuous, parameters: [surpriseIntensity, surpriseSharpness], relativeTime: 2.5, duration: 1.0)
+        let surpriseEvent = CHHapticEvent(eventType: .hapticContinuous, parameters: [surpriseIntensity, surpriseSharpness], relativeTime: 0.5, duration: 2.5)
         events.append(surpriseEvent)
 
         // Create the haptic pattern
         do {
+            print("nyampe do")
             let pattern = try CHHapticPattern(events: events, parameters: [])
             let player = try engine.makePlayer(with: pattern)
             try player.start(atTime: 0)
