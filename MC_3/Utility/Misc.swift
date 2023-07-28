@@ -14,7 +14,6 @@ enum MCConstants {
 
 enum MsgCommandConstant {
     static let startListen = "START LISTEN"
-//    static let startQuiz = "START QUIZ"
     static let updateIsChoosingViewTrue = "ISCHOOSING TRUE"
     static let updateIsChoosingViewFalse = "ISCHOOSING FALSE"
     static let disconnect = "DISCONNECT FROM MY SESSION"
@@ -31,7 +30,7 @@ enum MsgCommandConstant {
     static let updateIsWinFalse = "ISWIN FALSE"
     static let updateCurrentPlayer = "[PLAYER]"
     static let resetAllVarToDefault = "RESETALLVARTODEFAULT"
-    
+    static let resetGame = "RESETGAME"
 }
 
 enum LobbyRole: CaseIterable {
@@ -99,6 +98,8 @@ enum GameState {
     case waitingToStart
     case listening
     case choosingPlayer
+    case result
+    case reset
 }
 
 enum VoteStatus: String {

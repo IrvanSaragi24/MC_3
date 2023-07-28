@@ -24,7 +24,6 @@ struct ResultView: View {
     @EnvironmentObject private var playerData: PlayerData
     
     @State private var isDoneAllQuestion = false
-    var isWin: Bool
     
     var body: some View {
         
@@ -72,10 +71,10 @@ struct ResultView: View {
                             .padding(.bottom, 55)
                     }
                     
-                    Image(isWin ? "Anjayy" : "Noob" )
+                    Image(multipeerController.isWin ? "Anjayy" : "Noob" )
                         .resizable()
                         .frame(width: 278, height: 278)
-                    Text(isWin ? "\(multipeerController.currentPlayer) Here \n\(multipeerController.currentPlayer) Hears" : "Find a New \nFriend" )
+                    Text(multipeerController.isWin ? "\(multipeerController.currentPlayer) Here \n\(multipeerController.currentPlayer) Hears" : "Find a New \nFriend" )
                         .font(.system(size: 28, design: .rounded))
                         .fontWeight(.bold)
                         .foregroundColor(Color("Second"))
@@ -107,7 +106,7 @@ struct ResultView: View {
                             .overlay {
                                 Capsule()
                                     .foregroundColor(Color("Background"))
-                                Text(isWin ? "Anjayy" : "Noob" )
+                                Text(multipeerController.isWin ? "Anjayy" : "Noob" )
                                     .foregroundColor(Color("Second"))
                                     .font(.system(size: 12, design: .rounded))
                                     .fontWeight(.bold)
@@ -155,9 +154,8 @@ struct ResultView: View {
                 }
                 .padding(.top, 40)
                 
-                if multipeerController.isPlayer {
-                    Button {
-                        
+                Button {
+                    if multipeerController.isPlayer {
                         let connectedGuest = multipeerController.getConnectedPeers()
                         
                         if isDoneAllQuestion {
@@ -175,16 +173,14 @@ struct ResultView: View {
                             multipeerController.sendMessage(MsgCommandConstant.updateIsChoosingViewTrue, to: connectedGuest)
                             multipeerController.isChoosingView = true
                         }
-                        
-                    } label: {
-                        Text(isDoneAllQuestion ? "Continue >" : "Next >")
-                            .font(.system(size: 14, weight : .bold))
                     }
-                    .buttonStyle(HeaderButtonStyle())
-                    .padding(.bottom, screenHeight * 0.85)
-                    .padding(.leading, screenWidth * 0.7)
-                    
+                } label: {
+                    Text(multipeerController.isPlayer ? isDoneAllQuestion ? "Continue >" : "Next >" : "")
+                        .font(.system(size: 14, weight : .bold))
                 }
+                .buttonStyle(HeaderButtonStyle())
+                .padding(.bottom, screenHeight * 0.85)
+                .padding(.leading, screenWidth * 0.7)
             }
             .onDisappear{
                 synthesizerViewModel.stopSpeaking()
@@ -205,34 +201,13 @@ struct ResultView: View {
     }
 }
 
-struct LooseView: View {
-    var body: some View {
-        VStack {
-            Spacer()
-            Image(systemName: "hand.thumbsdown.fill")
-            Text("Lorem Ipsum Dolor")
-            NavigationLink(
-                destination: AskedView()
-            )
-            {
-                Label("\u{200B}", systemImage: "arrow.right.to.line")
-            }
-            .buttonStyle(MultipeerButtonStyle())
-            .onTapGesture {
-                
-            }
-            Spacer()
-        }
-    }
-}
-
 struct ResultView_Previews: PreviewProvider {
     static let player = Player(name: "YourDisplayName", lobbyRole: .host, gameRole: .asked)
     static var playerData = PlayerData(mainPlayer: player, playerList: [player])
     static let multipeerController = MultipeerController("YourDisplayName")
     
     static var previews: some View {
-        ResultView(isWin: false)
+        ResultView()
             .environmentObject(multipeerController)
             .environmentObject(playerData)
             .environmentObject(LobbyViewModel())

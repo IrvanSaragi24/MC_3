@@ -8,43 +8,73 @@
 import SwiftUI
 
 struct EndGameView: View {
+    @EnvironmentObject var lobbyViewModel: LobbyViewModel
+    @EnvironmentObject private var multipeerController: MultipeerController
+    @EnvironmentObject private var playerData: PlayerData
+    
     var body: some View {
-        ZStack {
-            BubbleView()
-            VStack(spacing : 16){
-                Text("CONTINUE\nHANGOUT?")
-                    .font(.system(size: 40, design: .rounded))
-                    .fontWeight(.bold)
-                    .foregroundColor(Color("Second"))
-                    .multilineTextAlignment(.center)
-                    .padding(.bottom, 100)
-                
-                Button {
-                    print("Continue Listening")
-                } label: {
-                    Text("Continue")
-                        .font(.system(size: 28, design: .rounded))
+        if multipeerController.gameState == .listening {
+            ListenView()
+                .environmentObject(lobbyViewModel)
+                .environmentObject(multipeerController)
+                .environmentObject(playerData)
+        }
+        else if multipeerController.gameState == .reset {
+            ChooseRoleView()
+                .environmentObject(playerData)
+                .environmentObject(multipeerController)
+                .environmentObject(lobbyViewModel)
+        }
+        else {
+            ZStack {
+                BubbleView()
+                VStack(spacing : 16){
+                    Text("CONTINUE\nHANGOUT?")
+                        .font(.system(size: 40, design: .rounded))
                         .fontWeight(.bold)
-                }
-                .buttonStyle(MultipeerButtonStyle())
-               
-                Button {
-                    print("Back to Hangout Mode")
-                } label: {
-                    RoundedRectangle(cornerRadius: 40)
-                        .stroke(Color("Main"), lineWidth : 2)
-                        .frame(width: 314, height: 48)
-                        .overlay {
-                            Text("Stop")
-                                .font(.system(size: 28, design: .rounded))
-                                .fontWeight(.bold)
-                                .foregroundColor(Color("Second"))
-                        }
+                        .foregroundColor(Color("Second"))
+                        .multilineTextAlignment(.center)
+                        .padding(.bottom, 100)
+                    
+                    Button {
+                        let connectedGuest = multipeerController.getConnectedPeers()
+                        //reset setting
+                        multipeerController.sendMessage(MsgCommandConstant.resetAllVarToDefault, to: connectedGuest)
+                        multipeerController.resetVarToDefault()
+                        
+                        //back to ListenView
+                        multipeerController.sendMessage(MsgCommandConstant.startListen, to: connectedGuest)
+                        multipeerController.gameState = .listening
+                        print("Continue Listening")
+                    } label: {
+                        Text("Continue")
+                            .font(.system(size: 28, design: .rounded))
+                            .fontWeight(.bold)
+                    }
+                    .buttonStyle(MultipeerButtonStyle())
+                    
+                    Button {
+                        // reset
+                        let connectedGuest = multipeerController.getConnectedPeers()
+                        multipeerController.sendMessage(MsgCommandConstant.resetGame, to: connectedGuest)
+                        multipeerController.resetGame()
+                        print("STOP ")
+                    } label: {
+                        RoundedRectangle(cornerRadius: 40)
+                            .stroke(Color("Main"), lineWidth : 2)
+                            .frame(width: 314, height: 48)
+                            .overlay {
+                                Text("Stop")
+                                    .font(.system(size: 28, design: .rounded))
+                                    .fontWeight(.bold)
+                                    .foregroundColor(Color("Second"))
+                            }
+                        
+                    }
+                    
+                    
                     
                 }
-               
-            
-                
             }
         }
     }
@@ -53,7 +83,13 @@ struct EndGameView: View {
 
 
 struct EndGameView_Previews: PreviewProvider {
+    static let player = Player(name: "YourDisplayName", lobbyRole: .host, gameRole: .asked)
+    static var playerData = PlayerData(mainPlayer: player, playerList: [player])
+    static let multipeerController = MultipeerController("YourDisplayName")
     static var previews: some View {
         EndGameView()
+            .environmentObject(multipeerController)
+            .environmentObject(playerData)
+            .environmentObject(LobbyViewModel())
     }
 }

@@ -89,7 +89,7 @@ class LobbyViewModel: ObservableObject {
         return result
     }
     
-    func getRandomPlayer(countPlayer: Int) {
+    func reset() {
         
     }
 
