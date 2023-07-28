@@ -88,8 +88,8 @@ struct EndGameView: View {
                         .buttonStyle(MultipeerButtonStyle())
                     }
                     else {
-                        Text("WAITING\nDECISSION")
-                            .font(.system(size: 40, design: .rounded))
+                        Text("Waiting for decision..")
+                            .font(.system(size: 28, design: .rounded))
                             .fontWeight(.bold)
                             .foregroundColor(Color("Second"))
                             .multilineTextAlignment(.center)
