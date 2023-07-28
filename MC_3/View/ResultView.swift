@@ -46,7 +46,7 @@ struct ResultView: View {
         {
             ZStack {
                 BubbleView()
-                GifImage(AnswerNo ? "Huh!" : "Cool")
+                GifImage(multipeerController.isWin ? "Cool" : "Huh!")
                 .frame(width: 300, height: 300)
                 .padding(.bottom, 170)
                 VStack(spacing : 20) {
@@ -76,10 +76,9 @@ struct ResultView: View {
                             }
                             .padding(.bottom, 55)
                     }
+                    .padding(.bottom, 250)
                     
-                    Image(multipeerController.isWin ? "Anjayy" : "Noob" )
-                        .resizable()
-                        .frame(width: 278, height: 278)
+                   
                     Text(multipeerController.isWin ? "\(multipeerController.currentPlayer) Here \n\(multipeerController.currentPlayer) Hears" : "Find a New \nFriend" )
                         .font(.system(size: 32, design: .rounded))
                         .fontWeight(.bold)
