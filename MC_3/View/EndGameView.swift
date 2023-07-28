@@ -38,55 +38,62 @@ struct EndGameView: View {
                         .multilineTextAlignment(.center)
                         .padding(.bottom, 100)
                     
-                    Button {
-                        let connectedGuest = multipeerController.getConnectedPeers()
-                        //reset setting
-                        multipeerController.sendMessage(MsgCommandConstant.resetAllVarToDefault, to: connectedGuest)
-                        multipeerController.resetVarToDefault()
+                   
+                    
+                    if multipeerController.isPlayer {
+//                        Button {
+//                            let connectedGuest = multipeerController.getConnectedPeers()
+//                            //reset setting
+//                            multipeerController.sendMessage(MsgCommandConstant.resetAllVarToDefault, to: connectedGuest)
+//                            multipeerController.resetVarToDefault()
+//                            
+//                            //back to ListenView
+//                            multipeerController.sendMessage(MsgCommandConstant.startListen, to: connectedGuest)
+//                            multipeerController.gameState = .listening
+//                            
+//                            print("Continue Listening")
+//                        }
+//                    label: {
+//                            Text("Continue")
+//                                .font(.system(size: 28, design: .rounded))
+//                                .fontWeight(.bold)
+//                        }
+//                        .buttonStyle(MultipeerButtonStyle())
                         
-                        //back to ListenView
-                        multipeerController.sendMessage(MsgCommandConstant.startListen, to: connectedGuest)
-                        multipeerController.gameState = .listening
-                        
-                        print("Continue Listening")
-                    } label: {
-                        Text("Continue")
-                            .font(.system(size: 28, design: .rounded))
+                        Button {
+                            // reset
+                            let connectedGuest = multipeerController.getConnectedPeers()
+                            multipeerController.sendMessage(MsgCommandConstant.resetGame, to: connectedGuest)
+                            multipeerController.resetGame()
+                            
+                            //                            goToChooseRoleView = true
+                            print("STOP ")
+                        }
+//                    label: {
+//                            RoundedRectangle(cornerRadius: 40)
+//                                .stroke(Color("Main"), lineWidth : 2)
+//                                .frame(width: 314, height: 48)
+//                                .overlay {
+//                                    Text("Stop")
+//                                        .font(.system(size: 28, design: .rounded))
+//                                        .fontWeight(.bold)
+//                                        .foregroundColor(Color("Second"))
+//                                }
+//                        }
+                    label: {
+                            Text("Continue")
+                                .font(.system(size: 28, design: .rounded))
+                                .fontWeight(.bold)
+                        }
+                        .buttonStyle(MultipeerButtonStyle())
+                    }
+                    else {
+                        Text("WAITING\nDECISSION")
+                            .font(.system(size: 40, design: .rounded))
                             .fontWeight(.bold)
+                            .foregroundColor(Color("Second"))
+                            .multilineTextAlignment(.center)
                     }
-                    .buttonStyle(MultipeerButtonStyle())
-                    
-                    Button {
-                        // reset
-                        let connectedGuest = multipeerController.getConnectedPeers()
-                        multipeerController.sendMessage(MsgCommandConstant.resetGame, to: connectedGuest)
-                        multipeerController.resetGame()
-                        
-                        //                            goToChooseRoleView = true
-                        print("STOP ")
-                    } label: {
-                        RoundedRectangle(cornerRadius: 40)
-                            .stroke(Color("Main"), lineWidth : 2)
-                            .frame(width: 314, height: 48)
-                            .overlay {
-                                Text("Stop")
-                                    .font(.system(size: 28, design: .rounded))
-                                    .fontWeight(.bold)
-                                    .foregroundColor(Color("Second"))
-                            }
-                    }
-                    
-                    //                        if multipeerController.isPlayer {
-                    //
-                    //
-                    //                        }
-                    //                        else {
-                    //                            Text("WAITING\nDECISSION")
-                    //                                .font(.system(size: 40, design: .rounded))
-                    //                                .fontWeight(.bold)
-                    //                                .foregroundColor(Color("Second"))
-                    //                                .multilineTextAlignment(.center)
-                    //                        }
                     
                     
                 }
