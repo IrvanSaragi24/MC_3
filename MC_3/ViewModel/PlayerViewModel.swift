@@ -12,14 +12,25 @@ class PlayerViewModel: ObservableObject {
     var player: AVAudioPlayer?
     
     func playAudio(fileName: String){
-        let path = Bundle.main.path(forResource: fileName, ofType:nil)!
-        let url = URL(fileURLWithPath: path)
+        do {
+           // Set the audio session category to Playback
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
+        } catch {
+            print("Error setting up audio session: \(error.localizedDescription)")
+        }
+        
+        guard let audioURL = Bundle.main.url(forResource: fileName, withExtension: "m4a") else {
+            print("Audio file not found.")
+                return
+        }
 
         do {
-            player = try AVAudioPlayer(contentsOf: url)
+            // Create the AVAudioPlayer instance with the audio file URL
+            player = try AVAudioPlayer(contentsOf: audioURL)
+            player?.prepareToPlay()
             player?.play()
         } catch {
-            // couldn't load file :(
+            print("Error playing audio: \(error.localizedDescription)")
         }
     }
 }
