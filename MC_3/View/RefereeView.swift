@@ -24,6 +24,128 @@ struct RefereeView: View {
     var body: some View {
         if multipeerController.isPlayer {
             AskedView()
+                .environmentObject(multipeerController) // Use the same instance
+                .environmentObject(playerData)
+                .environmentObject(LobbyViewModel()) // Provide LobbyViewModel
+        }
+        else {
+            ZStack{
+                Color.clear.backgroundStyle()
+                BubbleView()
+                VStack{
+                    //                Text(message)
+                    ZStack{
+                        RoundedRectangle(cornerRadius: 12)
+                            .frame(width: 170, height: 60)
+                            .foregroundColor(Color("Second"))
+                            .overlay {
+                                Text("\(multipeerController.myPeerId.displayName)")
+                                    .frame(width: 170, height: 60)
+                                    .font(.system(size: 24, design: .rounded))
+                                    .fontWeight(.bold)
+                                //                                .fontWeight(.bold)
+                                    .foregroundColor(Color("Background"))
+                                    .multilineTextAlignment(.center)
+                            }
+                        Capsule()
+                            .stroke(Color("Second"), lineWidth: 3)
+                            .frame(width: 58, height: 14)
+                            .overlay {
+                                Capsule()
+                                    .foregroundColor(Color("Background"))
+                                Text("REFEREE")
+                                    .foregroundColor(Color("Second"))
+                                    .font(.system(size: 9, design: .rounded))
+                                    .fontWeight(.bold)
+                                
+                            }
+                            .padding(.bottom, 55)
+                        
+                    }
+//                    .padding(.bottom, 50)
+                    
+                    
+                    ZStack{
+                        GifImage("Time")
+                        .frame(width: 400, height: 400)
+                        .padding(.bottom, 350)
+                        ZStack{
+                            Text(vibrateOnRing || vibrateOnRing1 ? "Wait for referees to vote \nVoting : \(multipeerController.nonNullVotes)/\(multipeerController.getConnectedPeers().count)\(dots)" : "Judge The \n Player")
+                            
+                                .font(.system(size:vibrateOnRing || vibrateOnRing1 ?  20 : 32 ,weight: .bold, design: .rounded))
+                                .multilineTextAlignment(.center)
+                                .foregroundColor(Color("Second"))
+                                .padding(.bottom, 100)
+                                .onAppear {
+                                    animateDots()
+                                }
+                            ButtonSliderReferee(circleScale: $circleScale, vibrateOnRing: $vibrateOnRing1, vibrateOnRing1: $vibrateOnRing1, message: .constant("No:VoteStatus"))
+                                .rotationEffect(Angle(degrees: 90))
+                                .padding(.leading, 290)
+                                .padding(.top, 100)
+                                .opacity(vibrateOnRing || vibrateOnRing1 ? 0 : 1)
+                                .environmentObject(multipeerController)
+                            ButtonSliderReferee(circleScale: $circleScale, vibrateOnRing: $vibrateOnRing, vibrateOnRing1: $vibrateOnRing, message: .constant("Yes:VoteStatus"))
+                                .rotationEffect(Angle(degrees: -90))
+                                .padding(.trailing, 280)
+                                .opacity(vibrateOnRing || vibrateOnRing1 ? 0 : 1)
+                                .environmentObject(multipeerController)
+                            Image("Like")
+                                .resizable()
+                                .frame(width: 132, height: 132)
+                                .padding(.top, 140)
+                                .opacity(vibrateOnRing ? 1 : 0)
+                            Image("Dislike")
+                                .resizable()
+                                .frame(width: 132, height: 132)
+                                .padding(.top, 140)
+                                .opacity(vibrateOnRing1 ? 1 : 0)
+                            
+                        }
+                        Text(vibrateOnRing || vibrateOnRing1 ? "You’ve Casted Your Vote!":"Swipe To Judge\n The Player" )
+                            .font(.system(size: 20,weight: .semibold, design: .rounded))
+                            .foregroundColor(Color("Second"))
+                            .opacity(0.4)
+                            .multilineTextAlignment(.center)
+                            .padding(.top, 350)
+                    }
+                    .padding(.bottom, 50)
+                }.padding(.top, 200)
+            }
+        }
+    }
+        
+        func animateDots() {
+            var count = 1
+            dots = ""
+            
+            func addDot() {
+                dots += "."
+                count += 1
+                if count <= dotCount {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + dotDelay) {
+                        addDot()
+                    }
+                } else {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + dotDelay) {
+                        animateDots() // Start the animation again
+                    }
+                }
+            }
+            
+            addDot()
+        }
+    }
+    
+    struct RefereeView_Previews: PreviewProvider {
+        static var previews: some View {
+            let player = Player(name: "Player", lobbyRole: .host, gameRole: .asked)
+            let playerData = PlayerData(mainPlayer: player, playerList: [player])
+            let lobbyViewModel = LobbyViewModel()
+            let multipeerController = MultipeerController("Name")
+            
+            RefereeView()
+                .environmentObject(lobbyViewModel)
                 .environmentObject(multipeerController)
                 .environmentObject(playerData)
                 .environmentObject(lobbyViewModel)
