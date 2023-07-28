@@ -13,6 +13,10 @@
 		A39597B92A70EA6500007F82 /* Vote.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39597B82A70EA6500007F82 /* Vote.swift */; };
 		A3C02B0F2A73B19600873EB5 /* MotionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C02B0E2A73B19600873EB5 /* MotionViewModel.swift */; };
 		A3C02B112A73BD6000873EB5 /* PlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C02B102A73BD6000873EB5 /* PlayerViewModel.swift */; };
+		A3C02B1C2A74105300873EB5 /* WinReferee.m4a in Resources */ = {isa = PBXBuildFile; fileRef = A3C02B1B2A74089F00873EB5 /* WinReferee.m4a */; };
+		A3C02B1D2A74105A00873EB5 /* LoseReferee.m4a in Resources */ = {isa = PBXBuildFile; fileRef = A3C02B1A2A74089000873EB5 /* LoseReferee.m4a */; };
+		A3C02B1F2A74109300873EB5 /* LosePlayer.m4a in Resources */ = {isa = PBXBuildFile; fileRef = A3C02B1E2A74109300873EB5 /* LosePlayer.m4a */; };
+		A3C02B212A7410A200873EB5 /* WinPlayer.m4a in Resources */ = {isa = PBXBuildFile; fileRef = A3C02B202A7410A100873EB5 /* WinPlayer.m4a */; };
 		A3E9052C2A6EF495007A0E2A /* Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E9052B2A6EF495007A0E2A /* Audio.swift */; };
 		A3E9052E2A6EF4BF007A0E2A /* AudioViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E9052D2A6EF4BF007A0E2A /* AudioViewModel.swift */; };
 		A3E905302A6EF4DE007A0E2A /* VoiceActivityDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E9052F2A6EF4DE007A0E2A /* VoiceActivityDetector.swift */; };
@@ -63,6 +67,10 @@
 		A39597B82A70EA6500007F82 /* Vote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vote.swift; sourceTree = "<group>"; };
 		A3C02B0E2A73B19600873EB5 /* MotionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotionViewModel.swift; sourceTree = "<group>"; };
 		A3C02B102A73BD6000873EB5 /* PlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewModel.swift; sourceTree = "<group>"; };
+		A3C02B1A2A74089000873EB5 /* LoseReferee.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = LoseReferee.m4a; sourceTree = "<group>"; };
+		A3C02B1B2A74089F00873EB5 /* WinReferee.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = WinReferee.m4a; sourceTree = "<group>"; };
+		A3C02B1E2A74109300873EB5 /* LosePlayer.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = LosePlayer.m4a; sourceTree = "<group>"; };
+		A3C02B202A7410A100873EB5 /* WinPlayer.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = WinPlayer.m4a; sourceTree = "<group>"; };
 		A3E9052B2A6EF495007A0E2A /* Audio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Audio.swift; sourceTree = "<group>"; };
 		A3E9052D2A6EF4BF007A0E2A /* AudioViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioViewModel.swift; sourceTree = "<group>"; };
 		A3E9052F2A6EF4DE007A0E2A /* VoiceActivityDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceActivityDetector.swift; sourceTree = "<group>"; };
@@ -117,6 +125,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A3C02B232A7410B800873EB5 /* Audios */ = {
+			isa = PBXGroup;
+			children = (
+				A3C02B202A7410A100873EB5 /* WinPlayer.m4a */,
+				A3C02B1E2A74109300873EB5 /* LosePlayer.m4a */,
+				A3C02B1B2A74089F00873EB5 /* WinReferee.m4a */,
+				A3C02B1A2A74089000873EB5 /* LoseReferee.m4a */,
+			);
+			path = Audios;
+			sourceTree = "<group>";
+		};
 		E22F94102A6504E90088315B /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -194,12 +213,13 @@
 		E2AD0EB02A60EDE100E76ED3 /* MC_3 */ = {
 			isa = PBXGroup;
 			children = (
+				A3C02B232A7410B800873EB5 /* Audios */,
 				A37E2CB62A72237400CE935F /* MC-3-Info.plist */,
 				E2B337382A7171CB00F9384D /* SplashScreenView.swift */,
 				E2AD0EB12A60EDE100E76ED3 /* MC_3App.swift */,
 				ECAE9AA42A65528400E46A34 /* Utility */,
-				E22F94112A6505000088315B /* ViewModel */,
 				E22F94102A6504E90088315B /* Model */,
+				E22F94112A6505000088315B /* ViewModel */,
 				E22F94122A65051F0088315B /* View */,
 				E2AD0EB52A60EDE300E76ED3 /* Assets.xcassets */,
 				A3E9053B2A6FC7CE007A0E2A /* questions.json */,
@@ -288,13 +308,17 @@
 				A3E9053C2A6FC7CE007A0E2A /* questions.json in Resources */,
 				E2AD0EB92A60EDE300E76ED3 /* Preview Assets.xcassets in Resources */,
 				E2E460C72A72DE5700F97324 /* NameView.gif in Resources */,
+				A3C02B1C2A74105300873EB5 /* WinReferee.m4a in Resources */,
+				A3C02B1D2A74105A00873EB5 /* LoseReferee.m4a in Resources */,
 				E2E460CD2A72E95700F97324 /* Hmm.gif in Resources */,
+				A3C02B212A7410A200873EB5 /* WinPlayer.m4a in Resources */,
 				E2AD0EB62A60EDE300E76ED3 /* Assets.xcassets in Resources */,
 				E2E460C12A72D50300F97324 /* Huh!.gif in Resources */,
 				E2E460CB2A72E6E100F97324 /* Time.gif in Resources */,
 				E2B3374F2A72825F00F9384D /* LOL3.gif in Resources */,
 				E2E460C92A72E1A900F97324 /* NameAnimation.gif in Resources */,
 				E2E460C32A72D76D00F97324 /* Cool.gif in Resources */,
+				A3C02B1F2A74109300873EB5 /* LosePlayer.m4a in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
