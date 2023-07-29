@@ -21,8 +21,32 @@ struct MultipeerButtonStyle: ButtonStyle {
             )
       .cornerRadius(40.0)
       .foregroundColor(Color("Second"))
+      .font(.system(size: 28, design: .rounded))
+      .fontWeight(.bold)
   }
 }
+
+
+struct SecondButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .padding()
+            .frame(width: 314, height: 48)
+            .foregroundColor(Color("Second"))
+            .background(
+                ZStack {
+                    RoundedRectangle(cornerRadius: 40)
+                        .stroke(Color("Main"), lineWidth: 2)
+                    RoundedRectangle(cornerRadius: 40)
+                        .fill(Color.clear) 
+                }
+            )
+            .contentShape(Rectangle())
+            .font(.system(size: 28, design: .rounded))
+            .fontWeight(.bold)
+    }
+}
+
 
 struct HeaderButtonStyle : ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {

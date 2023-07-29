@@ -38,7 +38,7 @@ class MultipeerController: NSObject, ObservableObject {
     @Published var nonNullVotes: Int = 0
     @Published var currentQuestionIndex: Int = 0
     
-    @Published var lobby = Lobby(name: "", silentDuration: 10, numberOfQuestion: 1)
+    @Published var lobby = Lobby(name: "Player")
     
     @Published var yesVote: Int = 0
     @Published var noVote: Int = 0
@@ -53,6 +53,19 @@ class MultipeerController: NSObject, ObservableObject {
     @Published var isChooseRoleView: Bool = false
     @Published var isListenView: Bool = false
     var isWin: Bool = true
+    
+    //new published var - sayed
+    @Published var navigateToLobby = false
+    @Published var navigateToWaitingInvitation = false
+    @Published var navigateToWaitingStart = false
+    @Published var navigateToListen = false
+    @Published var navigateToChoosingPlayer = false
+    @Published var navigateToPlayer = false
+    @Published var navigateToReferee = false
+    @Published var navigateToResult = false
+    @Published var navigateToEnd = false
+    @Published var navigateToChooseRole = false
+    @Published var navigateToHangoutMode = false
     
     
     init(_ displayName: String) {
@@ -76,7 +89,7 @@ class MultipeerController: NSObject, ObservableObject {
                 print("Start advertising")
             } else {
                 advertiser.stopAdvertisingPeer()
-                session.disconnect()
+//                session.disconnect()
                 print("Stop advertising")
             }
         }
@@ -96,6 +109,114 @@ class MultipeerController: NSObject, ObservableObject {
     }
     */
     //Sending Data
+    
+    func handleReceivedCommand(_ command: String) -> Bool {
+        var result = true
+        switch command {
+            
+        case NavigateCommandConstant.navigateToLobby:
+            DispatchQueue.main.async {
+                self.navigateToLobby = true
+            }
+            
+        case NavigateCommandConstant.navigateToWaitingInvitation:
+            DispatchQueue.main.async {
+                self.navigateToWaitingInvitation = true
+                self.navigateToWaitingStart = false
+            }
+            
+        case NavigateCommandConstant.navigateToWaitingStart:
+            DispatchQueue.main.async {
+                self.navigateToWaitingStart = true
+                self.navigateToWaitingInvitation = false
+            }
+            
+        case NavigateCommandConstant.navigateToListen:
+            print("navigateToListen")
+            DispatchQueue.main.async {
+                self.navigateToListen = true
+            }
+            
+        case NavigateCommandConstant.navigateToChoosingPlayer:
+            DispatchQueue.main.async {
+                self.navigateToChoosingPlayer = true
+            }
+            
+        case NavigateCommandConstant.navigateToPlayer:
+            DispatchQueue.main.async {
+                self.navigateToPlayer = true
+            }
+            
+        case NavigateCommandConstant.navigateToReferee:
+            DispatchQueue.main.async {
+                self.navigateToReferee = true
+            }
+            
+        case NavigateCommandConstant.navigateToResult:
+            DispatchQueue.main.async {
+                self.navigateToResult = true
+            }
+            
+        case NavigateCommandConstant.navigateToEnd:
+            DispatchQueue.main.async {
+                self.navigateToEnd = true
+            }
+            
+        case NavigateCommandConstant.navigateToChooseRole:
+            DispatchQueue.main.async {
+                self.navigateToChooseRole = true
+                self.resetParameters()
+            }
+        case NavigateCommandConstant.navigateToHangoutMode:
+            DispatchQueue.main.async {
+                self.navigateToHangoutMode = true
+            }
+        default:
+            result = false
+            break
+        }
+        
+        return result
+    }
+    
+    func resetParameters() {
+        //to be called when NavigateCommandConstant.navigateToChooseRole
+        allGuest = []
+        lobby = Lobby(name: "", silentDuration: 10, numberOfQuestion: 1)
+        yesVote = 0
+        noVote = 0
+        totalVote = 0
+        isPlayer = false
+        isHost = false
+        hostPeerID = nil
+        session.disconnect()
+    }
+    
+    func resetNavigateVar() {
+        //to be called in every onAppear page
+        navigateToLobby = false
+        navigateToWaitingInvitation = false
+        navigateToWaitingStart = false
+        navigateToListen = false
+        navigateToChoosingPlayer = false
+        navigateToPlayer = false
+        navigateToReferee = false
+        navigateToResult = false
+        navigateToEnd = false
+        navigateToChooseRole = false
+        navigateToHangoutMode = false
+        
+//        allGuest = []
+//        lobby = Lobby(name: "", silentDuration: 10, numberOfQuestion: 1)
+//        yesVote = 0
+//        noVote = 0
+//        totalVote = 0
+//        isPlayer = false
+//        isHost = false
+//        hostPeerID = nil
+//        session.disconnect()
+        
+    }
     
     func resetVarToDefault(){
         isPlayer = false
@@ -179,6 +300,8 @@ class MultipeerController: NSObject, ObservableObject {
             allGuest.append(guest)
         }
     }
+    
+    
     
     
     
@@ -273,11 +396,13 @@ extension MultipeerController: MCSessionDelegate {
     //handle data received
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         if let receivedString = String(data: data, encoding: .utf8) {
+            
+            if !handleReceivedCommand(receivedString) {
                 // Split the received string using the delimiter (":")
                 let components = receivedString.components(separatedBy: ":")
                 if components.count == 1 {
                     let message = components[0]
-
+                    
                     // Check if the message is a command or other type of data
                     if message == MsgCommandConstant.startListen {
                         DispatchQueue.main.async { [weak self] in
@@ -300,6 +425,8 @@ extension MultipeerController: MCSessionDelegate {
                             self?.session.disconnect()
                             self?.gameState = .waitingForInvitation
                             self?.isAdvertising = true
+                            
+                            self?.navigateToListen = true
                             
                         }
                     } else if message == MsgCommandConstant.updatePlayerTrue {
@@ -337,9 +464,9 @@ extension MultipeerController: MCSessionDelegate {
                         DispatchQueue.main.async { [weak self] in
                             let originalString = message
                             let substringToRemove = MsgCommandConstant.updateCurrentPlayer
-
+                            
                             let updatedString = originalString.replacingOccurrences(of: substringToRemove, with: "")
-
+                            
                             self?.currentPlayer = updatedString
                         }
                     } else if message == MsgCommandConstant.updateIsEndViewTrue {
@@ -365,7 +492,7 @@ extension MultipeerController: MCSessionDelegate {
                     }
                 } else if components.count == 2 {
                     let typeData = components[1]
-
+                    
                     if typeData == "question" {
                         DispatchQueue.main.async { [weak self] in
                             // Handle the received question
@@ -378,10 +505,13 @@ extension MultipeerController: MCSessionDelegate {
                     // Invalid message format
                     print("Invalid message format: \(receivedString)")
                 }
-            } else {
-                // Failed to convert data to a string
-                print("Failed to convert data to a string.")
             }
+        }
+        else {
+            // Failed to convert data to a string
+            print("Failed to convert data to a string.")
+        }
+        
         delegate?.didReceive(data: data, from: peerID)
     }
     
@@ -444,6 +574,7 @@ extension MultipeerController: MCNearbyServiceAdvertiserDelegate {
             //save the host PeerID
             self.hostPeerID = peerID
             self.gameState = .waitingToStart
+            self.navigateToWaitingStart = true
         })
         window.rootViewController?.present(alertController, animated: true)
         

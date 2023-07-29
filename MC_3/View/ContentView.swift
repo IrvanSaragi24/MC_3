@@ -43,11 +43,15 @@ struct ContentView: View {
                         
                     }//zstack
                     
+//                    NavigationLink(
+//                        destination: ChooseRoleView()
+//                            .environmentObject(playerData ?? PlayerData(mainPlayer: defaultPlayer, playerList: [defaultPlayer]))
+//                        .environmentObject(multipeerController ?? MultipeerController(UIDevice.current.name))
+//                        .environmentObject(LobbyViewModel())
+//                    )
                     NavigationLink(
-                        destination: ChooseRoleView()
-                            .environmentObject(playerData ?? PlayerData(mainPlayer: defaultPlayer, playerList: [defaultPlayer]))
-                        .environmentObject(multipeerController ?? MultipeerController(UIDevice.current.name))
-                        .environmentObject(LobbyViewModel())
+                        destination: New_ChooseRoleView()
+                            .environmentObject(multipeerController ?? MultipeerController(UIDevice.current.name))
                     )
                     {
                         ZStack{

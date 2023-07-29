@@ -10,7 +10,7 @@ import SwiftUI
 struct LoadingView: View {
     @State private var IsWaiting : Bool = false
     @State var textWait : String
-    @State var cicleSize : CGFloat
+    @State var circleSize : CGFloat
     @State var LineWidtCircle : CGFloat
     @State var LineWidtCircle2 : CGFloat
     
@@ -21,8 +21,6 @@ struct LoadingView: View {
         ZStack{
             Color.clear.backgroundStyle()
                
-           
-                
             Circle()
             .foregroundColor(Color("Main"))
             .frame(width: 301, height: 301)
@@ -38,12 +36,13 @@ struct LoadingView: View {
                     
                     Circle()
                         .stroke(Color("Second"), lineWidth : LineWidtCircle)
-                        .frame(width: cicleSize)
+                        .frame(width: circleSize)
                         .opacity(0.4)
+                    
                     Circle()
                         .trim(from: 0.4, to: 0.8)
                         .stroke( Color("Second"), style: StrokeStyle(lineWidth: LineWidtCircle2, lineCap: .round))
-                        .frame(width: cicleSize)
+                        .frame(width: circleSize)
                         .rotationEffect(Angle(degrees: IsWaiting ? 0 : -360))
                         .animation(Animation.linear(duration: 2)
                         .repeatForever(autoreverses: false))
@@ -65,6 +64,6 @@ struct LoadingView: View {
 
 struct LoadingView_Previews: PreviewProvider {
     static var previews: some View {
-        LoadingView(textWait: "Hello", cicleSize: 166, LineWidtCircle: 40, LineWidtCircle2: 35)
+        LoadingView(textWait: "Hello", circleSize: 166, LineWidtCircle: 40, LineWidtCircle2: 35)
     }
 }

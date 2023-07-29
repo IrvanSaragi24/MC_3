@@ -39,7 +39,7 @@ struct ChooseRoleView: View {
                             WaitingToStartView()
                         }
                         else if multipeerController.gameState == .waitingForInvitation {
-                            LoadingView(textWait: "Wait to be invited by the host...",cicleSize: 166, LineWidtCircle: 40, LineWidtCircle2: 35)
+                            LoadingView(textWait: "Wait to be invited by the host...",circleSize: 166, LineWidtCircle: 40, LineWidtCircle2: 35)
                                 .padding(.bottom, 200)
                         }
                     }
@@ -124,8 +124,6 @@ struct ChooseRoleView: View {
 //                multipeerController.isAdvertising = false
 //                        multipeerController.gameState = .waitingForInvitation
                 lobbyViewModel.lobby = Lobby(name: "", silentDuration: 30, numberOfQuestion: 1)
-                
-                print("Su disini kk!")
             }
         }
         
@@ -165,7 +163,7 @@ struct WaitingToStartView: View {
             .foregroundColor(Color("Second"))
             .font(.system(size: 30, weight: .light))
             .padding(.top, 50)
-        LoadingView(textWait: "", cicleSize: 60, LineWidtCircle: 20, LineWidtCircle2: 15)
+        LoadingView(textWait: "", circleSize: 60, LineWidtCircle: 20, LineWidtCircle2: 15)
     }
 }
 

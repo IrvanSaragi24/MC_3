@@ -33,6 +33,20 @@ enum MsgCommandConstant {
     static let resetGame = "RESETGAME"
 }
 
+enum NavigateCommandConstant {
+    static let navigateToLobby = "navigateToLobby"
+    static let navigateToWaitingInvitation = "navigateToWaitingInvitation"
+    static let navigateToWaitingStart = "navigateToWaitingStart"
+    static let navigateToListen = "navigateToListen"
+    static let navigateToChoosingPlayer = "navigateToChoosingPlayer"
+    static let navigateToPlayer = "navigateToPlayer"
+    static let navigateToReferee = "navigateToReferee"
+    static let navigateToResult = "navigateToResult"
+    static let navigateToEnd = "navigateToEnd"
+    static let navigateToChooseRole = "navigateChooseRole"
+    static let navigateToHangoutMode = "navigateToHangoutMode"
+}
+
 enum LobbyRole: CaseIterable {
     case host
     case guest
@@ -100,6 +114,18 @@ enum GameState {
     case choosingPlayer
     case result
     case reset
+    
+    case chooseRole
+    case guestWaitingInvitation
+    case guestWaitingStart
+    case lobby
+    case listen
+    case choosingForPlayer
+    case playerWaitingForVote
+    case refereeVote
+    case resultVote
+    case endGame
+    
 }
 
 enum VoteStatus: String {

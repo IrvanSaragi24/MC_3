@@ -22,4 +22,8 @@ struct Lobby: Identifiable {
         self.silentDuration = silentDuration
         self.numberOfQuestion = numberOfQuestion
     }
+    
+    init(name: String) {
+        self.init(name: name, silentDuration: 10, numberOfQuestion: 1)
+    }
 }

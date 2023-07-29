@@ -250,7 +250,7 @@ struct LobbyView_Previews: PreviewProvider {
     }
 }
 
-struct InformasiModal: View {
+struct InformasiModalX: View {
     
     
     var body: some View {
