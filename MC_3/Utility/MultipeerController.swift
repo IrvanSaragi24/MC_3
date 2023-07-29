@@ -40,13 +40,7 @@ class MultipeerController: NSObject, ObservableObject {
     
     @Published var lobby = Lobby(name: "Player") // Please don't use this, All lobby related stuff should be in separated View Model which is LobbyViewModel
     
-    @Published var yesVote: Int = 0
-    @Published var noVote: Int = 0
-    @Published var totalVote: Int = 0
     
-    var isPlayer: Bool = false
-    var currentPlayer: String = "Player"
-    var isHost : Bool = false
     var isChoosingView: Bool = false
     var isResultView: Bool = false
     @Published var isEndView: Bool = false
@@ -64,6 +58,19 @@ class MultipeerController: NSObject, ObservableObject {
     @Published var navigateToEnd = false
     @Published var navigateToChooseRole = false
     @Published var navigateToHangoutMode = false
+    
+    //to handle question index
+    var totalQuestion = 1
+    var currentQuestion = 1
+    var isInitialRound = true
+    
+    @Published var yesVote: Int = 0
+    @Published var noVote: Int = 0
+    @Published var totalVote: Int = 0
+    
+    var isPlayer: Bool = false
+    var currentPlayer: String = "Player"
+    var isHost : Bool = false
     
     
     init(_ displayName: String) {
@@ -120,24 +127,23 @@ class MultipeerController: NSObject, ObservableObject {
         case NavigateCommandConstant.navigateToWaitingInvitation:
             DispatchQueue.main.async {
                 self.navigateToWaitingInvitation = true
-                self.navigateToWaitingStart = false
             }
             
         case NavigateCommandConstant.navigateToWaitingStart:
             DispatchQueue.main.async {
                 self.navigateToWaitingStart = true
-                self.navigateToWaitingInvitation = false
             }
             
         case NavigateCommandConstant.navigateToListen:
-            print("navigateToListen")
             DispatchQueue.main.async {
                 self.navigateToListen = true
+                self.resetParameters(page: NavigateCommandConstant.navigateToListen)
             }
             
         case NavigateCommandConstant.navigateToChoosingPlayer:
             DispatchQueue.main.async {
                 self.navigateToChoosingPlayer = true
+                self.resetParameters(page: NavigateCommandConstant.navigateToChoosingPlayer)
             }
             
         case NavigateCommandConstant.navigateToPlayer:
@@ -163,7 +169,7 @@ class MultipeerController: NSObject, ObservableObject {
         case NavigateCommandConstant.navigateToChooseRole:
             DispatchQueue.main.async {
                 self.navigateToChooseRole = true
-                self.resetParameters()
+                self.resetParameters(page: NavigateCommandConstant.navigateToChooseRole)
             }
         case NavigateCommandConstant.navigateToHangoutMode:
             DispatchQueue.main.async {
@@ -177,17 +183,38 @@ class MultipeerController: NSObject, ObservableObject {
         return result
     }
     
-    func resetParameters() {
+    func resetParameters(page: String) {
         //to be called when NavigateCommandConstant.navigateToChooseRole
-        allGuest = []
-        lobby = Lobby(name: "", silentDuration: 10, numberOfQuestion: 1)
+        
         yesVote = 0
         noVote = 0
         totalVote = 0
         isPlayer = false
-        isHost = false
-        hostPeerID = nil
-        session.disconnect()
+        
+        if page == NavigateCommandConstant.navigateToChoosingPlayer {
+            if !isInitialRound {
+                currentQuestion += 1
+            }
+            else {
+                isInitialRound = false
+            }
+        }
+        
+        else if page == NavigateCommandConstant.navigateToListen {
+            currentQuestion = 1
+            isInitialRound = true
+        }
+        
+        else if page == NavigateCommandConstant.navigateToChooseRole {
+            isInitialRound = true
+            currentQuestion = 0
+            totalQuestion = 1
+            isHost = false
+            hostPeerID = nil
+            allGuest = []
+            lobby = Lobby(name: "", silentDuration: 10, numberOfQuestion: 1)
+            session.disconnect()
+        }
     }
     
     func resetNavigateVar() {
@@ -398,7 +425,36 @@ extension MultipeerController: MCSessionDelegate {
                     let message = components[0]
                     
                     // Check if the message is a command or other type of data
-                    if message == MsgCommandConstant.startListen {
+                    if message.contains(MsgCommandConstant.updateTotalQuestion) {
+                        DispatchQueue.main.async { [weak self] in
+                            let originalString = message
+                            let substringToRemove = MsgCommandConstant.updateTotalQuestion
+                            
+                            let updatedString = originalString.replacingOccurrences(of: substringToRemove, with: "")
+                            
+                            self?.totalQuestion = Int(updatedString) ?? 1
+                        }
+                    } else if message.contains(MsgCommandConstant.updateCurrentPlayer) {
+                        DispatchQueue.main.async { [weak self] in
+                            let originalString = message
+                            let substringToRemove = MsgCommandConstant.updateCurrentPlayer
+                            
+                            let updatedString = originalString.replacingOccurrences(of: substringToRemove, with: "")
+                            
+                            self?.currentPlayer = updatedString
+                        }
+                    } else if message == MsgCommandConstant.disconnect {
+                        DispatchQueue.main.async { [weak self] in
+                            // Handle disconnect
+                            self?.gameState = .waitingForInvitation
+                            
+                            self?.session.disconnect()
+                            self?.navigateToWaitingInvitation = true
+                        }
+                    }
+                        
+                        
+                    else if message == MsgCommandConstant.startListen {
                         DispatchQueue.main.async { [weak self] in
                             // Handle the "Start Listen" command
                             self?.gameState = .listening
@@ -413,17 +469,7 @@ extension MultipeerController: MCSessionDelegate {
                             // Handle the "Start Quiz" command
                             self?.isChoosingView = false
                         }
-                    } else if message == MsgCommandConstant.disconnect {
-                        DispatchQueue.main.async { [weak self] in
-                            // Handle disconnect
-                            self?.session.disconnect()
-                            self?.gameState = .waitingForInvitation
-                            self?.isAdvertising = true
-                            
-                            self?.navigateToListen = true
-                            
-                        }
-                    } else if message == MsgCommandConstant.updatePlayerTrue {
+                    }  else if message == MsgCommandConstant.updatePlayerTrue {
                         DispatchQueue.main.async { [weak self] in
                             self?.isPlayer = true
                         }
@@ -453,15 +499,6 @@ extension MultipeerController: MCSessionDelegate {
                     } else if message == MsgCommandConstant.updateIsWinFalse {
                         DispatchQueue.main.async { [weak self] in
                             self?.isWin = false
-                        }
-                    } else if message.contains(MsgCommandConstant.updateCurrentPlayer) {
-                        DispatchQueue.main.async { [weak self] in
-                            let originalString = message
-                            let substringToRemove = MsgCommandConstant.updateCurrentPlayer
-                            
-                            let updatedString = originalString.replacingOccurrences(of: substringToRemove, with: "")
-                            
-                            self?.currentPlayer = updatedString
                         }
                     } else if message == MsgCommandConstant.updateIsEndViewTrue {
                         DispatchQueue.main.async { [weak self] in

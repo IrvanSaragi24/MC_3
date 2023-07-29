@@ -12,7 +12,7 @@ struct New_ChoosingView: View {
     @EnvironmentObject var lobbyViewModel: LobbyViewModel
     @EnvironmentObject private var multipeerController: MultipeerController
     
-    @State private var timerIsDone: Bool = false
+//    @State private var timerIsDone: Bool = false
     
     @State private var progressValue: Float = 0.0
     private let totalProgress: Float = 100.0
@@ -67,7 +67,7 @@ struct New_ChoosingView: View {
                         .overlay{
                             Circle()
                                 .foregroundColor(Color("Background"))
-                            Text("\(multipeerController.lobby.currentQuestionIndex) / \(multipeerController.lobby.numberOfQuestion)")
+                            Text("\(lobbyViewModel.lobby.currentQuestionIndex) / \(lobbyViewModel.lobby.numberOfQuestion)")
                                 .font(.system(size: 16, weight: .semibold, design: .rounded))
                                 .foregroundColor(Color("Second"))
                             
@@ -75,35 +75,37 @@ struct New_ChoosingView: View {
                         .padding(.top, 170)
                     
                 }
-                NavigationLink(
-                    destination: RefereeView()
-                        .environmentObject(lobbyViewModel)
-                        .environmentObject(multipeerController),
-                    isActive: $timerIsDone,
-                    label: {
-                        EmptyView()
-                })
             }
+            .background(
+                NavigationLink(
+                    destination: New_RefereeView()
+                        .environmentObject(multipeerController)
+                        .environmentObject(lobbyViewModel),
+                    isActive: $multipeerController.navigateToReferee
+                ) {
+                    EmptyView()
+                }
+            )
         }
+        .navigationBarBackButtonHidden(true)
+        .background(
+            NavigationLink(
+                destination: New_PlayerView()
+                    .environmentObject(multipeerController)
+                    .environmentObject(lobbyViewModel),
+                isActive: $multipeerController.navigateToPlayer
+            ) {
+                EmptyView()
+            }
+        )
         .onAppear() {
+            multipeerController.resetNavigateVar()
             // Trigger haptic feedback with the custom pattern
             hapticViewModel.triggerThrillingHaptic()
             
-            print("dah manggil haptic")
             randomPlayer()
             
         }
-//        .onReceive(multipeerController.$receivedQuestion) { receivedQuestion in
-//            if multipeerController.hostPeerID != nil {
-//                DispatchQueue.main.async {
-//                    self.question = receivedQuestion
-//                }
-//            } else {
-//                DispatchQueue.main.async {
-//                    self.question = lobbyViewModel.lobby.question ?? "Default Question Text"
-//                }
-//            }
-//        }
     }
     func startUpdatingProgress() {
         Timer.scheduledTimer(withTimeInterval: updateInterval, repeats: true) { timer in
@@ -111,13 +113,19 @@ struct New_ChoosingView: View {
                 progressValue += 1.0
             } else {
                 timer.invalidate()
-                timerIsDone = true
+//                timerIsDone = true
+                if multipeerController.isPlayer {
+                    multipeerController.navigateToPlayer = true
+                }
+                else {
+                    multipeerController.navigateToReferee = true
+                }
             }
         }
     }
     
     func randomPlayer() {
-//        yg host2 aja
+//        yg host2 aja, choose a player and broadcast the message
         if multipeerController.isHost {
             
             var connectedGuest = multipeerController.getConnectedPeers()
@@ -144,14 +152,9 @@ struct New_ChoosingView: View {
 
 struct New_ChoosingView_Previews: PreviewProvider {
     static var previews: some View {
-        let player = Player(name: "Player", lobbyRole: .host, gameRole: .asked)
-        let playerData = PlayerData(mainPlayer: player, playerList: [player])
-        let lobbyViewModel = LobbyViewModel()
-        let multipeerController = MultipeerController("YourDisplayName")
 
         New_ChoosingView()
-            .environmentObject(lobbyViewModel)
-            .environmentObject(multipeerController)
-            .environmentObject(playerData)
+            .environmentObject(LobbyViewModel())
+            .environmentObject(MultipeerController("YourDisplayName"))
     }
 }

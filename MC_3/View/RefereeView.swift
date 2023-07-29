@@ -180,7 +180,7 @@ struct RefereeView_Previews: PreviewProvider {
     }
 }
 
-struct ButtonSliderReferee: View {
+struct ButtonSliderRefereeX: View {
     @State private var buttonWidth: Double = UIScreen.main.bounds.width - 80
     @State private var buttonOffset: CGFloat = 0
     @Binding var circleScale: CGFloat

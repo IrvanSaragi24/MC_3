@@ -16,8 +16,6 @@ enum MsgCommandConstant {
     static let startListen = "START LISTEN"
     static let updateIsChoosingViewTrue = "ISCHOOSING TRUE"
     static let updateIsChoosingViewFalse = "ISCHOOSING FALSE"
-    static let disconnect = "DISCONNECT FROM MY SESSION"
-    static let updatePlayerTrue = "PLAYER TRUE"
     static let updatePlayerFalse = "PLAYER FALSE"
     static let updateCurrentTotalPlayer = "UPDATE TOTAL PLAYER"
     static let voteYes = "VOTE YES"
@@ -26,11 +24,16 @@ enum MsgCommandConstant {
     static let updateIsResultViewFalse = "ISRESULTVIEW FALSE"
     static let updateIsEndViewTrue = "ISENDVIEW TRUE"
     static let updateIsEndViewFalse = "ISENDVIEW FALSE"
-    static let updateIsWinTrue = "ISWIN TRUE"
     static let updateIsWinFalse = "ISWIN FALSE"
-    static let updateCurrentPlayer = "[PLAYER]"
     static let resetAllVarToDefault = "RESETALLVARTODEFAULT"
     static let resetGame = "RESETGAME"
+    
+    // penting
+    static let updatePlayerTrue = "PLAYER TRUE"
+    static let updateCurrentPlayer = "[PLAYER]"
+    static let updateIsWinTrue = "ISWIN TRUE"
+    static let updateTotalQuestion = "[NUMBEROFQUESTION]"
+    static let disconnect = "DISCONNECT FROM MY SESSION"
 }
 
 enum NavigateCommandConstant {

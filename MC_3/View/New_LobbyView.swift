@@ -22,6 +22,8 @@ struct New_LobbyView: View {
     
     let numberOfQuestionOptions = [1, 2, 3, 4]
     
+    @State private var isButtonEnabled = false
+    
     var body: some View {
         ZStack {
             Color.clear.backgroundStyle()
@@ -114,6 +116,14 @@ struct New_LobbyView: View {
                             Spacer()
                             Text("\(multipeerController.allGuest.filter { $0.status == .connected }.count)")
                         }
+                        .onChange(of: multipeerController.allGuest.filter { $0.status == .connected }.count) { newValue in
+                            if newValue >= 1 {
+                                isButtonEnabled = true
+                            }
+                            else {
+                                isButtonEnabled = false
+                            }
+                        }
                         .padding()
                         
                     }
@@ -193,9 +203,18 @@ struct New_LobbyView: View {
                 .scrollContentBackground(.hidden)
                 Button {
                     let connectedGuest = multipeerController.getConnectedPeers()
-                    print("connectedGuest: \(connectedGuest.count)")
+                    
+                    //update total question to all peers
+                    if lobbyViewModel.lobby.numberOfQuestion != 1 {
+                        multipeerController.totalQuestion = lobbyViewModel.lobby.numberOfQuestion
+                        
+                        let msg = MsgCommandConstant.updateTotalQuestion + String(lobbyViewModel.lobby.numberOfQuestion)
+                        
+                        multipeerController.sendMessage(msg, to: connectedGuest)
+                    }
+                    
                     multipeerController.sendMessage(NavigateCommandConstant.navigateToListen, to: connectedGuest)
-                    print("navigateToListen from button")
+                    
                     multipeerController.navigateToListen = true
                     
                 } label: {
@@ -205,6 +224,7 @@ struct New_LobbyView: View {
                 }
                 .buttonStyle(MultipeerButtonStyle())
                 .padding(.bottom, 50)
+                .disabled(!isButtonEnabled)
                 
             }
             .padding(.top, 60)
@@ -219,7 +239,8 @@ struct New_LobbyView: View {
         .background(
             NavigationLink(
                 destination: New_ListenView()
-                    .environmentObject(multipeerController),
+                    .environmentObject(multipeerController)
+                    .environmentObject(lobbyViewModel),
                 isActive: $multipeerController.navigateToListen
             ) {
                 EmptyView()

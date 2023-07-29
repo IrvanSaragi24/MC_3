@@ -8,11 +8,20 @@
 import SwiftUI
 
 struct New_WaitingToStart: View {
+    var screenWidth: CGFloat {
+        UIScreen.main.bounds.width
+    }
+    
+    var screenHeight: CGFloat {
+        UIScreen.main.bounds.height
+    }
+    
     @EnvironmentObject private var multipeerController: MultipeerController
+    @StateObject private var lobbyViewModel = LobbyViewModel()
     
     var body: some View {
         ZStack {
-            New_LoadingView(textWait: "", circleSize: 60, LineWidtCircle: 20, LineWidtCircle2: 15, yOffset: 300)
+            New_LoadingView(textWait: "", circleSize: 60, LineWidtCircle: 20, LineWidtCircle2: 15, yOffset: screenHeight * 0.40)
             VStack{
                 Text("You have joined")
                     .font(.system(size: 18, weight: .light))
@@ -42,6 +51,15 @@ struct New_WaitingToStart: View {
                     .padding(.top, 50)
                 
             }
+            .background(
+                NavigationLink(
+                    destination: New_WaitingForInvitationView()
+                        .environmentObject(multipeerController),
+                    isActive: $multipeerController.navigateToWaitingInvitation
+                ) {
+                    EmptyView()
+                }
+            )
             
         }
         .onAppear(){
@@ -51,7 +69,7 @@ struct New_WaitingToStart: View {
             NavigationLink(
                 destination: New_ListenView()
                     .environmentObject(multipeerController)
-                    .environmentObject(LobbyViewModel()),
+                    .environmentObject(lobbyViewModel),
                 isActive: $multipeerController.navigateToListen
             ) {
                 EmptyView()

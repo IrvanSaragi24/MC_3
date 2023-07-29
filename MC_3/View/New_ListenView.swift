@@ -72,8 +72,11 @@ struct New_ListenView: View {
                 
                 Button {
                     if multipeerController.isHost {
+                        
                         audioViewModel.stopVoiceActivityDetection()
                         quizTime()
+                        
+                        
                     }
                     
                 } label: {
@@ -83,7 +86,8 @@ struct New_ListenView: View {
                 .opacity(multipeerController.isHost ? 100 : 0)
                 .background(
                     NavigationLink(
-                        destination: ChoosingView().environmentObject(lobbyViewModel)
+                        destination: New_ChoosingView()
+                            .environmentObject(lobbyViewModel)
                             .environmentObject(multipeerController),
                         isActive: $multipeerController.navigateToChoosingPlayer
                     ) {
@@ -118,7 +122,9 @@ struct New_ListenView: View {
                 )
             }
         }
+        .navigationBarBackButtonHidden(true)
         .onAppear{
+            multipeerController.resetNavigateVar()
             if multipeerController.isHost {
                 if audioViewModel.audio.isRecording == false && multipeerController.hostPeerID == nil {
                     audioViewModel.startVoiceActivityDetection()
@@ -192,7 +198,6 @@ struct New_ListenView: View {
                 // TODO: sayed figure this things out
             }
             
-            lobbyViewModel.lobby.currentQuestionIndex += 1
             
             // Di sisi pengirim
             let typeData = "question"
@@ -201,9 +206,10 @@ struct New_ListenView: View {
             // Kirim pesan ke semua peer yang terhubung
             multipeerController.sendMessage(message, to: connectedGuest)
             multipeerController.receivedQuestion = lobbyViewModel.lobby.question!
-        }
-        else{
-            lobbyViewModel.lobby.currentQuestionIndex = multipeerController.currentQuestionIndex
+            
+            // pindah halaman
+            multipeerController.sendMessage(NavigateCommandConstant.navigateToChoosingPlayer, to: connectedGuest)
+            multipeerController.navigateToChoosingPlayer = true
         }
     }
 }
