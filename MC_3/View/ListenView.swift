@@ -70,7 +70,7 @@ struct ListenView: View {
                                     .onAppear(perform: lobbyViewModel.startTimer)
                                     .onDisappear(perform: lobbyViewModel.pauseTimer)
                             }
-                            Text("If We Detect Silent,\nThe Game Starts!")
+                            Text("If We Detect Silence,\nThe Game Starts!")
                                 .font(.system(size: 24, weight: .medium, design: .rounded))
                                 .foregroundColor(Color("Second"))
                                 .multilineTextAlignment(.center)
