@@ -12,7 +12,7 @@ struct New_WaitingToStart: View {
     
     var body: some View {
         ZStack {
-            LoadingView(textWait: "", circleSize: 60, LineWidtCircle: 20, LineWidtCircle2: 15)
+            New_LoadingView(textWait: "", circleSize: 60, LineWidtCircle: 20, LineWidtCircle2: 15, yOffset: 300)
             VStack{
                 Text("You have joined")
                     .font(.system(size: 18, weight: .light))
@@ -44,20 +44,20 @@ struct New_WaitingToStart: View {
             }
             
         }
-        .onDisappear(){
-            multipeerController.navigateToWaitingStart = false
+        .onAppear(){
+            multipeerController.resetNavigateVar()
         }
-        .padding(.top, 40)
+        .background(
+            NavigationLink(
+                destination: New_ListenView()
+                    .environmentObject(multipeerController),
+                isActive: $multipeerController.navigateToListen
+            ) {
+                EmptyView()
+            }
+        )
         
-            .background(
-                NavigationLink(
-                    destination: New_ListenView()
-                        .environmentObject(multipeerController),
-                    isActive: $multipeerController.navigateToListen
-                ) {
-                    EmptyView()
-                }
-            )
+            
     }
 }
 

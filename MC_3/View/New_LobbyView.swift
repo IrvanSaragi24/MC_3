@@ -1,8 +1,8 @@
 //
-//  New_LobbyView.swift
+//  LobbyView.swift
 //  MC_3
 //
-//  Created by Sayed Zulfikar on 28/07/23.
+//  Created by Sayed Zulfikar on 18/07/23.
 //
 
 import SwiftUI
@@ -35,7 +35,7 @@ struct New_LobbyView: View {
                 .scaledToFill()
                 .ignoresSafeArea()
                 .padding(.top, 130)
-            Text("Waiting For Friends \n (Max: 8)")
+            Text("8 player \n maximum limit")
                 .font(.system(size: 36, weight: .bold,design: .rounded))
                 .multilineTextAlignment(.center)
                 .foregroundColor(Color("Second"))
@@ -195,13 +195,6 @@ struct New_LobbyView: View {
                 }
                 .listStyle(InsetGroupedListStyle())
                 .scrollContentBackground(.hidden)
-                .onAppear {
-                    multipeerController.startBrowsing()
-                }
-                .onDisappear {
-                    multipeerController.stopBrowsing()
-                }
-                
                 Button {
                     let connectedGuest = multipeerController.getConnectedPeers()
                     print("connectedGuest: \(connectedGuest.count)")
@@ -220,8 +213,12 @@ struct New_LobbyView: View {
             }
             .padding(.top, 60)
         }
-        .onAppear(){
+        .onAppear {
             multipeerController.resetNavigateVar()
+            multipeerController.startBrowsing()
+        }
+        .onDisappear {
+            multipeerController.stopBrowsing()
         }
         .background(
             NavigationLink(
@@ -232,6 +229,7 @@ struct New_LobbyView: View {
                 EmptyView()
             }
         )
+        
     }
     
 }
@@ -241,7 +239,6 @@ struct New_LobbyView_Previews: PreviewProvider {
     static var previews: some View {
         New_LobbyView()
             .environmentObject(MultipeerController("Player"))
-        
     }
 }
 
@@ -264,13 +261,14 @@ struct InformasiModal: View {
             Text("If you set the Silent Period to 10 seconds (default), the game will start automatically after no one is talking in 10 seconds. Otherwise, you can start manually by clicking on the “Quiz Time!” button.")
                 .fontWeight(.light)
             Divider()
-            /// QA
+            // QA
             Text("QA")
                 .fontWeight(.bold)
             Text("So what is QA (Question Amount) and what does it do?")
                 .fontWeight(.bold)
             Text("Question Amount is the total of questions asked to players chosen randomly. Each question will be asked to random players.")
                 .fontWeight(.light)
+                .padding(.leading, -2)
         }
         .padding()
     }

@@ -12,7 +12,7 @@ struct New_WaitingForInvitationView: View {
     
     var body: some View {
         
-        LoadingView(textWait: "Waiting invitation from a host...", circleSize: 166, LineWidtCircle: 40, LineWidtCircle2: 35)
+        New_LoadingView(textWait: "Waiting invitation from a host...", circleSize: 166, LineWidtCircle: 40, LineWidtCircle2: 35, yOffset: 0)
             .onDisappear(){
                 multipeerController.isAdvertising = false
             }

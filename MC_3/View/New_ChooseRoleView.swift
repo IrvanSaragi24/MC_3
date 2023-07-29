@@ -56,14 +56,11 @@ struct New_ChooseRoleView: View {
                         NavigationLink(
                             destination: New_LobbyView()
                                 .environmentObject(multipeerController),
-                            isActive: $isLobbyViewActive 
+                            isActive: $isLobbyViewActive
                         ) {
                             EmptyView()
                         }
                     )
-                    
-                    
-                    
                     Button(
                         action: {
                             isWaitingInvitationViewActive = true
