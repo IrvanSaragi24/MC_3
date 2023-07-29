@@ -44,6 +44,7 @@
 		E2E460CB2A72E6E100F97324 /* Time.gif in Resources */ = {isa = PBXBuildFile; fileRef = E2E460CA2A72E6E100F97324 /* Time.gif */; };
 		E2E460CD2A72E95700F97324 /* Hmm.gif in Resources */ = {isa = PBXBuildFile; fileRef = E2E460CC2A72E95700F97324 /* Hmm.gif */; };
 		EC4FAB082A757E5900B76159 /* New_LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4FAB072A757E5900B76159 /* New_LoadingView.swift */; };
+		EC4FAB0A2A758C8C00B76159 /* New_ChoosingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4FAB092A758C8C00B76159 /* New_ChoosingView.swift */; };
 		EC524F1D2A7404AD00D7B592 /* New_ChooseRoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC524F1C2A7404AD00D7B592 /* New_ChooseRoleView.swift */; };
 		EC524F1F2A7405AF00D7B592 /* New_WaitingForInvitationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC524F1E2A7405AF00D7B592 /* New_WaitingForInvitationView.swift */; };
 		EC524F212A74250800D7B592 /* New_WaitingToStart.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC524F202A74250800D7B592 /* New_WaitingToStart.swift */; };
@@ -59,7 +60,6 @@
 		EC8F9E292A69411800E0A76B /* MultipeerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8F9E282A69411800E0A76B /* MultipeerController.swift */; };
 		EC8F9E2B2A69422100E0A76B /* Misc.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8F9E2A2A69422100E0A76B /* Misc.swift */; };
 		ECAE9AA32A654C3200E46A34 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECAE9AA22A654C3200E46A34 /* Player.swift */; };
-		ECAE9AA62A6553D600E46A34 /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECAE9AA52A6553D600E46A34 /* ConnectionManager.swift */; };
 		ECCA2FDB2A6C1C0C000226AD /* ChoosePlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCA2FDA2A6C1C0C000226AD /* ChoosePlayerView.swift */; };
 		ECCA2FDD2A6C1FAF000226AD /* RefereeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCA2FDC2A6C1FAF000226AD /* RefereeView.swift */; };
 		ECCA2FE12A6C24DF000226AD /* ContinueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCA2FE02A6C24DF000226AD /* ContinueView.swift */; };
@@ -105,6 +105,7 @@
 		E2E460CA2A72E6E100F97324 /* Time.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Time.gif; sourceTree = "<group>"; };
 		E2E460CC2A72E95700F97324 /* Hmm.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Hmm.gif; sourceTree = "<group>"; };
 		EC4FAB072A757E5900B76159 /* New_LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = New_LoadingView.swift; sourceTree = "<group>"; };
+		EC4FAB092A758C8C00B76159 /* New_ChoosingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = New_ChoosingView.swift; sourceTree = "<group>"; };
 		EC524F1C2A7404AD00D7B592 /* New_ChooseRoleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = New_ChooseRoleView.swift; sourceTree = "<group>"; };
 		EC524F1E2A7405AF00D7B592 /* New_WaitingForInvitationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = New_WaitingForInvitationView.swift; sourceTree = "<group>"; };
 		EC524F202A74250800D7B592 /* New_WaitingToStart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = New_WaitingToStart.swift; sourceTree = "<group>"; };
@@ -120,7 +121,6 @@
 		EC8F9E282A69411800E0A76B /* MultipeerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipeerController.swift; sourceTree = "<group>"; };
 		EC8F9E2A2A69422100E0A76B /* Misc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Misc.swift; sourceTree = "<group>"; };
 		ECAE9AA22A654C3200E46A34 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
-		ECAE9AA52A6553D600E46A34 /* ConnectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionManager.swift; sourceTree = "<group>"; };
 		ECCA2FDA2A6C1C0C000226AD /* ChoosePlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosePlayerView.swift; sourceTree = "<group>"; };
 		ECCA2FDC2A6C1FAF000226AD /* RefereeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefereeView.swift; sourceTree = "<group>"; };
 		ECCA2FE02A6C24DF000226AD /* ContinueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinueView.swift; sourceTree = "<group>"; };
@@ -186,6 +186,7 @@
 				EC524F202A74250800D7B592 /* New_WaitingToStart.swift */,
 				EC524F242A74ACBA00D7B592 /* New_ListenView.swift */,
 				EC4FAB072A757E5900B76159 /* New_LoadingView.swift */,
+				EC4FAB092A758C8C00B76159 /* New_ChoosingView.swift */,
 				E2AD0EB32A60EDE100E76ED3 /* ContentView.swift */,
 				EC8318732A66A11B00BD3A7E /* LobbyView.swift */,
 				E25C6E012A645D4800B4F3EC /* HangOutView.swift */,
@@ -257,7 +258,6 @@
 		ECAE9AA42A65528400E46A34 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				ECAE9AA52A6553D600E46A34 /* ConnectionManager.swift */,
 				EC8F9E282A69411800E0A76B /* MultipeerController.swift */,
 				EC8F9E2A2A69422100E0A76B /* Misc.swift */,
 				A3E9052F2A6EF4DE007A0E2A /* VoiceActivityDetector.swift */,
@@ -378,7 +378,6 @@
 				EC8318722A66050C00BD3A7E /* ChooseRoleView.swift in Sources */,
 				A3E905322A6F4B00007A0E2A /* LobbyViewModel.swift in Sources */,
 				A3E9052C2A6EF495007A0E2A /* Audio.swift in Sources */,
-				ECAE9AA62A6553D600E46A34 /* ConnectionManager.swift in Sources */,
 				EC524F252A74ACBB00D7B592 /* New_ListenView.swift in Sources */,
 				E2AD0EB22A60EDE100E76ED3 /* MC_3App.swift in Sources */,
 				ECCA2FDB2A6C1C0C000226AD /* ChoosePlayerView.swift in Sources */,
@@ -390,6 +389,7 @@
 				E25C6DFC2A63CBAB00B4F3EC /* EndGameView.swift in Sources */,
 				E22F94722A6B78F10088315B /* LoadingView.swift in Sources */,
 				EC4FAB082A757E5900B76159 /* New_LoadingView.swift in Sources */,
+				EC4FAB0A2A758C8C00B76159 /* New_ChoosingView.swift in Sources */,
 				E25C6DFC2A63CBAB00B4F3EC /* EndGameView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

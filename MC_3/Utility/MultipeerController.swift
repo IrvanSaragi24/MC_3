@@ -38,7 +38,7 @@ class MultipeerController: NSObject, ObservableObject {
     @Published var nonNullVotes: Int = 0
     @Published var currentQuestionIndex: Int = 0
     
-    @Published var lobby = Lobby(name: "Player")
+    @Published var lobby = Lobby(name: "Player") // Please don't use this, All lobby related stuff should be in separated View Model which is LobbyViewModel
     
     @Published var yesVote: Int = 0
     @Published var noVote: Int = 0

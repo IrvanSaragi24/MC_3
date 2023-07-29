@@ -10,6 +10,7 @@ import SwiftUI
 
 struct New_ChooseRoleView: View {
     @EnvironmentObject private var multipeerController: MultipeerController
+    @StateObject private var lobbyViewModel = LobbyViewModel()
     
     @State private var isWaitingInvitationViewActive = false
     @State private var isLobbyViewActive = false
@@ -28,7 +29,7 @@ struct New_ChooseRoleView: View {
                     
                     Button(action: {
                         multipeerController.isHost = true
-                        multipeerController.lobby.name = multipeerController.myPeerId.displayName
+                        lobbyViewModel.lobby.name = multipeerController.myPeerId.displayName
 
                         isLobbyViewActive = true
                         
@@ -55,7 +56,8 @@ struct New_ChooseRoleView: View {
                     .background(
                         NavigationLink(
                             destination: New_LobbyView()
-                                .environmentObject(multipeerController),
+                                .environmentObject(multipeerController)
+                                .environmentObject(lobbyViewModel),
                             isActive: $isLobbyViewActive
                         ) {
                             EmptyView()

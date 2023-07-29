@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct New_ListenView: View {
-    @StateObject var lobbyViewModel = LobbyViewModel()
+    @EnvironmentObject private var lobbyViewModel: LobbyViewModel
     @EnvironmentObject private var multipeerController: MultipeerController
     @State private var currentColorIndex = 0
     private let colors: [Color] = [.blue, .black, .indigo, .red]
@@ -116,41 +116,27 @@ struct New_ListenView: View {
                         EmptyView()
                     }
                 )
-                .onAppear{
-                    if multipeerController.isHost {
-                        if audioViewModel.audio.isRecording == false && multipeerController.hostPeerID == nil {
-                            audioViewModel.startVoiceActivityDetection()
-                            lobbyViewModel.startTimer()
-                            audioViewModel.silentPeriod = lobbyViewModel.lobby.silentDuration
-                        }
-                    }
+            }
+        }
+        .onAppear{
+            if multipeerController.isHost {
+                if audioViewModel.audio.isRecording == false && multipeerController.hostPeerID == nil {
+                    audioViewModel.startVoiceActivityDetection()
+                    lobbyViewModel.startTimer()
+                    audioViewModel.silentPeriod = lobbyViewModel.lobby.silentDuration
                 }
-                .onChange(of: audioViewModel.audio.isRecording) { newValue in
-                    if multipeerController.isHost && newValue == false {
-                        sendQuizTimeNotification()
-                        checkNotificationFlag()
-                        if shouldStartQuizTime {
-                            quizTime()
-                        }
-                    }
+            }
+        }
+        .onChange(of: audioViewModel.audio.isRecording) { newValue in
+            if multipeerController.isHost && newValue == false {
+                sendQuizTimeNotification()
+                checkNotificationFlag()
+                if shouldStartQuizTime {
+                    quizTime()
                 }
-                .onDisappear(){
-//                    multipeerController.navigateToChooseRole = false
-                }
-                
-                
             }
         }
         
-        if multipeerController.isChoosingView {
-            ChoosingView()
-                .environmentObject(lobbyViewModel)
-                .environmentObject(multipeerController)
-            //                    .environmentObject(playerData)
-        }
-        else {
-            
-        }
         
         
     }
@@ -200,20 +186,13 @@ struct New_ListenView: View {
             lobbyViewModel.pauseTimer()
             
             let objekIndex = lobbyViewModel.getQuestion(candidates: candidates)
-            
-            multipeerController.receivedQuestion = lobbyViewModel.lobby.question!
-            
+
             if objekIndex == candidates.count-1 {
                 // host yg kepilih jadi object
+                // TODO: sayed figure this things out
             }
             
-            multipeerController.sendMessage(MsgCommandConstant.updateIsChoosingViewTrue, to: connectedGuest)
-            
             lobbyViewModel.lobby.currentQuestionIndex += 1
-            
-            connectedGuest = multipeerController.allGuest
-                .filter { $0.status == .connected }
-                .map { $0.id }
             
             // Di sisi pengirim
             let typeData = "question"
@@ -221,11 +200,9 @@ struct New_ListenView: View {
             
             // Kirim pesan ke semua peer yang terhubung
             multipeerController.sendMessage(message, to: connectedGuest)
-            
-            multipeerController.isChoosingView = true
+            multipeerController.receivedQuestion = lobbyViewModel.lobby.question!
         }
         else{
-            multipeerController.currentQuestionIndex += 1
             lobbyViewModel.lobby.currentQuestionIndex = multipeerController.currentQuestionIndex
         }
     }
@@ -235,5 +212,6 @@ struct New_ListenView_Previews: PreviewProvider {
     static var previews: some View {
         New_ListenView()
             .environmentObject(MultipeerController("YourDisplayName"))
+            .environmentObject(LobbyViewModel())
     }
 }

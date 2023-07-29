@@ -50,7 +50,8 @@ struct New_WaitingToStart: View {
         .background(
             NavigationLink(
                 destination: New_ListenView()
-                    .environmentObject(multipeerController),
+                    .environmentObject(multipeerController)
+                    .environmentObject(LobbyViewModel()),
                 isActive: $multipeerController.navigateToListen
             ) {
                 EmptyView()

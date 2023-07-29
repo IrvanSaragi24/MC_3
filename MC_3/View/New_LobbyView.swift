@@ -10,13 +10,9 @@ import MultipeerConnectivity
 
 struct New_LobbyView: View {
     @EnvironmentObject var multipeerController: MultipeerController
-    
-    var lobbyViewModel = LobbyViewModel()
-    
-    var playerData = PlayerData(mainPlayer: Player(name: "Player", lobbyRole: .noLobbyRole, gameRole: .asked), playerList: [Player(name: "Player", lobbyRole: .noLobbyRole, gameRole: .asked)])
+    @EnvironmentObject var lobbyViewModel: LobbyViewModel
     
     @State private var isListenViewActive = false
-    
     @State private var showingConfirmationAlert = false
     @State private var guestToRemove: MCPeerID?
     
@@ -74,7 +70,7 @@ struct New_LobbyView: View {
                                     .fontWeight(.bold)
                                 //                                        .frame(width: 100)
                                 Spacer()
-                                Picker("Silent Period", selection: $multipeerController.lobby.silentDuration) {
+                                Picker("Silent Period", selection: $lobbyViewModel.lobby.silentDuration) {
                                     ForEach(silentDurationOptions, id: \.self) { duration in
                                         Text("\(duration)s")
                                             .tag(duration)
@@ -93,7 +89,7 @@ struct New_LobbyView: View {
                                 Text("QA:")
                                     .fontWeight(.bold)
                                 Spacer()
-                                Picker("Number of Questions", selection: $multipeerController.lobby.numberOfQuestion) {
+                                Picker("Number of Questions", selection: $lobbyViewModel.lobby.numberOfQuestion) {
                                     ForEach(numberOfQuestionOptions, id: \.self) { number in
                                         Text("\(number)")
                                         
@@ -239,6 +235,7 @@ struct New_LobbyView_Previews: PreviewProvider {
     static var previews: some View {
         New_LobbyView()
             .environmentObject(MultipeerController("Player"))
+            .environmentObject(LobbyViewModel())
     }
 }
 
