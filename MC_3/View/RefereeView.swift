@@ -40,6 +40,9 @@ struct RefereeView: View {
                 ZStack{
                     Color.clear.backgroundStyle()
                     BubbleView()
+                    GifImage("Time")
+                        .frame(width: 450, height: 400)
+                        .padding(.bottom, 170)
                     VStack{
                         //                Text(message)
                         ZStack{
@@ -70,9 +73,10 @@ struct RefereeView: View {
                                 .padding(.bottom, 55)
                             
                         }
-                        Image("ImageReferee")
-                            .resizable()
-                            .frame(width: 234, height: 234)
+                        .padding(.bottom, 300)
+//                        Image("ImageReferee")
+//                            .resizable()
+//                            .frame(width: 234, height: 234)
                         
                         
                         ZStack{
@@ -113,7 +117,7 @@ struct RefereeView: View {
                                 .foregroundColor(Color("Second"))
                                 .opacity(0.4)
                                 .multilineTextAlignment(.center)
-                                .padding(.top, 350)
+                                .padding(.top, 250)
                         }
                     }
                 }

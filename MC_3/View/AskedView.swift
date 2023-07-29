@@ -32,6 +32,9 @@ struct AskedView: View {
         else {
             ZStack{
                 BubbleView()
+                GifImage("Hmm")
+                   .frame(width: 450, height: 450)
+                   .padding(.bottom, 170)
                 VStack(spacing : 10) {
                     ZStack{
                         RoundedRectangle(cornerRadius: 12)
@@ -59,10 +62,10 @@ struct AskedView: View {
                             }
                             .padding(.bottom, 55)
                     }
-                    
-                    Image(AnswerNo ? "Noob" : "Anjayy")
-                        .resizable()
-                        .frame(width: 278, height: 278)
+                    .padding(.bottom, 250)
+//                    Image(AnswerNo ? "Noob" : "Anjayy")
+//                        .resizable()
+//                        .frame(width: 278, height: 278)
                     Text("Wait for referees to vote \nVoting : \(multipeerController.totalVote)/\(multipeerController.getConnectedPeers().count)\(dots)")
                         .font(.system(size: 28, design: .rounded))
                         .fontWeight(.bold)
