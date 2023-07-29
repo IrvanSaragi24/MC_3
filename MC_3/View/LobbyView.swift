@@ -16,8 +16,8 @@ struct LobbyView: View {
     @State private var navigateToListenView = false
     @State private var showingConfirmationAlert = false
     @State private var guestToRemove: MCPeerID?
-    let silentDurationOptions = [10, 15, 20] // Example options for silent duration in seconds
     @State private var isInformasiModal = false
+    let silentDurationOptions = [10, 15, 20, 25] // Example options for silent duration in seconds
     let numberOfQuestionOptions = [1, 2, 3, 4]
     
     var body: some View {
@@ -30,7 +30,7 @@ struct LobbyView: View {
                     .scaledToFill()
                     .ignoresSafeArea()
                     .padding(.top, 130)
-                Text("Waiting For Friends \n (Max: 8)")
+                Text("8 player \n maximum limit")
                     .font(.system(size: 36, weight: .bold,design: .rounded))
                     .multilineTextAlignment(.center)
                     .foregroundColor(Color("Second"))
@@ -199,17 +199,20 @@ struct LobbyView: View {
                     }
                     
                     Button {
+                        print(lobbyViewModel.lobby.silentDuration)
                         let connectedGuest = multipeerController.getConnectedPeers()
-                        multipeerController.lobby.silentDuration = lobbyViewModel.lobby.silentDuration
-                        multipeerController.lobby.numberOfQuestion = lobbyViewModel.lobby.numberOfQuestion
                         
                         multipeerController.sendMessage(MsgCommandConstant.startListen, to: connectedGuest)
                         navigateToListenView = true
                         
                     } label: {
+                        
+                        
                         Text("Start!")
                             .font(.system(size: 28, design: .rounded))
                             .fontWeight(.bold)
+                        
+                        
                     }
                     .buttonStyle(MultipeerButtonStyle())
                     .padding(.bottom, 50)
@@ -269,13 +272,14 @@ struct InformasiModalX: View {
             Text("If you set the Silent Period to 10 seconds (default), the game will start automatically after no one is talking in 10 seconds. Otherwise, you can start manually by clicking on the “Quiz Time!” button.")
                 .fontWeight(.light)
             Divider()
-                /// QA
+                // QA
             Text("QA")
                 .fontWeight(.bold)
             Text("So what is QA (Question Amount) and what does it do?")
                 .fontWeight(.bold)
             Text("Question Amount is the total of questions asked to players chosen randomly. Each question will be asked to random players.")
                 .fontWeight(.light)
+                .padding(.leading, -2)
         }
         .padding()
     }

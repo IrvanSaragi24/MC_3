@@ -46,11 +46,11 @@ struct EndGameView: View {
 //                            //reset setting
 //                            multipeerController.sendMessage(MsgCommandConstant.resetAllVarToDefault, to: connectedGuest)
 //                            multipeerController.resetVarToDefault()
-//                            
+//
 //                            //back to ListenView
 //                            multipeerController.sendMessage(MsgCommandConstant.startListen, to: connectedGuest)
 //                            multipeerController.gameState = .listening
-//                            
+//
 //                            print("Continue Listening")
 //                        }
 //                    label: {
@@ -98,6 +98,7 @@ struct EndGameView: View {
                     
                 }
             }
+            .navigationBarBackButtonHidden(true)
         }
         
     }

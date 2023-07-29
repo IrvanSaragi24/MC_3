@@ -23,7 +23,6 @@ struct AskedView: View {
     @State var isWin = true
     
     var body: some View {
-        
         if multipeerController.isResultView {
             ResultView()
                 .environmentObject(multipeerController)
@@ -34,8 +33,8 @@ struct AskedView: View {
             ZStack{
                 BubbleView()
                 GifImage("Hmm")
-                .frame(width: 450, height: 450)
-                .padding(.bottom, 170)
+                   .frame(width: 450, height: 450)
+                   .padding(.bottom, 170)
                 VStack(spacing : 10) {
                     ZStack{
                         RoundedRectangle(cornerRadius: 12)
@@ -64,7 +63,6 @@ struct AskedView: View {
                             .padding(.bottom, 55)
                     }
                     .padding(.bottom, 250)
-                    
 //                    Image(AnswerNo ? "Noob" : "Anjayy")
 //                        .resizable()
 //                        .frame(width: 278, height: 278)
@@ -167,7 +165,6 @@ struct AskedView: View {
                 multipeerController.isChoosingView = false
             }
         }
-        
     }
     
     func animateDots() {

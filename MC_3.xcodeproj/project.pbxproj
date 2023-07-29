@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A35E52C82A7510BD00B9C0FD /* LoseReferee.m4a in Resources */ = {isa = PBXBuildFile; fileRef = A35E52C62A7510BD00B9C0FD /* LoseReferee.m4a */; };
+		A35E52C92A7510BD00B9C0FD /* WinReferee.m4a in Resources */ = {isa = PBXBuildFile; fileRef = A35E52C72A7510BD00B9C0FD /* WinReferee.m4a */; };
+		A35E52CB2A7510CB00B9C0FD /* LosePlayer.m4a in Resources */ = {isa = PBXBuildFile; fileRef = A35E52CA2A7510CB00B9C0FD /* LosePlayer.m4a */; };
+		A35E52CD2A7510D000B9C0FD /* WinPlayer.m4a in Resources */ = {isa = PBXBuildFile; fileRef = A35E52CC2A7510D000B9C0FD /* WinPlayer.m4a */; };
 		A39597B32A70A0E100007F82 /* ChoosingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39597B22A70A0E100007F82 /* ChoosingView.swift */; };
 		A39597B52A70CF1B00007F82 /* SynthesizerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39597B42A70CF1B00007F82 /* SynthesizerViewModel.swift */; };
 		A39597B72A70D8E100007F82 /* HapticViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39597B62A70D8E100007F82 /* HapticViewModel.swift */; };
@@ -35,6 +39,7 @@
 		E2B3374F2A72825F00F9384D /* LOL3.gif in Resources */ = {isa = PBXBuildFile; fileRef = E2B3374E2A72825F00F9384D /* LOL3.gif */; };
 		E2E460C12A72D50300F97324 /* Huh!.gif in Resources */ = {isa = PBXBuildFile; fileRef = E2E460C02A72D50300F97324 /* Huh!.gif */; };
 		E2E460C32A72D76D00F97324 /* Cool.gif in Resources */ = {isa = PBXBuildFile; fileRef = E2E460C22A72D76D00F97324 /* Cool.gif */; };
+		E2E460C72A72DE5700F97324 /* NameView.gif in Resources */ = {isa = PBXBuildFile; fileRef = E2E460C62A72DE5700F97324 /* NameView.gif */; };
 		E2E460C92A72E1A900F97324 /* NameAnimation.gif in Resources */ = {isa = PBXBuildFile; fileRef = E2E460C82A72E1A900F97324 /* NameAnimation.gif */; };
 		E2E460CB2A72E6E100F97324 /* Time.gif in Resources */ = {isa = PBXBuildFile; fileRef = E2E460CA2A72E6E100F97324 /* Time.gif */; };
 		E2E460CD2A72E95700F97324 /* Hmm.gif in Resources */ = {isa = PBXBuildFile; fileRef = E2E460CC2A72E95700F97324 /* Hmm.gif */; };
@@ -60,6 +65,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A35E52C62A7510BD00B9C0FD /* LoseReferee.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = LoseReferee.m4a; sourceTree = "<group>"; };
+		A35E52C72A7510BD00B9C0FD /* WinReferee.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = WinReferee.m4a; sourceTree = "<group>"; };
+		A35E52CA2A7510CB00B9C0FD /* LosePlayer.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = LosePlayer.m4a; sourceTree = "<group>"; };
+		A35E52CC2A7510D000B9C0FD /* WinPlayer.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = WinPlayer.m4a; sourceTree = "<group>"; };
 		A37E2CB62A72237400CE935F /* MC-3-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "MC-3-Info.plist"; sourceTree = SOURCE_ROOT; };
 		A39597B22A70A0E100007F82 /* ChoosingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosingView.swift; sourceTree = "<group>"; };
 		A39597B42A70CF1B00007F82 /* SynthesizerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynthesizerViewModel.swift; sourceTree = "<group>"; };
@@ -90,6 +99,7 @@
 		E2B3374E2A72825F00F9384D /* LOL3.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = LOL3.gif; sourceTree = "<group>"; };
 		E2E460C02A72D50300F97324 /* Huh!.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "Huh!.gif"; sourceTree = "<group>"; };
 		E2E460C22A72D76D00F97324 /* Cool.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Cool.gif; sourceTree = "<group>"; };
+		E2E460C62A72DE5700F97324 /* NameView.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = NameView.gif; sourceTree = "<group>"; };
 		E2E460C82A72E1A900F97324 /* NameAnimation.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = NameAnimation.gif; sourceTree = "<group>"; };
 		E2E460CA2A72E6E100F97324 /* Time.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Time.gif; sourceTree = "<group>"; };
 		E2E460CC2A72E95700F97324 /* Hmm.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Hmm.gif; sourceTree = "<group>"; };
@@ -125,6 +135,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A35E52C52A7510A600B9C0FD /* Audios */ = {
+			isa = PBXGroup;
+			children = (
+				A35E52CC2A7510D000B9C0FD /* WinPlayer.m4a */,
+				A35E52CA2A7510CB00B9C0FD /* LosePlayer.m4a */,
+				A35E52C62A7510BD00B9C0FD /* LoseReferee.m4a */,
+				A35E52C72A7510BD00B9C0FD /* WinReferee.m4a */,
+			);
+			path = Audios;
+			sourceTree = "<group>";
+		};
 		E22F94102A6504E90088315B /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -188,6 +209,7 @@
 				E2E460C02A72D50300F97324 /* Huh!.gif */,
 				E2E460C22A72D76D00F97324 /* Cool.gif */,
 				E2E460CA2A72E6E100F97324 /* Time.gif */,
+				E2E460C62A72DE5700F97324 /* NameView.gif */,
 				E2E460C82A72E1A900F97324 /* NameAnimation.gif */,
 				E2B3374A2A7281C600F9384D /* Gifimage.swift */,
 				E2AD0EB02A60EDE100E76ED3 /* MC_3 */,
@@ -206,6 +228,7 @@
 		E2AD0EB02A60EDE100E76ED3 /* MC_3 */ = {
 			isa = PBXGroup;
 			children = (
+				A35E52C52A7510A600B9C0FD /* Audios */,
 				A37E2CB62A72237400CE935F /* MC-3-Info.plist */,
 				E2B337382A7171CB00F9384D /* SplashScreenView.swift */,
 				E2AD0EB12A60EDE100E76ED3 /* MC_3App.swift */,
@@ -299,13 +322,18 @@
 			files = (
 				A3E9053C2A6FC7CE007A0E2A /* questions.json in Resources */,
 				E2AD0EB92A60EDE300E76ED3 /* Preview Assets.xcassets in Resources */,
+				E2E460C72A72DE5700F97324 /* NameView.gif in Resources */,
 				E2E460CD2A72E95700F97324 /* Hmm.gif in Resources */,
 				E2AD0EB62A60EDE300E76ED3 /* Assets.xcassets in Resources */,
 				E2E460C12A72D50300F97324 /* Huh!.gif in Resources */,
+				A35E52CD2A7510D000B9C0FD /* WinPlayer.m4a in Resources */,
 				E2E460CB2A72E6E100F97324 /* Time.gif in Resources */,
+				A35E52C82A7510BD00B9C0FD /* LoseReferee.m4a in Resources */,
 				E2B3374F2A72825F00F9384D /* LOL3.gif in Resources */,
 				E2E460C92A72E1A900F97324 /* NameAnimation.gif in Resources */,
+				A35E52C92A7510BD00B9C0FD /* WinReferee.m4a in Resources */,
 				E2E460C32A72D76D00F97324 /* Cool.gif in Resources */,
+				A35E52CB2A7510CB00B9C0FD /* LosePlayer.m4a in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -488,7 +516,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MC_3/Preview Content\"";
-				DEVELOPMENT_TEAM = NYP6NH36S6;
+				DEVELOPMENT_TEAM = K6G57A2975;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "MC-3-Info.plist";
@@ -525,7 +553,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MC_3/Preview Content\"";
-				DEVELOPMENT_TEAM = NYP6NH36S6;
+				DEVELOPMENT_TEAM = FZWD842KM9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "MC-3-Info.plist";

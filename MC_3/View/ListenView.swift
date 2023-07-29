@@ -70,7 +70,7 @@ struct ListenView: View {
                                     .onAppear(perform: lobbyViewModel.startTimer)
                                     .onDisappear(perform: lobbyViewModel.pauseTimer)
                             }
-                            Text("If We Detect Silent,\nThe Game Starts!")
+                            Text("If We Detect Silence,\nThe Game Starts!")
                                 .font(.system(size: 24, weight: .medium, design: .rounded))
                                 .foregroundColor(Color("Second"))
                                 .multilineTextAlignment(.center)
@@ -92,6 +92,7 @@ struct ListenView: View {
                                 
                                 
                             }
+                            
                             .buttonStyle(MultipeerButtonStyle())
         
                             NavigationLink(
@@ -107,7 +108,7 @@ struct ListenView: View {
                                             .fontWeight(.bold)
                                             .foregroundColor(Color("Second"))
                                     }
-                            }
+                            }.navigationBarBackButtonHidden(true)
                             
                             .onTapGesture {
                                 multipeerController.stopBrowsing()
@@ -134,7 +135,7 @@ struct ListenView: View {
                 }
             }
         }
-        
+        .navigationBarBackButtonHidden(true)
     }
     
     func startColorChangeTimer() {

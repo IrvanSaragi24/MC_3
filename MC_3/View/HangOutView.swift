@@ -39,7 +39,7 @@ struct HangOutView: View {
                         
                     }
                 }
-            }
+            }.navigationBarBackButtonHidden(true)
         }
     }
 }
