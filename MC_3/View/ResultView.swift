@@ -10,7 +10,6 @@ import SwiftUI
 
 
 struct ResultView: View {
-    @StateObject var playerViewModel = PlayerViewModel()
     var screenWidth: CGFloat {
         UIScreen.main.bounds.width
     }
@@ -92,14 +91,14 @@ struct ResultView: View {
                             .overlay {
                                 
                                 if multipeerController.isPlayer {
-                                    Text(multipeerController.isWin ? "Keren banget! Kamu beneran perhatiin yak ternyata. 😆" : "Ah, gimana, deh! Gak asik banget nongkrong tapi gak dengerin. 🤬!")
+                                    Text(multipeerController.isWin ? "Keren banget lo! Beneran perhatiin yak ternyata 😆" : "Eh lo! Lain kali perhatikan yak 🤬!")
                                          .font(.system(size: 17, design: .rounded))
                                          .fontWeight(.medium)
                                          .multilineTextAlignment(.center)
                                          .padding()
                                 }
                                 else {
-                                    Text(multipeerController.isWin ? "Hey, teman kamu mendengarkan dengan baik! Ayo traktir dia kopi susu gula aren!" : "Mendingan kamu cari temen baru aja, deh. Dia gak asik, ga dengerin pembicaraan!")
+                                    Text(multipeerController.isWin ? "Hey, teman kamu mendengarkan dengan baik, ayo traktir dia kopi susu gula aren" : "Lu cari temen baru aja breeee")
                                         .font(.system(size: 17, design: .rounded))
                                         .fontWeight(.medium)
                                         .multilineTextAlignment(.center)
@@ -139,10 +138,10 @@ struct ResultView: View {
                     Button {
                         print("Repeat Sound")
                         if multipeerController.isPlayer {
-                            playerViewModel.playAudio(fileName: multipeerController.isWin ? "WinPlayer" : "LosePlayer")
+                            synthesizerViewModel.startSpeaking(spokenString: multipeerController.isWin ? "Keren banget lo! Beneran perhatiin yak ternyata 😆" : "Eh lo! Lain kali perhatikan yak 🤬!")
                         }
                         else{
-                            playerViewModel.playAudio(fileName: multipeerController.isWin ? "WinReferee" : "LoseReferee")
+                            synthesizerViewModel.startSpeaking(spokenString: multipeerController.isWin ? "Hey, teman kamu mendengarkan dengan baik! Ayo traktir dia kopi susu gula aren." : "Lu cari temen baru aja breeee.")
                         }
                     } label: {
                         ZStack{
@@ -169,7 +168,8 @@ struct ResultView: View {
                             multipeerController.sendMessage(MsgCommandConstant.updateIsEndViewTrue, to: connectedGuest)
                             multipeerController.isEndView = true
                             
-                        }else {
+                        }
+                        else {
                             // reset previous setting
                             
                             multipeerController.sendMessage(MsgCommandConstant.resetAllVarToDefault, to: connectedGuest)
@@ -195,10 +195,10 @@ struct ResultView: View {
                     isDoneAllQuestion = true
                 }
                 if multipeerController.isPlayer {
-                    playerViewModel.playAudio(fileName: multipeerController.isWin ? "WinPlayer" : "LosePlayer")
+                    synthesizerViewModel.startSpeaking(spokenString: multipeerController.isWin ? "Keren banget lo! Beneran perhatiin yak ternyata 😆" : "Eh lo! Lain kali perhatikan yak 🤬!")
                 }
                 else{
-                    playerViewModel.playAudio(fileName: multipeerController.isWin ? "WinReferee" : "LoseReferee")
+                    synthesizerViewModel.startSpeaking(spokenString: multipeerController.isWin ? "Hey, teman kamu mendengarkan dengan baik! Ayo traktir dia kopi susu gula aren." : "Lu cari temen baru aja breeee")
                 }
             }
         }

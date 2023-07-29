@@ -128,7 +128,11 @@ struct ListenView: View {
                             }
                             .onChange(of: audioViewModel.audio.isRecording) { newValue in
                                 if newValue == false {
+                                    sendQuizTimeNotification()
+                                    checkNotificationFlag()
+                                    if shouldStartQuizTime {
                                         quizTime()
+                                    }
                                 }
                             }
                         }
