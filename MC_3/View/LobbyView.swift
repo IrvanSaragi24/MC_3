@@ -272,13 +272,14 @@ struct InformasiModal: View {
             Text("If you set the Silent Period to 10 seconds (default), the game will start automatically after no one is talking in 10 seconds. Otherwise, you can start manually by clicking on the “Quiz Time!” button.")
                 .fontWeight(.light)
             Divider()
-                /// QA
+                // QA
             Text("QA")
                 .fontWeight(.bold)
             Text("So what is QA (Question Amount) and what does it do?")
                 .fontWeight(.bold)
             Text("Question Amount is the total of questions asked to players chosen randomly. Each question will be asked to random players.")
                 .fontWeight(.light)
+                .padding(.leading, -2)
         }
         .padding()
     }

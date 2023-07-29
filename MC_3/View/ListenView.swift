@@ -92,6 +92,7 @@ struct ListenView: View {
                                 
                                 
                             }
+                            
                             .buttonStyle(MultipeerButtonStyle())
         
                             NavigationLink(
@@ -107,7 +108,7 @@ struct ListenView: View {
                                             .fontWeight(.bold)
                                             .foregroundColor(Color("Second"))
                                     }
-                            }
+                            }.navigationBarBackButtonHidden(true)
                             
                             .onTapGesture {
                                 multipeerController.stopBrowsing()
@@ -134,7 +135,7 @@ struct ListenView: View {
                 }
             }
         }
-        
+        .navigationBarBackButtonHidden(true)
     }
     
     func startColorChangeTimer() {

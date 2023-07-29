@@ -98,6 +98,7 @@ struct EndGameView: View {
                     
                 }
             }
+            .navigationBarBackButtonHidden(true)
         }
         
     }
