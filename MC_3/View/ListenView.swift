@@ -12,9 +12,10 @@ struct ListenView: View {
     @EnvironmentObject private var multipeerController: MultipeerController
     @EnvironmentObject private var playerData: PlayerData
     @StateObject var audioViewModel = AudioViewModel()
-    @State private var startGame = false
     @State private var currentColorIndex = 0
     private let colors: [Color] = [.blue, .black, .indigo, .red]
+    
+    @State private var shouldStartQuizTime = false
     
     var body: some View {
         NavigationView {
@@ -76,13 +77,13 @@ struct ListenView: View {
                                 .padding(.top, 20)
                             
                         }
-                        .padding(.top, 100)
+//                        .padding(.top, 100)
                         Spacer()
                         
                         if multipeerController.isHost {
                             Button {
+                                audioViewModel.stopVoiceActivityDetection()
                                 quizTime()
-                                
                             } label: {
                                 
                                 Text("Quiz Time!")
@@ -92,17 +93,7 @@ struct ListenView: View {
                                 
                             }
                             .buttonStyle(MultipeerButtonStyle())
-                            
-                            //                            NavigationLink(
-                            //                                destination: ChoosingView()
-                            //                                    .environmentObject(lobbyViewModel)
-                            //                                    .environmentObject(multipeerController)
-                            //                                    .environmentObject(playerData),
-                            //                                isActive: $startGame,
-                            //                                label: {
-                            //                                    EmptyView()
-                            //                                })
-                            
+        
                             NavigationLink(
                                 destination: HangOutView()
                             )
@@ -131,7 +122,11 @@ struct ListenView: View {
                             }
                             .onChange(of: audioViewModel.audio.isRecording) { newValue in
                                 if newValue == false {
-                                    quizTime()
+                                    sendQuizTimeNotification()
+                                    checkNotificationFlag()
+                                    if shouldStartQuizTime {
+                                        quizTime()
+                                    }
                                 }
                             }
                         }
@@ -139,15 +134,42 @@ struct ListenView: View {
                 }
             }
         }
+        
     }
+    
     func startColorChangeTimer() {
         Timer.scheduledTimer(withTimeInterval: 1.5, repeats: true) { timer in
-                withAnimation {
-                    // Increment the currentColorIndex or reset to 0 if it reaches the last color
-                    currentColorIndex = (currentColorIndex + 1) % colors.count
-                }
+            withAnimation {
+                // Increment the currentColorIndex or reset to 0 if it reaches the last color
+                currentColorIndex = (currentColorIndex + 1) % colors.count
             }
         }
+    }
+    
+    private func sendQuizTimeNotification() {
+        let content = UNMutableNotificationContent()
+        content.title = "It's play time!"
+        content.body = "Pick up your phone!!!"
+        content.sound = UNNotificationSound.default
+        // Schedule the notification to be delivered immediately
+        let request = UNNotificationRequest(identifier: "ChoosingViewNotification", content: content, trigger: nil)
+        UNUserNotificationCenter.current().add(request) { (error) in
+            if let error = error {
+                print("Error scheduling notification: \(error.localizedDescription)")
+            } else {
+                print("Local notification scheduled successfully")
+            }
+        }
+    }
+        
+    private func checkNotificationFlag() {
+        if UserDefaults.standard.bool(forKey: "QuizTimeFromNotification") {
+            UserDefaults.standard.removeObject(forKey: "QuizTimeFromNotification")
+            shouldStartQuizTime = true // Activate the NavigationLink to open ChoosingView
+            print("click")
+        }
+    }
+    
     func quizTime() {
         if multipeerController.isHost {
             var connectedGuest = multipeerController.getConnectedPeers()
@@ -167,9 +189,8 @@ struct ListenView: View {
                 // host yg kepilih jadi object
             }
             
-            multipeerController.sendMessage(MsgCommandConstant.startQuiz, to: connectedGuest)
+            multipeerController.sendMessage(MsgCommandConstant.updateIsChoosingViewTrue, to: connectedGuest)
             
-            startGame = true
             lobbyViewModel.lobby.currentQuestionIndex += 1
             
             connectedGuest = multipeerController.allGuest
@@ -204,4 +225,3 @@ struct ListenView_Previews: PreviewProvider {
             .environmentObject(LobbyViewModel()) // Provide LobbyViewModel here
     }
 }
-
