@@ -179,13 +179,21 @@ struct ResultView: View {
                         }
                     }
                 } label: {
-                    Text(multipeerController.isPlayer ? isDoneAllQuestion ? "Continue >" : "Next >" : "")
-                        .font(.system(size: 14, weight : .bold))
+                    ZStack{
+                        Text(multipeerController.isPlayer ? isDoneAllQuestion ? "Continue" : "Next" : "")
+                            .font(.system(size: 17, weight : .regular))
+                            .foregroundColor(Color("Second"))
+    //                        .padding(.bottom, 10)
+    //                        .frame(width: 200, height: 200)
+                        Rectangle()
+                            .foregroundColor(.clear)
+                    }
                 }
                 .buttonStyle(HeaderButtonStyle())
                 .padding(.bottom, screenHeight * 0.85)
                 .padding(.leading, screenWidth * 0.7)
             }
+            .navigationBarBackButtonHidden(true)
             .onDisappear{
                 synthesizerViewModel.stopSpeaking()
             }
