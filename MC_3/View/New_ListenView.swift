@@ -136,10 +136,10 @@ struct New_ListenView: View {
         .onChange(of: audioViewModel.audio.isRecording) { newValue in
             if multipeerController.isHost && newValue == false {
                 sendQuizTimeNotification()
-                checkNotificationFlag()
-                if shouldStartQuizTime {
+//                checkNotificationFlag()
+//                if shouldStartQuizTime {
                     quizTime()
-                }
+//                }
             }
         }
         
