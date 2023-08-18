@@ -13,8 +13,7 @@ struct LoadingView: View {
     @State var circleSize : CGFloat
     @State var LineWidtCircle : CGFloat
     @State var LineWidtCircle2 : CGFloat
-    
-    
+    var yOffset : CGFloat
     
     var body: some View {
      
@@ -38,6 +37,7 @@ struct LoadingView: View {
                         .stroke(Color("Second"), lineWidth : LineWidtCircle)
                         .frame(width: circleSize)
                         .opacity(0.4)
+                        .offset(x: 0, y: yOffset)
                     
                     Circle()
                         .trim(from: 0.4, to: 0.8)
@@ -46,6 +46,7 @@ struct LoadingView: View {
                         .rotationEffect(Angle(degrees: IsWaiting ? 0 : -360))
                         .animation(Animation.linear(duration: 2)
                         .repeatForever(autoreverses: false))
+                        .offset(x: 0, y: yOffset)
                 }
 
                 
@@ -56,6 +57,7 @@ struct LoadingView: View {
            
             .padding(.top, 50)
         }
+        .edgesIgnoringSafeArea(.all)
         .onAppear{
             IsWaiting = true
         }
@@ -64,6 +66,6 @@ struct LoadingView: View {
 
 struct LoadingView_Previews: PreviewProvider {
     static var previews: some View {
-        LoadingView(textWait: "Hello", circleSize: 166, LineWidtCircle: 40, LineWidtCircle2: 35)
+        LoadingView(textWait: "Hello", circleSize: 166, LineWidtCircle: 40, LineWidtCircle2: 35, yOffset: 300)
     }
 }

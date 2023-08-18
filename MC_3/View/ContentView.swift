@@ -3,7 +3,7 @@
 //  MC_3
 //
 //  Created by Irvan P. Saragi on 14/07/23.
-//
+//xr
 
 import SwiftUI
 
@@ -50,7 +50,7 @@ struct ContentView: View {
 //                        .environmentObject(LobbyViewModel())
 //                    )
                     NavigationLink(
-                        destination: New_ChooseRoleView()
+                        destination: ChooseRoleView()
                             .environmentObject(multipeerController ?? MultipeerController(UIDevice.current.name))
                     )
                     {
