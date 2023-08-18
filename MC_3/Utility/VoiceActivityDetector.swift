@@ -13,7 +13,7 @@ class VoiceActivityDetector: NSObject, SNResultsObserving {
     var isSpeechDetected: String?
     var speechConfidence: Double?
     var lastSpeechDetectedTimestamp: Date?
-    
+
     func request(_ request: SNRequest, didProduce result: SNResult) {
         guard let speechResult = result as? SNClassificationResult else {
             return
@@ -26,25 +26,22 @@ class VoiceActivityDetector: NSObject, SNResultsObserving {
                 // Speech is detected, update the lastSpeechDetectedTimestamp
                 lastSpeechDetectedTimestamp = Date()
             }
-            
+
             self.isSpeechDetected = speechObservation.confidence >= 0.5 ? "Yes" : "No"
             self.speechConfidence = speechObservation.confidence
         }
-
-            
     }
 
-    /// Notifies the observer when a request generates an error.
+    // Notifies the observer when a request generates an error.
     func request(_ request: SNRequest, didFailWithError error: Error) {
         print("The analysis failed: \(error.localizedDescription)")
     }
 
-
-    /// Notifies the observer when a request is complete.
+    // Notifies the observer when a request is complete.
     func requestDidComplete(_ request: SNRequest) {
         print("The request completed successfully!")
     }
-    
+
 //    func request(_ request: SNRequest, didProduce result: SNResult) {
 //        guard let result = result as? SNClassificationResult,
 //              let _ = result.classification(forIdentifier: categoryID) else {

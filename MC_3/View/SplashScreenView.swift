@@ -12,9 +12,9 @@ struct SplashScreenView: View {
     @State private var waveAngle: Double = 0.0
     @Environment(\.colorScheme) var colorScheme
     var body: some View {
-        ZStack{
+        ZStack {
             BubbleView()
-            VStack{
+            VStack {
                 if colorScheme == .dark {
                     // Use the dark mode logo
                     Image("LogoLight")
@@ -30,7 +30,6 @@ struct SplashScreenView: View {
                         }
                         .padding()
                 } else {
-                    
                     Image("LogoDark")
                         .resizable()
                         .rotationEffect(Angle(degrees: 30))
@@ -43,13 +42,11 @@ struct SplashScreenView: View {
                             }
                         }
                 }
-                
-//                Image("Ehlo")
+                // Image("Ehlo")
                 Text("EhLo")
                     .font(.system(size: 40, weight: .heavy, design: .rounded))
                     .foregroundColor(Color("Second"))
                     .padding(.top, 50)
-                
             }
             .scaleEffect(scale) // Apply scaling effect to ContentView
             .animation(.easeInOut(duration: 0.5)) // Customize animation

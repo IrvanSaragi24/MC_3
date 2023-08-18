@@ -10,7 +10,7 @@ import Foundation
 class PlayerData: ObservableObject {
     @Published var mainPlayer: Player
     @Published var playerList: [Player] = []
-    
+
     init(mainPlayer: Player, playerList: [Player]) {
         self.mainPlayer = mainPlayer
         self.playerList = playerList

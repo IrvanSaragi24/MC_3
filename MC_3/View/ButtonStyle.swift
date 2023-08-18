@@ -14,18 +14,21 @@ struct MultipeerButtonStyle: ButtonStyle {
             .frame(width: 314, height: 48)
             .background(
                 ZStack {
-                    configuration.isPressed ? Color("Second") : Color("Main")
+                    if configuration.isPressed {
+                        Color("Second")
+                    } else {
+                        Color("Main")
+                    }
                     RoundedRectangle(cornerRadius: 40.0)
                         .stroke(Color("Second"), lineWidth: 4) // Set the border color and width
                 }
             )
-      .cornerRadius(40.0)
-      .foregroundColor(Color("Second"))
-      .font(.system(size: 28, design: .rounded))
-      .fontWeight(.bold)
-  }
+            .cornerRadius(40.0)
+            .foregroundColor(Color("Second"))
+            .font(.system(size: 28, design: .rounded))
+            .fontWeight(.bold)
+    }
 }
-
 
 struct SecondButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
@@ -38,7 +41,7 @@ struct SecondButtonStyle: ButtonStyle {
                     RoundedRectangle(cornerRadius: 40)
                         .stroke(Color("Main"), lineWidth: 2)
                     RoundedRectangle(cornerRadius: 40)
-                        .fill(Color.clear) 
+                        .fill(Color.clear)
                 }
             )
             .contentShape(Rectangle())
@@ -47,8 +50,7 @@ struct SecondButtonStyle: ButtonStyle {
     }
 }
 
-
-struct HeaderButtonStyle : ButtonStyle {
+struct HeaderButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .foregroundColor(.white)
@@ -56,7 +58,6 @@ struct HeaderButtonStyle : ButtonStyle {
             .padding(8)
     }
 }
-
 
 struct ChatMessageButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {

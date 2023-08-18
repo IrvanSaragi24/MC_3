@@ -11,18 +11,18 @@ struct WaitingToStartView: View {
     var screenWidth: CGFloat {
         UIScreen.main.bounds.width
     }
-    
+
     var screenHeight: CGFloat {
         UIScreen.main.bounds.height
     }
-    
+
     @EnvironmentObject private var multipeerController: MultipeerController
     @StateObject private var lobbyViewModel = LobbyViewModel()
-    
+
     var body: some View {
         ZStack {
-            LoadingView(textWait: "", circleSize: 60, LineWidtCircle: 20, LineWidtCircle2: 15, yOffset: screenHeight * 0.40)
-            VStack{
+            LoadingView(textWait: "", circleSize: 60, lineWidthCircle: 20, lineWidthCircle2: 15, yOffset: screenHeight * 0.40)
+            VStack {
                 Text("You have joined")
                     .font(.system(size: 18, weight: .light))
                     .foregroundColor(Color("Second"))
@@ -33,14 +33,13 @@ struct WaitingToStartView: View {
                     .stroke(lineWidth: 2)
                     .frame(width: 234, height: 32)
                     .overlay {
-                        HStack{
+                        HStack {
                             Image(systemName: "person.3.fill")
                             Text("Total Player")
                             Spacer()
                             Text("\(multipeerController.getConnectedPeers().count)")
                         }
                         .padding()
-                        
                     }
                     .foregroundColor(Color("Second"))
                 Image("phone")
@@ -49,7 +48,6 @@ struct WaitingToStartView: View {
                     .foregroundColor(Color("Second"))
                     .font(.system(size: 30, weight: .light))
                     .padding(.top, 50)
-                
             }
             .background(
                 NavigationLink(
@@ -60,9 +58,8 @@ struct WaitingToStartView: View {
                     EmptyView()
                 }
             )
-            
         }
-        .onAppear(){
+        .onAppear {
             multipeerController.resetNavigateVar()
         }
         .background(
@@ -73,10 +70,7 @@ struct WaitingToStartView: View {
                 isActive: $multipeerController.navigateToListen
             ) {
                 EmptyView()
-            }
-        )
-        
-            
+            })
     }
 }
 

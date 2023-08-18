@@ -10,25 +10,26 @@ import SwiftUI
 struct ListenView: View {
     @EnvironmentObject private var lobbyViewModel: LobbyViewModel
     @EnvironmentObject private var multipeerController: MultipeerController
-    @State private var currentColorIndex = 0
-    private let colors: [Color] = [.blue, .black, .indigo, .red]
+
     @StateObject var audioViewModel = AudioViewModel()
+
     @State private var shouldStartQuizTime = false
-    
-    
+    @State private var currentColorIndex = 0
+
+    private let colors: [Color] = [.blue, .black, .indigo, .red]
+
     var body: some View {
-        ZStack{
+        ZStack {
             BubbleView()
-            VStack (spacing : 16) {
-                VStack{
-                    ZStack{
+            VStack(spacing: 16) {
+                VStack {
+                    ZStack {
                         Circle()
                             .stroke(Color("Main"), lineWidth: 10)
                             .frame(width: 234)
                             .overlay {
                                 Circle()
                                     .foregroundColor(colors[currentColorIndex])
-                                
                                     .opacity(0.8)
                                 Image("Music")
                                     .resizable()
@@ -44,7 +45,7 @@ struct ListenView: View {
                         .font(.system(size: 36, design: .rounded))
                         .fontWeight(.semibold)
                         .foregroundColor(Color("Second"))
-                    ZStack{
+                    ZStack {
                         RoundedRectangle(cornerRadius: 20)
                             .stroke(Color("Second"), lineWidth: 4)
                             .frame(width: 234, height: 56)
@@ -65,20 +66,13 @@ struct ListenView: View {
                         .foregroundColor(Color("Second"))
                         .multilineTextAlignment(.center)
                         .padding(.top, 20)
-                    
                 }
-                
                 Spacer()
-                
                 Button {
                     if multipeerController.isHost {
-                        
                         audioViewModel.stopVoiceActivityDetection()
                         quizTime()
-                        
-                        
                     }
-                    
                 } label: {
                     Text("Quiz Time!")
                 }
@@ -94,17 +88,14 @@ struct ListenView: View {
                         EmptyView()
                     }
                 )
-                
                 Button {
                     if multipeerController.isHost {
                         audioViewModel.stopVoiceActivityDetection()
-                        
+
                         let connectedGuest = multipeerController.getConnectedPeers()
                         multipeerController.sendMessage(NavigateCommandConstant.navigateToChooseRole, to: connectedGuest)
-                        
                         multipeerController.navigateToChooseRole = true
                     }
-                    
                 } label: {
                     Text("End Session")
                 }
@@ -123,7 +114,7 @@ struct ListenView: View {
             }
         }
         .navigationBarBackButtonHidden(true)
-        .onAppear{
+        .onAppear {
             multipeerController.resetNavigateVar()
             if multipeerController.isHost {
                 if audioViewModel.audio.isRecording == false && multipeerController.hostPeerID == nil {
@@ -136,17 +127,14 @@ struct ListenView: View {
         .onChange(of: audioViewModel.audio.isRecording) { newValue in
             if multipeerController.isHost && newValue == false {
                 sendQuizTimeNotification()
-//                checkNotificationFlag()
-//                if shouldStartQuizTime {
+                // checkNotificationFlag()
+                // if shouldStartQuizTime {
                     quizTime()
-//                }
+                // }
             }
         }
-        
-        
-        
     }
-    
+
     func startColorChangeTimer() {
         Timer.scheduledTimer(withTimeInterval: 1.5, repeats: true) { timer in
             withAnimation {
@@ -155,7 +143,7 @@ struct ListenView: View {
             }
         }
     }
-    
+
     private func sendQuizTimeNotification() {
         let content = UNMutableNotificationContent()
         content.title = "It's play time!"
@@ -171,7 +159,7 @@ struct ListenView: View {
             }
         }
     }
-    
+
     private func checkNotificationFlag() {
         if UserDefaults.standard.bool(forKey: "QuizTimeFromNotification") {
             UserDefaults.standard.removeObject(forKey: "QuizTimeFromNotification")
@@ -179,35 +167,33 @@ struct ListenView: View {
             print("click")
         }
     }
-    
+
     func quizTime() {
         if multipeerController.isHost {
-            var connectedGuest = multipeerController.getConnectedPeers()
-            
+            let connectedGuest = multipeerController.getConnectedPeers()
             var candidates = connectedGuest.map { $0.displayName }
-            
-            //add host
+
+            // Add host
             candidates.append(multipeerController.myPeerId.displayName)
-            
+
             lobbyViewModel.pauseTimer()
-            
+
             let objekIndex = lobbyViewModel.getQuestion(candidates: candidates)
 
-            if objekIndex == candidates.count-1 {
+            if objekIndex == candidates.count - 1 {
                 // host yg kepilih jadi object
-                // TODO: sayed figure this things out
+                // Todo: sayed figure this things out
             }
-            
-            
+
             // Di sisi pengirim
             let typeData = "question"
             let message = "\(lobbyViewModel.lobby.question ?? ""):\(typeData)"
-            
+
             // Kirim pesan ke semua peer yang terhubung
             multipeerController.sendMessage(message, to: connectedGuest)
             multipeerController.receivedQuestion = lobbyViewModel.lobby.question!
-            
-            // pindah halaman
+
+            // Pindah halaman
             multipeerController.sendMessage(NavigateCommandConstant.navigateToChoosingPlayer, to: connectedGuest)
             multipeerController.navigateToChoosingPlayer = true
         }

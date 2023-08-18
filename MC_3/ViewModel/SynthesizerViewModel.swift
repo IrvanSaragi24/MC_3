@@ -9,16 +9,14 @@ import Foundation
 import AVFoundation
 
 class SynthesizerViewModel: ObservableObject {
-    
     let synthesizer = AVSpeechSynthesizer()
-    
+
     // Retrieve the British English voice.
     let voice = AVSpeechSynthesisVoice(language: "id-ID")
-    
-    func startSpeaking(spokenString: String){
+
+    func startSpeaking(spokenString: String) {
         // Create an utterance.
         let utterance = AVSpeechUtterance(string: spokenString)
-
 
         // Configure the utterance.
         utterance.rate = 0.57
@@ -34,8 +32,8 @@ class SynthesizerViewModel: ObservableObject {
 
 //        synthesizer.stopSpeaking()
     }
-    
-    func stopSpeaking(){
+
+    func stopSpeaking() {
         synthesizer.stopSpeaking(at: .immediate)
     }
 }

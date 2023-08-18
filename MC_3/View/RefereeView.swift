@@ -11,27 +11,28 @@ struct RefereeView: View {
     @StateObject var motionViewModel = MotionViewModel()
     @EnvironmentObject var lobbyViewModel: LobbyViewModel
     @EnvironmentObject private var multipeerController: MultipeerController
-    
-    @State var colors: [Color] = [.clear, .clear, Color("Second"), .red]
+
+    @State private var colors: [Color] = [.clear, .clear, Color("Second"), .red]
     @State private var currentQuestionIndex = 0
     @State private var vibrateOnRing = false
     @State private var vibrateOnRing1 = false
     @State private var circleScale: CGFloat = 1.0
     @State private var dots: String = ""
     @State private var message: String = "Default"
+
     private let dotCount = 3
     private let dotDelay = 0.5
-    
+
     var body: some View {
-        ZStack{
+        ZStack {
             Color.clear.backgroundStyle()
             BubbleView()
             GifImage("Time")
                 .frame(width: 450, height: 400)
                 .padding(.bottom, 170)
-            VStack{
-                //                Text(message)
-                ZStack{
+            VStack {
+                // Text(message)
+                ZStack {
                     RoundedRectangle(cornerRadius: 12)
                         .frame(width: 170, height: 60)
                         .foregroundColor(Color("Second"))
@@ -54,18 +55,14 @@ struct RefereeView: View {
                                 .foregroundColor(Color("Second"))
                                 .font(.system(size: 9, design: .rounded))
                                 .fontWeight(.bold)
-                            
                         }
                         .padding(.bottom, 55)
-                    
                 }
                 .padding(.bottom, 300)
-                
-                
-                ZStack{
-                    ZStack{
+                ZStack {
+                    ZStack {
                         Text(vibrateOnRing || vibrateOnRing1 ? "Wait for referees to vote \nVoting : \(multipeerController.totalVote)/\(multipeerController.getConnectedPeers().count)\(dots)" : "Judge The \n Player")
-                            .font(.system(size:vibrateOnRing || vibrateOnRing1 ?  20 : 32 ,weight: .bold, design: .rounded))
+                            .font(.system(size: vibrateOnRing || vibrateOnRing1 ? 20 : 32, weight: .bold, design: .rounded))
                         .multilineTextAlignment(.center)
                             .foregroundColor(Color("Second"))
                             .padding(.bottom, 170)
@@ -93,10 +90,9 @@ struct RefereeView: View {
                             .frame(width: 132, height: 132)
                             .padding(.top, 60)
                             .opacity(vibrateOnRing1 ? 1 : 0)
-                        
                     }
-                    Text(vibrateOnRing || vibrateOnRing1 ? "You’ve Casted Your Vote!":"Swipe To Judge\n The Player" )
-                        .font(.system(size: 20,weight: .semibold, design: .rounded))
+                    Text(vibrateOnRing || vibrateOnRing1 ? "You’ve Casted Your Vote!" : "Swipe To Judge\n The Player")
+                        .font(.system(size: 20, weight: .semibold, design: .rounded))
                         .foregroundColor(Color("Second"))
                         .opacity(0.4)
                         .multilineTextAlignment(.center)
@@ -115,9 +111,8 @@ struct RefereeView: View {
                 EmptyView()
             }
         )
-        .onAppear() {
+        .onAppear {
             multipeerController.resetNavigateVar()
-            
             motionViewModel.startNoddingDetection()
             motionViewModel.startShakingDetection()
         }
@@ -136,11 +131,11 @@ struct RefereeView: View {
             }
         }
     }
-    
+
     func animateDots() {
         var count = 1
         dots = ""
-        
+
         func addDot() {
             dots += "."
             count += 1
@@ -154,14 +149,12 @@ struct RefereeView: View {
                 }
             }
         }
-        
         addDot()
     }
 }
 
 struct RefereeView_Previews: PreviewProvider {
     static var previews: some View {
-        
         RefereeView()
             .environmentObject(LobbyViewModel())
             .environmentObject(MultipeerController("YourDisplayName"))
@@ -172,8 +165,8 @@ struct ButtonSliderReferee: View {
     @State private var buttonWidth: Double = UIScreen.main.bounds.width - 80
     @State private var buttonOffset: CGFloat = 0
     @Binding var circleScale: CGFloat
-    @Binding var vibrateOnRing : Bool
-    @Binding var vibrateOnRing1 : Bool
+    @Binding var vibrateOnRing: Bool
+    @Binding var vibrateOnRing1: Bool
     @State private var swapOffset: CGFloat = 0
     @State private var opacity: Double = 1.0
     @EnvironmentObject private var multipeerController: MultipeerController
@@ -182,7 +175,7 @@ struct ButtonSliderReferee: View {
         ZStack {
             ZStack {
                 ZStack {
-                    HStack{
+                    HStack {
                         Image(systemName: "chevron.right.2")
                             .font(.system(size: 50, weight: .bold, design: .rounded))
                             .foregroundColor(Color("Main"))
@@ -203,10 +196,7 @@ struct ButtonSliderReferee: View {
                         }
                     }
                 }
-                
                 .padding(.leading, 60)
-                
-                
                 HStack {
                     Capsule()
                         .fill(Color("Background"))
@@ -217,14 +207,13 @@ struct ButtonSliderReferee: View {
                 HStack {
                     ZStack {
                         Circle()
-                            .stroke(Color("Second"), lineWidth : 2)
+                            .stroke(Color("Second"), lineWidth: 2)
                         Circle()
                             .fill(Color("Main").opacity(0.8))
                             .padding(8)
                         Image(systemName: "hand.thumbsup.fill")
                             .font(.system(size: 32, weight: .bold))
                             .rotationEffect(Angle(degrees: 90))
-                        
                     }
                     .foregroundColor(Color("Second"))
                     .frame(width: 80, height: 80, alignment: .center)
@@ -240,20 +229,17 @@ struct ButtonSliderReferee: View {
                             .onEnded { _ in
                                 withAnimation(Animation.easeOut(duration: 1.0)) {
                                     if buttonOffset > buttonWidth / 2 {
-                                        
                                         let selectedMessage = message
-                                        
+
                                         if selectedMessage == "Yes:VoteStatus" {
                                             multipeerController.sendMessage(MsgCommandConstant.voteYes, to: multipeerController.getConnectedPeers())
                                             multipeerController.yesVote += 1
                                             multipeerController.totalVote += 1
-                                            
                                         } else if selectedMessage == "No:VoteStatus" {
                                             multipeerController.sendMessage(MsgCommandConstant.voteNo, to: multipeerController.getConnectedPeers())
                                             multipeerController.noVote += 1
                                             multipeerController.totalVote += 1
                                         }
-                                        
                                         buttonOffset = buttonWidth - 80
                                         vibrateOnRing = true
                                         vibrateOnRing1 = true
@@ -261,7 +247,6 @@ struct ButtonSliderReferee: View {
                                         buttonOffset = 0
                                     }
                                     circleScale = 1.0
-                                    
                                 }
                             }
                     )
@@ -270,14 +255,12 @@ struct ButtonSliderReferee: View {
             }
             .frame(width: buttonWidth, height: 80, alignment: .center)
             .padding()
-            
-            
         }
     }
+
     private func scaleCircle(offset: CGFloat) -> CGFloat {
         let scaledOffset = offset / (buttonWidth - 90) // Normalize the offset
         let scaleFactor = 1 + (scaledOffset * 0.5) // Adjust the scale factor as needed
         return min(1.5, scaleFactor) // Ensure the maximum scale is 1.5
     }
 }
-

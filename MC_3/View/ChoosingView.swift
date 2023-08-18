@@ -11,20 +11,20 @@ struct ChoosingView: View {
     @StateObject var hapticViewModel = HapticViewModel()
     @EnvironmentObject var lobbyViewModel: LobbyViewModel
     @EnvironmentObject private var multipeerController: MultipeerController
-    
+
 //    @State private var timerIsDone: Bool = false
-    
+
     @State private var progressValue: Float = 0.0
     private let totalProgress: Float = 100.0
     private let updateInterval: TimeInterval = 0.03
     private let targetProgress: Float = 100.0
-    
+
     var body: some View {
-        ZStack{
+        ZStack {
             BubbleView()
-            VStack(spacing : 30){
+            VStack(spacing: 30){
                 Circle()
-                    .stroke(Color("Second"), lineWidth : 8)
+                    .stroke(Color("Second"), lineWidth: 8)
                     .frame(width: 234)
                     .overlay {
                         Image(systemName: "person.3.fill")
@@ -41,7 +41,7 @@ struct ChoosingView: View {
                     .onAppear {
                         startUpdatingProgress()
                     }
-                ZStack{
+                ZStack {
                     RoundedRectangle(cornerRadius: 12)
                         .frame(width: 290, height: 168)
                         .foregroundColor(Color("Second"))
@@ -62,18 +62,16 @@ struct ChoosingView: View {
                         }
                         .padding(.bottom, 160)
                     Circle()
-                        .stroke(Color("Second"), lineWidth : 4)
+                        .stroke(Color("Second"), lineWidth: 4)
                         .frame(width: 50)
-                        .overlay{
+                        .overlay {
                             Circle()
                                 .foregroundColor(Color("Background"))
                             Text("\(lobbyViewModel.lobby.currentQuestionIndex) / \(lobbyViewModel.lobby.numberOfQuestion)")
                                 .font(.system(size: 16, weight: .semibold, design: .rounded))
                                 .foregroundColor(Color("Second"))
-                            
                         }
                         .padding(.top, 170)
-                    
                 }
             }
             .background(
@@ -98,45 +96,42 @@ struct ChoosingView: View {
                 EmptyView()
             }
         )
-        .onAppear() {
+        .onAppear {
             multipeerController.resetNavigateVar()
+
             // Trigger haptic feedback with the custom pattern
             hapticViewModel.triggerThrillingHaptic()
-            
             randomPlayer()
-            
         }
     }
+
     func startUpdatingProgress() {
         Timer.scheduledTimer(withTimeInterval: updateInterval, repeats: true) { timer in
             if progressValue < targetProgress {
                 progressValue += 1.0
             } else {
                 timer.invalidate()
-//                timerIsDone = true
+                // timerIsDone = true
                 if multipeerController.isPlayer {
                     multipeerController.navigateToPlayer = true
-                }
-                else {
+                } else {
                     multipeerController.navigateToReferee = true
                 }
             }
         }
     }
-    
+
     func randomPlayer() {
-//        yg host2 aja, choose a player and broadcast the message
+        // yg host2 aja, choose a player and broadcast the message
         if multipeerController.isHost {
-            
-            var connectedGuest = multipeerController.getConnectedPeers()
+            let connectedGuest = multipeerController.getConnectedPeers()
             let randomInt = Int.random(in: 0...connectedGuest.count)
             var playerName = "Player"
             if randomInt == connectedGuest.count {
-                // host jadi player
+                // Host jadi player
                 multipeerController.isPlayer = true
                 playerName = multipeerController.myPeerId.displayName
-            }
-            else {
+            } else {
                 let thePlayer = connectedGuest[randomInt]
                 playerName = thePlayer.displayName
                 multipeerController.sendMessage(MsgCommandConstant.updatePlayerTrue, to: [thePlayer])
@@ -144,15 +139,12 @@ struct ChoosingView: View {
             multipeerController.currentPlayer = playerName
             playerName = MsgCommandConstant.updateCurrentPlayer + playerName
             multipeerController.sendMessage(playerName, to: connectedGuest)
-            
         }
     }
 }
 
-
 struct ChoosingView_Previews: PreviewProvider {
     static var previews: some View {
-
         ChoosingView()
             .environmentObject(LobbyViewModel())
             .environmentObject(MultipeerController("YourDisplayName"))

@@ -21,7 +21,6 @@ struct ContinueView: View {
                     .background(Color.blue)
                     .cornerRadius(8)
             }
-            
             Button(action: {
                 // Action for the second button
                 print("Second Button Tapped")

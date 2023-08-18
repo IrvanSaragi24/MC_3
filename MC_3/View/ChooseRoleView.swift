@@ -7,15 +7,12 @@
 
 import SwiftUI
 
-
 struct ChooseRoleView: View {
     @EnvironmentObject private var multipeerController: MultipeerController
     @StateObject private var lobbyViewModel = LobbyViewModel()
-    
     @State private var isWaitingInvitationViewActive = false
     @State private var isLobbyViewActive = false
-    
-    
+
     var body: some View {
         NavigationView {
             ZStack {
@@ -26,13 +23,10 @@ struct ChooseRoleView: View {
                         .font(.system(size: 36, weight: .regular))
                         .fontWeight(.bold)
                         .padding(.bottom, 63)
-                    
                     Button(action: {
                         multipeerController.isHost = true
                         lobbyViewModel.lobby.name = multipeerController.myPeerId.displayName
-
                         isLobbyViewActive = true
-                        
                     }) {
                         ZStack {
                             Circle()
@@ -67,11 +61,11 @@ struct ChooseRoleView: View {
                         action: {
                             isWaitingInvitationViewActive = true
                         }, label: {
-                            ZStack{
+                            ZStack {
                                 Circle()
                                     .frame(width: 234)
                                     .foregroundColor(Color("Second"))
-                                VStack{
+                                VStack {
                                     Image(systemName: "person.fill")
                                         .resizable()
                                         .frame(width: 74, height: 74)
@@ -92,24 +86,19 @@ struct ChooseRoleView: View {
                             EmptyView()
                         }
                     )
-                    
                 }
             }
-            .onAppear(){
+            .onAppear {
                 multipeerController.resetNavigateVar()
             }
-            
-            
         }
-        
     }
 }
-
 
 struct ChooseRoleView_Previews: PreviewProvider {
     static let player = Player(name: "Player", lobbyRole: .noLobbyRole, gameRole: .asked)
     static var playerData = PlayerData(mainPlayer: player, playerList: [player])
-    
+
     static var previews: some View {
         ChooseRoleView()
             .environmentObject(MultipeerController(player.name))
@@ -117,4 +106,3 @@ struct ChooseRoleView_Previews: PreviewProvider {
             .environmentObject(LobbyViewModel())
     }
 }
-

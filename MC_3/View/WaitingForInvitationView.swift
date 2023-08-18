@@ -9,14 +9,13 @@ import SwiftUI
 
 struct WaitingForInvitationView: View {
     @EnvironmentObject private var multipeerController: MultipeerController
-    
+
     var body: some View {
-        
-        LoadingView(textWait: "Waiting invitation from a host...", circleSize: 166, LineWidtCircle: 40, LineWidtCircle2: 35, yOffset: 0)
-            .onDisappear(){
+        LoadingView(textWait: "Waiting invitation from a host...", circleSize: 166, lineWidthCircle: 40, lineWidthCircle2: 35, yOffset: 0)
+            .onDisappear {
                 multipeerController.isAdvertising = false
             }
-            .onAppear(){
+            .onAppear {
                 multipeerController.resetNavigateVar()
                 multipeerController.isAdvertising = true
             }
@@ -29,7 +28,6 @@ struct WaitingForInvitationView: View {
                     EmptyView()
                 }
             )
-        
     }
 }
 

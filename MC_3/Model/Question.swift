@@ -11,7 +11,7 @@ struct Question: Codable, Identifiable {
     enum CodingKeys: CodingKey {
         case text
     }
-    
+
     var id = UUID()
     var text: String
 }

@@ -15,11 +15,11 @@ struct HangOutView: View {
         if vibrateOnRing {
             ContentView()
         } else {
-            ZStack{
+            ZStack {
                 Color("Second")
                     .ignoresSafeArea()
-                ZStack{
-                    ZStack{
+                ZStack {
+                    ZStack {
                         Circle()
                             .foregroundColor(Color("Main"))
                             .frame(width: 694)
@@ -28,7 +28,7 @@ struct HangOutView: View {
                             .frame(width: 560)
                     }
                     .scaleEffect(circleScale)
-                    VStack{
+                    VStack {
                         Text("HANGOUT\nMODE")
                             .multilineTextAlignment(.center)
                             .foregroundColor(Color("Second"))
@@ -36,7 +36,6 @@ struct HangOutView: View {
                             .fontWeight(.bold)
                         //                        ExtractedView()
                         ButtonSlider(circleScale: $circleScale, vibrateOnRing: $vibrateOnRing)
-                        
                     }
                 }
             }.navigationBarBackButtonHidden(true)
@@ -54,7 +53,7 @@ struct ButtonSlider: View {
     @State private var buttonWidth: Double = UIScreen.main.bounds.width - 90
     @State private var buttonOffset: CGFloat = 0
     @Binding var circleScale: CGFloat
-    @Binding var vibrateOnRing : Bool
+    @Binding var vibrateOnRing: Bool
     var body: some View {
         ZStack {
             ZStack {
@@ -79,7 +78,7 @@ struct ButtonSlider: View {
                 HStack {
                     ZStack {
                         Circle()
-                            .stroke(Color("Second"), lineWidth : 2)
+                            .stroke(Color("Second"), lineWidth: 2)
                         Circle()
                             .fill(Color.white.opacity(0.15))
                             .padding(8)
@@ -100,7 +99,6 @@ struct ButtonSlider: View {
                             .onEnded { _ in
                                 withAnimation(Animation.easeOut(duration: 1.0)) {
                                     if buttonOffset > buttonWidth / 2 {
-                                        
                                         buttonOffset = buttonWidth - 80
                                         vibrateOnRing = true
                                     } else {

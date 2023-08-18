@@ -10,25 +10,25 @@ import CoreHaptics
 
 class HapticViewModel: ObservableObject {
     private var engine: CHHapticEngine?
-    
-    // check device compatibility
+
+    // Check device compatibility
     lazy var supportHaptics: Bool = {
         return CHHapticEngine.capabilitiesForHardware().supportsHaptics
     }()
-    
+
     init() {
         do {
-//            print("engine kebuat")
+            // print("engine kebuat")
             engine = try CHHapticEngine()
             try engine?.start()
         } catch {
             print("Error starting haptic engine: \(error)")
         }
     }
-    
+
     func prepareHaptics() {
         guard supportHaptics else { return }
-        
+
         do {
             engine = try CHHapticEngine()
             try engine?.start()
@@ -36,7 +36,7 @@ class HapticViewModel: ObservableObject {
             print("There was an error creating the engine: \(error.localizedDescription)")
         }
     }
-    
+
     func triggerThrillingHaptic() {
         // Check if the haptic engine is available
         guard let engine = engine else { return }
@@ -55,17 +55,25 @@ class HapticViewModel: ObservableObject {
         let rhythmicSharpness: Float = 0.8
         let interval: TimeInterval = 0.15
         let duration: TimeInterval = 0.1
-        for i in 1...5 {
+        for itr in 1...5 {
             let intensity = CHHapticEventParameter(parameterID: .hapticIntensity, value: rhythmicIntensity)
             let sharpness = CHHapticEventParameter(parameterID: .hapticSharpness, value: rhythmicSharpness)
-            let event = CHHapticEvent(eventType: .hapticTransient, parameters: [intensity, sharpness], relativeTime: Double(i) * interval, duration: duration)
+            let event = CHHapticEvent(
+                eventType: .hapticTransient,
+                parameters: [intensity, sharpness],
+                relativeTime: Double(itr) * interval,
+                duration: duration)
             events.append(event)
         }
 
         // Add a final intense and long buzz event for the surprise
         let surpriseIntensity = CHHapticEventParameter(parameterID: .hapticIntensity, value: 1.0)
         let surpriseSharpness = CHHapticEventParameter(parameterID: .hapticSharpness, value: 1.0)
-        let surpriseEvent = CHHapticEvent(eventType: .hapticContinuous, parameters: [surpriseIntensity, surpriseSharpness], relativeTime: 0.5, duration: 2.5)
+        let surpriseEvent = CHHapticEvent(
+            eventType: .hapticContinuous,
+            parameters: [surpriseIntensity, surpriseSharpness],
+            relativeTime: 0.5,
+            duration: 2.5)
         events.append(surpriseEvent)
 
         // Create the haptic pattern
@@ -79,4 +87,3 @@ class HapticViewModel: ObservableObject {
         }
     }
 }
-

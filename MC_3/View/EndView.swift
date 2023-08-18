@@ -11,11 +11,11 @@ struct EndView: View {
     @EnvironmentObject var lobbyViewModel: LobbyViewModel
     @EnvironmentObject private var multipeerController: MultipeerController
     @EnvironmentObject private var playerData: PlayerData
-    
+
     var body: some View {
         ZStack {
             BubbleView()
-            VStack(spacing : 16) {
+            VStack(spacing: 16) {
                 Text("CONTINUE\nHANGOUT?")
                     .font(.system(size: 40, design: .rounded))
                     .fontWeight(.bold)
@@ -26,9 +26,8 @@ struct EndView: View {
                 if multipeerController.isPlayer {
                     Button {
                         let connectedGuest = multipeerController.getConnectedPeers()
-                        //reset setting
+                        // Reset setting
                         multipeerController.sendMessage(NavigateCommandConstant.navigateToListen, to: connectedGuest)
-                        
                         multipeerController.resetParameters(page: NavigateCommandConstant.navigateToListen
                         )
                         multipeerController.navigateToListen = true
@@ -40,23 +39,20 @@ struct EndView: View {
                         .fontWeight(.bold)
                     }
                     .buttonStyle(MultipeerButtonStyle())
-                    
                     Button {
-                        // reset
+                        // Reset
                         let connectedGuest = multipeerController.getConnectedPeers()
                         multipeerController.sendMessage(NavigateCommandConstant.navigateToChooseRole, to: connectedGuest)
                         multipeerController.resetParameters(page: NavigateCommandConstant.navigateToChooseRole
                         )
                         multipeerController.navigateToChooseRole = true
-                        
                     } label: {
                     Text("End Session")
                         .font(.system(size: 28, design: .rounded))
                         .fontWeight(.bold)
                     }
                     .buttonStyle(SecondButtonStyle())
-                }
-                else {
+                } else {
                     Text("Waiting for decision..")
                         .font(.system(size: 28, design: .rounded))
                         .fontWeight(.bold)
@@ -86,16 +82,13 @@ struct EndView: View {
                 EmptyView()
             }
         )
-        .onAppear() {
+        .onAppear {
             multipeerController.resetNavigateVar()
         }
     }
 }
 
-
-
 struct EndView_Previews: PreviewProvider {
-    
     static var previews: some View {
         EndView()
             .environmentObject(MultipeerController("YourDisplayName"))

@@ -8,10 +8,10 @@
 import SwiftUI
 
 @main
-struct MC_3App: App {
+struct MC3App: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @State private var showSplash = true
-   
+
     var body: some Scene {
         WindowGroup {
             if showSplash {
@@ -25,7 +25,6 @@ struct MC_3App: App {
                     }
             } else {
                 HangOutView()
-                    
             }
         }
     }
@@ -45,7 +44,10 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     }
 
     // Handle notification tap when app is in the foreground
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+    func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        didReceive response: UNNotificationResponse,
+        withCompletionHandler completionHandler: @escaping () -> Void) {
         if response.notification.request.identifier == "VoiceDetectingStopped" {
             if let notificationFlag = response.notification.request.content.userInfo["notificationFlag"] as? Bool, notificationFlag {
                 // User tapped on the notification with the flag to run quizTime()

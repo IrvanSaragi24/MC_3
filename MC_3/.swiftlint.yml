@@ -1,0 +1,7 @@
+opt_in_rules:
+    - indentation_width
+    - operator_usage_whitespace
+
+line_length: 150
+#disabled_rules:
+#    - line_length

@@ -17,13 +17,13 @@ class MotionViewModel: ObservableObject {
     @Published var shakeCount = 0
     @Published var isShaking = false
     @Published var isShakingDetected = false
-    
+
     func startNoddingDetection() {
         motionManager.startDeviceMotionUpdates()
 
         timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
             if let deviceMotion = self.motionManager.deviceMotion {
-                let gravity = deviceMotion.gravity
+                // let gravity = deviceMotion.gravity
                 let rotationRate = deviceMotion.rotationRate
 
                 // Implement your nodding detection logic here
@@ -60,30 +60,30 @@ class MotionViewModel: ObservableObject {
             }
         }
     }
-    
+
     func startShakingDetection() {
         motionManager.startDeviceMotionUpdates()
-        
+
         timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
             if let deviceMotion = self.motionManager.deviceMotion {
-                let gravity = deviceMotion.gravity
+                // let gravity = deviceMotion.gravity
                 let rotationRate = deviceMotion.rotationRate
-                
+
                 // Implement your head shaking detection logic here
                 self.detectHeadShaking(rotationRate)
             }
         }
     }
-    
+
     func stopShakingDetection() {
         motionManager.stopDeviceMotionUpdates()
         timer?.invalidate()
         timer = nil
     }
-    
+
     func detectHeadShaking(_ rotationRate: CMRotationRate) {
         let threshold = 2.0 // Adjust this threshold as needed
-        
+
         if rotationRate.y > threshold {
             if !isShaking {
                 // Start of head shaking motion
@@ -94,7 +94,7 @@ class MotionViewModel: ObservableObject {
                 // End of head shaking motion
                 isShaking = false
                 shakeCount += 1
-                
+
                 if shakeCount >= 2 {
                     self.isShakingDetected = true
                     // Head shaking motion detected

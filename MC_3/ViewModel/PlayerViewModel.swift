@@ -10,15 +10,15 @@ import AVFoundation
 
 class PlayerViewModel: ObservableObject {
     var player: AVAudioPlayer?
-    
+
     func playAudio(fileName: String){
         do {
-           // Set the audio session category to Playback
+            // Set the audio session category to Playback
             try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
         } catch {
             print("Error setting up audio session: \(error.localizedDescription)")
         }
-        
+
         guard let audioURL = Bundle.main.url(forResource: fileName, withExtension: "m4a") else {
             print("Audio file not found.")
                 return

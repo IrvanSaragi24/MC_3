@@ -3,7 +3,7 @@
 //  MC_3
 //
 //  Created by Sayed Zulfikar on 20/07/23.
-// Put all your constants and enum here
+//  Put all your constants and enum here
 
 import Foundation
 import SwiftUI
@@ -27,7 +27,7 @@ enum MsgCommandConstant {
     static let updateIsWinFalse = "ISWIN FALSE"
     static let resetAllVarToDefault = "RESETALLVARTODEFAULT"
     static let resetGame = "RESETGAME"
-    
+
     // penting
     static let updatePlayerTrue = "PLAYER TRUE"
     static let updateCurrentPlayer = "[PLAYER]"
@@ -64,7 +64,7 @@ enum GameRole: CaseIterable {
 enum ConnectionStatus {
     case connected
     case discovered
-    
+
     var stringValue: String {
         switch self {
         case .connected:
@@ -73,41 +73,42 @@ enum ConnectionStatus {
             return "Waiting"
         }
     }
-    
+
     var circleColor: Color {
-            switch self {
-            case .connected:
-                return .green
-            case .discovered:
-                return .red
-            }
+        switch self {
+        case .connected:
+            return .green
+        case .discovered:
+            return .red
         }
-    
-    var BackgroundColor: Color {
-            switch self {
-            case .connected:
-                return Color("Second")
-            case .discovered:
-                return Color("Background")
-            }
+    }
+
+    var backgroundColor: Color {
+        switch self {
+        case .connected:
+            return Color("Second")
+        case .discovered:
+            return Color("Background")
         }
-    var TextColor: Color {
-            switch self {
-            case .connected:
-                return Color("Background")
-            case .discovered:
-                return Color("Second")
-            }
+    }
+
+    var textColor: Color {
+        switch self {
+        case .connected:
+            return Color("Background")
+        case .discovered:
+            return Color("Second")
         }
-    
-    var ImageButtonAdd: String {
-            switch self {
-            case .connected:
-                return "person.fill.badge.minus"
-            case .discovered:
-                return "person.fill.badge.plus"
-            }
+    }
+
+    var imageButtonAdd: String {
+        switch self {
+        case .connected:
+            return "person.fill.badge.minus"
+        case .discovered:
+            return "person.fill.badge.plus"
         }
+    }
 }
 
 enum GameState {
@@ -117,7 +118,6 @@ enum GameState {
     case choosingPlayer
     case result
     case reset
-    
     case chooseRole
     case guestWaitingInvitation
     case guestWaitingStart
@@ -128,7 +128,6 @@ enum GameState {
     case refereeVote
     case resultVote
     case endGame
-    
 }
 
 enum VoteStatus: String {

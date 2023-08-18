@@ -11,19 +11,16 @@ import MultipeerConnectivity
 struct LobbyView: View {
     @EnvironmentObject var multipeerController: MultipeerController
     @EnvironmentObject var lobbyViewModel: LobbyViewModel
-    
+
     @State private var isListenViewActive = false
     @State private var showingConfirmationAlert = false
     @State private var guestToRemove: MCPeerID?
-    
-    let silentDurationOptions = [10, 15, 20]
-    
     @State private var isInformasiModal = false
-    
-    let numberOfQuestionOptions = [1, 2, 3, 4]
-    
     @State private var isButtonEnabled = false
-    
+
+    let silentDurationOptions = [10, 15, 20]
+    let numberOfQuestionOptions = [1, 2, 3, 4]
+
     var body: some View {
         ZStack {
             Color.clear.backgroundStyle()
@@ -34,12 +31,12 @@ struct LobbyView: View {
                 .ignoresSafeArea()
                 .padding(.top, 130)
             Text("8 player \n maximum limit")
-                .font(.system(size: 36, weight: .bold,design: .rounded))
+                .font(.system(size: 36, weight: .bold, design: .rounded))
                 .multilineTextAlignment(.center)
                 .foregroundColor(Color("Second"))
                 .opacity(multipeerController.allGuest.count == 0 ? 0.3 : 0.0)
-            VStack (spacing : 25){
-                HStack{
+            VStack (spacing: 25) {
+                HStack {
                     Spacer()
                     Text("Lobby")
                         .foregroundColor(Color("Second"))
@@ -59,10 +56,9 @@ struct LobbyView: View {
                             .presentationDetents([.height(600)])
                     }
                     .padding(.trailing, 30)
-                    
                 }
                 .padding(.leading, 40)
-                HStack(spacing : 30){
+                HStack(spacing: 30) {
                     RoundedRectangle(cornerRadius: 10)
                         .frame(width: 148, height: 40)
                         .foregroundColor(.white)
@@ -70,7 +66,6 @@ struct LobbyView: View {
                             HStack {
                                 Text("SP:")
                                     .fontWeight(.bold)
-                                //                                        .frame(width: 100)
                                 Spacer()
                                 Picker("Silent Period", selection: $lobbyViewModel.lobby.silentDuration) {
                                     ForEach(silentDurationOptions, id: \.self) { duration in
@@ -94,7 +89,6 @@ struct LobbyView: View {
                                 Picker("Number of Questions", selection: $lobbyViewModel.lobby.numberOfQuestion) {
                                     ForEach(numberOfQuestionOptions, id: \.self) { number in
                                         Text("\(number)")
-                                        
                                             .tag(number)
                                     }
                                 }
@@ -108,7 +102,7 @@ struct LobbyView: View {
                     .stroke(lineWidth: 2)
                     .frame(width: 234, height: 32)
                     .overlay {
-                        HStack{
+                        HStack {
                             Image(systemName: "person.3.fill")
                             Text("JOINED PLAYER")
                                 .font(.system(size: 12, design: .rounded))
@@ -119,13 +113,11 @@ struct LobbyView: View {
                         .onChange(of: multipeerController.allGuest.filter { $0.status == .connected }.count) { newValue in
                             if newValue >= 1 {
                                 isButtonEnabled = true
-                            }
-                            else {
+                            } else {
                                 isButtonEnabled = false
                             }
                         }
                         .padding()
-                        
                     }
                     .foregroundColor(Color("Second"))
                 List {
@@ -137,48 +129,45 @@ struct LobbyView: View {
                             ProgressView()
                         }) {
                             ForEach(multipeerController.allGuest, id: \.self) { guest in
-                                ZStack{
+                                ZStack {
                                     RoundedRectangle(cornerRadius: 12)
                                         .frame(width: 314, height: 80)
-                                        .foregroundColor(guest.status.BackgroundColor)
-                                        .shadow(color : .indigo, radius : 5)
+                                        .foregroundColor(guest.status.backgroundColor)
+                                        .shadow(color: .indigo, radius: 5)
                                         .overlay {
-                                            HStack(spacing : 20) {
+                                            HStack(spacing: 20) {
                                                 Circle()
                                                     .stroke(lineWidth: 2)
-                                                    .frame(width : 20)
-                                                    .overlay{
+                                                    .frame(width: 20)
+                                                    .overlay {
                                                         Circle()
                                                             .foregroundColor(guest.status.circleColor)
-                                                            .frame(width : 18)
+                                                            .frame(width: 18)
                                                     }
-                                                
-                                                
                                                 Capsule()
                                                     .frame(width: 2)
-                                                VStack(alignment: .leading){
+                                                VStack(alignment: .leading) {
                                                     Text(guest.id.displayName)
-                                                        .font(.system(size : 24, weight : .bold))
+                                                        .font(.system(size: 24, weight: .bold))
                                                     Text(guest.status.stringValue)
                                                         .font(.system(size: 12, design: .rounded))
                                                         .fontWeight(.regular)
                                                 }
-                                                
                                                 Spacer()
-                                                Image(systemName: guest.status.ImageButtonAdd)
+                                                Image(systemName: guest.status.imageButtonAdd)
                                                     .resizable()
-                                                    .frame(width : 30, height : 30)
+                                                    .frame(width: 30, height: 30)
                                                     .onTapGesture {
                                                         if guest.status == .connected {
                                                             guestToRemove = guest.id
                                                             showingConfirmationAlert = true
-                                                        }
-                                                        else {
+                                                        } else {
                                                             multipeerController.invitePeer(guest.id, to: multipeerController.lobby)
                                                         }
                                                     }
-                                            }.foregroundColor(guest.status.TextColor)
-                                                .padding()
+                                            }
+                                            .foregroundColor(guest.status.textColor)
+                                            .padding()
                                         }
                                 }
                                 .alert(isPresented: $showingConfirmationAlert) {
@@ -193,30 +182,23 @@ struct LobbyView: View {
                                         secondaryButton: .cancel()
                                     )
                                 }
-                                
                             }
                             .listRowBackground(Color.clear)
-                            
                         }
                 }
                 .listStyle(InsetGroupedListStyle())
                 .scrollContentBackground(.hidden)
                 Button {
                     let connectedGuest = multipeerController.getConnectedPeers()
-                    
-                    //update total question to all peers
+                    // Update total question to all peers
                     if lobbyViewModel.lobby.numberOfQuestion != 1 {
                         multipeerController.totalQuestion = lobbyViewModel.lobby.numberOfQuestion
-                        
                         let msg = MsgCommandConstant.updateTotalQuestion + String(lobbyViewModel.lobby.numberOfQuestion)
-                        
                         multipeerController.sendMessage(msg, to: connectedGuest)
                     }
-                    
+
                     multipeerController.sendMessage(NavigateCommandConstant.navigateToListen, to: connectedGuest)
-                    
                     multipeerController.navigateToListen = true
-                    
                 } label: {
                     Text("Start!")
                         .font(.system(size: 28, design: .rounded))
@@ -225,7 +207,6 @@ struct LobbyView: View {
                 .buttonStyle(MultipeerButtonStyle())
                 .padding(.bottom, 50)
                 .disabled(!isButtonEnabled)
-                
             }
             .padding(.top, 60)
         }
@@ -246,13 +227,10 @@ struct LobbyView: View {
                 EmptyView()
             }
         )
-        
     }
-    
 }
 
 struct LobbyView_Previews: PreviewProvider {
-    
     static var previews: some View {
         LobbyView()
             .environmentObject(MultipeerController("Player"))
@@ -261,23 +239,32 @@ struct LobbyView_Previews: PreviewProvider {
 }
 
 struct InformasiModal: View {
+    let silentPeriodDescriptionFirst = "SP or Silent Period is a moment of time " +
+        "when the conversation goes silent. Within that period, no one " +
+        "talks and it could be because you have no more topics to talk about " +
+        "and somehow someone told a joke and no one laughed because it wasn’t " +
+        "funny."
+
+    let silentPeriodDescriptionSecond = "If you set the Silent Period to 10 seconds " +
+        "(default), the game will start automatically after no one is talking in 10 " +
+        "seconds. Otherwise, you can start manually by clicking on the “Quiz Time!” " +
+        "button."
     var body: some View {
-        VStack(alignment: .center, spacing: 10){
+        VStack(alignment: .center, spacing: 10) {
             Text("How it Works ?")
-            //                .padding(.leading, 120)
                 .fontWeight(.semibold)
             Divider()
-            //SP
+            // Silent Period Setup
             Text("SP")
                 .fontWeight(.semibold)
             Text("So what is SP (Silent Period) and what does it do? ")
                 .fontWeight(.bold)
-            Text("SP or Silent Period is a moment of time when the conversation goes silent. Within that period, no one talks and it could be because you have no more topics to talk about and somehow someone told a joke and no one laughed because it wasn’t funny.")
+            Text(silentPeriodDescriptionFirst)
                 .fontWeight(.light)
-            Text("If you set the Silent Period to 10 seconds (default), the game will start automatically after no one is talking in 10 seconds. Otherwise, you can start manually by clicking on the “Quiz Time!” button.")
+            Text(silentPeriodDescriptionSecond)
                 .fontWeight(.light)
             Divider()
-            // QA
+            // Question Amount Setup
             Text("QA")
                 .fontWeight(.bold)
             Text("So what is QA (Question Amount) and what does it do?")

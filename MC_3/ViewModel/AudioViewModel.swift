@@ -5,7 +5,6 @@
 //  Created by Hanifah BN on 18/07/23.
 //
 
-
 import Foundation
 import AVFoundation
 import SoundAnalysis
@@ -21,7 +20,7 @@ class AudioViewModel: NSObject, ObservableObject {
     private var timer: Timer?
     private var isTimerRunning: Bool = false
     var silentPeriod: Int?
-    
+
     func getDocumentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return paths[0]
@@ -32,10 +31,10 @@ class AudioViewModel: NSObject, ObservableObject {
             audio.isRecording = true
             // Set up AVAudioEngine and audio input node
             audioInputNode = engine.inputNode
-            
+
             // var inputBus = AVAudioNodeBus(0)
             let inputFormat = engine.inputNode.inputFormat(forBus: AVAudioNodeBus(0)) // 0 = inputBus.
-            
+
             engine.prepare()
             try engine.start()
 
@@ -45,45 +44,43 @@ class AudioViewModel: NSObject, ObservableObject {
             // Create the analyzer and add the request
             audioAnalyzer = SNAudioStreamAnalyzer(format: inputFormat)
             try audioAnalyzer.add(request, withObserver: detector)
-            
+
             // Start the audio engine
             try engine.start()
-            
+
             audioInputNode.installTap(onBus: 0, bufferSize: 8192, format: inputFormat, block: analyzeAudio(buffer:at:))
-            
+
             print("starting...")
         } catch {
             print("Error setting up audio engine: \(error.localizedDescription)")
         }
     }
 
-    func analyzeAudio(buffer: AVAudioBuffer, at time: AVAudioTime)
-    {
+    func analyzeAudio(buffer: AVAudioBuffer, at time: AVAudioTime) {
         DispatchQueue.global(qos: .userInitiated).async {
             self.audioAnalyzer!.analyze(buffer, atAudioFramePosition: time.sampleTime)
-            
+
             // Update the @Published properties on the main thread
             DispatchQueue.main.async {
                 self.audio.isSpeechDetected = self.detector.isSpeechDetected
                 self.audio.speechConfidence = self.detector.speechConfidence
-                
+
                 if self.detector.isSpeechDetected == "No" {
-//                    print("timer...")
-                    self.timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] _ in
-                        self?.handleTimer()
+                    // print("timer...")
+                    self.timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] _ in self?.handleTimer()
                     }
                     self.isTimerRunning = true
                 }
             }
         }
     }
-    
+
     private func handleTimer() {
         // Check if the timer has been running for 30 seconds
         if isTimerRunning, let lastSpeechDetectedTimestamp = detector.lastSpeechDetectedTimestamp {
             let currentTime = Date()
             let timeDifference = currentTime.timeIntervalSince(lastSpeechDetectedTimestamp)
-            
+
             if timeDifference >= TimeInterval(silentPeriod ?? Int(30.0)) {
                 print("stopping....")
                 stopVoiceActivityDetection() // Stop the voice activity detection process
@@ -91,30 +88,27 @@ class AudioViewModel: NSObject, ObservableObject {
             }
         }
     }
-    
+
     func stopVoiceActivityDetection() {
         engine.stop()
         audioAnalyzer.remove(request)
         audioInputNode.removeTap(onBus: 0)
         audio.isRecording = false
-        
+
         // Stop the timer
         timer?.invalidate()
         timer = nil
         isTimerRunning = false
     }
-    
 }
 
+// VIEW MODEL VERSI AUDIORECORDER.
 
-
-/// VIEW MODEL VERSI AUDIORECORDER.
-
-//import Foundation
-//import AVFoundation
-//import SoundAnalysis
+// import Foundation
+// import AVFoundation
+// import SoundAnalysis
 //
-//class AudioViewModel: NSObject, ObservableObject, AVAudioRecorderDelegate {
+// class AudioViewModel: NSObject, ObservableObject, AVAudioRecorderDelegate {
 //    @Published var audio = Audio()
 //    private var audioRecorder: AVAudioRecorder?
 //    private var audioFilename: URL!
@@ -209,7 +203,7 @@ class AudioViewModel: NSObject, ObservableObject {
 //        audio.currentDecibelLevel = decibelLevel
 //    }
 //
-//}
+// }
 //
 //
 //
