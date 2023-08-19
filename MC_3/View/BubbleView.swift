@@ -31,7 +31,7 @@ struct BubbleView: View {
                     .opacity(getCircleOpacity(index: index))
                     .offset(getCircleOffset(index: index))
                     .shadow(color: .white, radius: 5)
-                    .animation(Animation.easeInOut(duration: animationDuration))
+                    .animation(Animation.easeInOut(duration: animationDuration), value: index)
             }
         }.onAppear {
             animateCircles()

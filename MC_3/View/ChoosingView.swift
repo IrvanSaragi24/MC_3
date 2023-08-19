@@ -22,7 +22,7 @@ struct ChoosingView: View {
     var body: some View {
         ZStack {
             BubbleView()
-            VStack(spacing: 30){
+            VStack(spacing: 30) {
                 Circle()
                     .stroke(Color("Second"), lineWidth: 8)
                     .frame(width: 234)
@@ -74,28 +74,18 @@ struct ChoosingView: View {
                         .padding(.top, 170)
                 }
             }
-            .background(
-                NavigationLink(
-                    destination: RefereeView()
-                        .environmentObject(multipeerController)
-                        .environmentObject(lobbyViewModel),
-                    isActive: $multipeerController.navigateToReferee
-                ) {
-                    EmptyView()
-                }
-            )
+            .navigationDestination(isPresented: $multipeerController.navigateToReferee) {
+                RefereeView()
+                .environmentObject(multipeerController)
+                .environmentObject(lobbyViewModel)
+            }
         }
         .navigationBarBackButtonHidden(true)
-        .background(
-            NavigationLink(
-                destination: PlayerView()
-                    .environmentObject(multipeerController)
-                    .environmentObject(lobbyViewModel),
-                isActive: $multipeerController.navigateToPlayer
-            ) {
-                EmptyView()
-            }
-        )
+        .navigationDestination(isPresented: $multipeerController.navigateToPlayer) {
+            PlayerView()
+            .environmentObject(multipeerController)
+            .environmentObject(lobbyViewModel)
+        }
         .onAppear {
             multipeerController.resetNavigateVar()
 

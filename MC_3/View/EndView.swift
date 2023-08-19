@@ -60,28 +60,18 @@ struct EndView: View {
                         .multilineTextAlignment(.center)
                 }
             }
-            .background(
-                NavigationLink(
-                    destination: ListenView()
-                        .environmentObject(multipeerController)
-                        .environmentObject(lobbyViewModel),
-                    isActive: $multipeerController.navigateToListen
-                ) {
-                    EmptyView()
-                }
-            )
+            .navigationDestination(isPresented: $multipeerController.navigateToListen) {
+                ListenView()
+                    .environmentObject(multipeerController)
+                    .environmentObject(lobbyViewModel)
+            }
         }
         .navigationBarBackButtonHidden(true)
-        .background(
-            NavigationLink(
-                destination: ChooseRoleView()
-                    .environmentObject(multipeerController)
-                    .environmentObject(lobbyViewModel),
-                isActive: $multipeerController.navigateToChooseRole
-            ) {
-                EmptyView()
-            }
-        )
+        .navigationDestination(isPresented: $multipeerController.navigateToChooseRole) {
+            ChooseRoleView()
+                .environmentObject(multipeerController)
+                .environmentObject(lobbyViewModel)
+        }
         .onAppear {
             multipeerController.resetNavigateVar()
         }

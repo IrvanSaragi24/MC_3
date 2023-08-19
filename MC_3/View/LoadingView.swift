@@ -42,7 +42,7 @@ struct LoadingView: View {
                         .frame(width: circleSize)
                         .rotationEffect(Angle(degrees: isWaiting ? 0 : -360))
                         .animation(Animation.linear(duration: 2)
-                        .repeatForever(autoreverses: false))
+                        .repeatForever(autoreverses: false), value: isWaiting)
                         .offset(x: 0, y: yOffset)
                 }
                 Text(textWait)

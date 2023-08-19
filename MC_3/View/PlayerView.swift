@@ -129,16 +129,11 @@ struct PlayerView: View {
             }
         }
         .navigationBarBackButtonHidden(true)
-        .background(
-            NavigationLink(
-                destination: ResultView()
-                    .environmentObject(multipeerController)
-                    .environmentObject(lobbyViewModel),
-                isActive: $multipeerController.navigateToResult
-            ) {
-                EmptyView()
-            }
-        )
+        .navigationDestination(isPresented: $multipeerController.navigateToResult) {
+            ResultView()
+                .environmentObject(multipeerController)
+                .environmentObject(lobbyViewModel)
+        }
         .onAppear {
             multipeerController.resetNavigateVar()
         }

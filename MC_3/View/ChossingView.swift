@@ -13,11 +13,11 @@ struct SwiftUIView: View {
     private let updateInterval: TimeInterval = 0.05
     private let targetProgress: Float = 100.0
     var body: some View {
-        ZStack{
+        ZStack {
             BubbleView()
-            VStack(spacing : 30){
+            VStack(spacing: 30) {
                 Circle()
-                    .stroke(Color("Second"), lineWidth : 8)
+                    .stroke(Color("Second"), lineWidth: 8)
                     .frame(width: 234)
                     .overlay {
                         Image(systemName: "person.3.fill")
@@ -34,7 +34,7 @@ struct SwiftUIView: View {
                     .onAppear {
                         startUpdatingProgress()
                     }
-                ZStack{
+                ZStack {
                     RoundedRectangle(cornerRadius: 12)
                         .frame(width: 290, height: 168)
                         .foregroundColor(Color("Second"))
@@ -55,9 +55,9 @@ struct SwiftUIView: View {
                         }
                         .padding(.bottom, 160)
                     Circle()
-                        .stroke(Color("Second"), lineWidth : 4)
+                        .stroke(Color("Second"), lineWidth: 4)
                         .frame(width: 50)
-                        .overlay{
+                        .overlay {
                             Circle()
                                 .foregroundColor(Color("Background"))
                             Text("1/3")
@@ -69,8 +69,6 @@ struct SwiftUIView: View {
 
                 }
             }
-
-
         }
     }
     func startUpdatingProgress() {
@@ -83,7 +81,6 @@ struct SwiftUIView: View {
         }
     }
 }
-
 
 struct SwiftUIView_Previews: PreviewProvider {
     static var previews: some View {

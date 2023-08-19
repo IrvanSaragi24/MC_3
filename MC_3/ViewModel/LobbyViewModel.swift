@@ -26,7 +26,8 @@ class LobbyViewModel: ObservableObject {
             startTime = Date()
 
             // Schedule a timer to update the elapsed time every 0.1 seconds
-            timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] timer in
+            // Underscore bisa diganti jadi timer kalo mau dipake.
+            timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] _ in
                 self?.updateElapsedTime()
             }
         }

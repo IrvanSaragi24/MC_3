@@ -14,23 +14,23 @@ struct ContinueView: View {
             Button(action: {
                 // Action for the first button
                 print("First Button Tapped")
-            }) {
+            }, label: {
                 Text("Continue")
                     .foregroundColor(.white)
                     .padding()
                     .background(Color.blue)
                     .cornerRadius(8)
-            }
+            })
             Button(action: {
                 // Action for the second button
                 print("Second Button Tapped")
-            }) {
+            }, label: {
                 Text("Stop")
                     .foregroundColor(.white)
                     .padding()
                     .background(Color.red)
                     .cornerRadius(8)
-            }
+            })
         }
     }
 }

@@ -13,32 +13,31 @@ struct TrainVoiceView: View {
 
     var body: some View {
         VStack {
-            
-                    Button("Show Picker") {
-                        isPickerVisible = true
+            Button("Show Picker") {
+                isPickerVisible = true
+            }
+            .padding()
+
+            if isPickerVisible {
+                Picker("Double Value", selection: $selectedValue) {
+                    ForEach(0..<10) { index in
+                        let doubleValue = Double(index) / 2.0 // Adjust the range or step as needed
+                        Text(String(format: "%.1f", doubleValue))
                     }
-                    .padding()
+                }
+                .pickerStyle(WheelPickerStyle()) // Use WheelPickerStyle for a spinning wheel picker
+                .transition(.slide) // Add a transition for smooth appearance
 
-                    if isPickerVisible {
-                        Picker("Double Value", selection: $selectedValue) {
-                            ForEach(0..<10) { index in
-                                let doubleValue = Double(index) / 2.0 // Adjust the range or step as needed
-                                Text(String(format: "%.1f", doubleValue))
-                            }
-                        }
-                        .pickerStyle(WheelPickerStyle()) // Use WheelPickerStyle for a spinning wheel picker
-                        .transition(.slide) // Add a transition for smooth appearance
-
-                        Button("Done") {
-                            isPickerVisible = false
-                        }
-                        .padding()
-                    }
-
-                    Text("Selected Value: \(selectedValue)")
-                        .padding()
+                Button("Done") {
+                    isPickerVisible = false
                 }
                 .padding()
+            }
+
+            Text("Selected Value: \(selectedValue)")
+                .padding()
+        }
+        .padding()
     }
 }
 

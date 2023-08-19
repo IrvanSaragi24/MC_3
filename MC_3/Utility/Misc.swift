@@ -131,7 +131,7 @@ enum GameState {
 }
 
 enum VoteStatus: String {
-    case yes = "Yes"
-    case no = "No"
+    case voteYes = "Yes"
+    case voteNo = "No"
     case null = "Null"
 }

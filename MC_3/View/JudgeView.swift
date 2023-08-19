@@ -19,22 +19,21 @@ struct JudgeView: View {
             Text("Question")
             Text("Lorem Ipsum Dolor")
             Text("1/3")
-//            NavigationLink(
-//                destination: AskedView()
-//            )
-//            {
-//                    Label("\u{200B}", systemImage: "gobackward")
-//            }
+            // NavigationLink(
+                // destination: AskedView()
+            // )
+            // {
+            //     Label("\u{200B}", systemImage: "gobackward")
+            // }
             .buttonStyle(MultipeerButtonStyle())
             .onTapGesture {
-                
             }
         }
     }
 }
 
-//struct JudgeView_Previews: PreviewProvider {
+// struct JudgeView_Previews: PreviewProvider {
 //    static var previews: some View {
 //        JudgeView()
 //    }
-//}
+// }

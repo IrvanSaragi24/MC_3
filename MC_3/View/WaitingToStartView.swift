@@ -49,28 +49,19 @@ struct WaitingToStartView: View {
                     .font(.system(size: 30, weight: .light))
                     .padding(.top, 50)
             }
-            .background(
-                NavigationLink(
-                    destination: WaitingForInvitationView()
-                        .environmentObject(multipeerController),
-                    isActive: $multipeerController.navigateToWaitingInvitation
-                ) {
-                    EmptyView()
-                }
-            )
+            .navigationDestination(isPresented: $multipeerController.navigateToWaitingInvitation) {
+                WaitingForInvitationView()
+                    .environmentObject(multipeerController)
+            }
         }
         .onAppear {
             multipeerController.resetNavigateVar()
         }
-        .background(
-            NavigationLink(
-                destination: ListenView()
-                    .environmentObject(multipeerController)
-                    .environmentObject(lobbyViewModel),
-                isActive: $multipeerController.navigateToListen
-            ) {
-                EmptyView()
-            })
+        .navigationDestination(isPresented: $multipeerController.navigateToListen) {
+            ListenView()
+                .environmentObject(multipeerController)
+                .environmentObject(lobbyViewModel)
+        }
     }
 }
 

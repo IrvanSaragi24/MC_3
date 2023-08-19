@@ -11,7 +11,7 @@ import AVFoundation
 class PlayerViewModel: ObservableObject {
     var player: AVAudioPlayer?
 
-    func playAudio(fileName: String){
+    func playAudio(fileName: String) {
         do {
             // Set the audio session category to Playback
             try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)

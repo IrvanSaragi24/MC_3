@@ -19,15 +19,10 @@ struct WaitingForInvitationView: View {
                 multipeerController.resetNavigateVar()
                 multipeerController.isAdvertising = true
             }
-            .background(
-                NavigationLink(
-                    destination: WaitingToStartView()
-                        .environmentObject(multipeerController),
-                    isActive: $multipeerController.navigateToWaitingStart
-                ) {
-                    EmptyView()
-                }
-            )
+            .navigationDestination(isPresented: $multipeerController.navigateToWaitingStart) {
+                WaitingToStartView()
+                    .environmentObject(multipeerController)
+            }
     }
 }
 

@@ -507,7 +507,7 @@ extension MultipeerController: MCNearbyServiceAdvertiserDelegate {
         invitationHandler: @escaping (Bool, MCSession?) -> Void
     ) {
         guard
-            let window = UIApplication.shared.windows.first,
+            let window = UIApplication.shared.connectedScenes.first as? UIWindowScene,
             let context = context,
             let lobbyName = String(data: context, encoding: .utf8)
         else {
@@ -536,6 +536,6 @@ extension MultipeerController: MCNearbyServiceAdvertiserDelegate {
             self.gameState = .waitingToStart
             self.navigateToWaitingStart = true
         })
-        window.rootViewController?.present(alertController, animated: true)
+        window.windows.first!.rootViewController?.present(alertController, animated: true)
     }
 }

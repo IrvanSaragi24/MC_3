@@ -22,6 +22,12 @@ struct ResultView: View {
     @EnvironmentObject private var multipeerController: MultipeerController
 
     @State private var isDoneAllQuestion = false
+    @State private var winLoseText = ""
+
+    let playerWinMessage = "Keren banget! Kamu beneran perhatiin yak ternyata. 😆"
+    let playerLoseMessage = "Ah, gimana, deh! Gak asik banget nongkrong tapi gak dengerin. 🤬!"
+    let refereeWinMessage = "Hey, teman kamu mendengarkan dengan baik! Ayo traktir dia kopi susu gula aren!"
+    let refereeLoseMessage = "Mendingan kamu cari temen baru aja, deh. Dia gak asik, ga dengerin pembicaraan!"
 
     var body: some View {
         ZStack {
@@ -56,24 +62,31 @@ struct ResultView: View {
                         .padding(.bottom, 55)
                 }
                 .padding(.bottom, 250)
-                Text(multipeerController.isWin ? "\(multipeerController.currentPlayer)'s Here \n\(multipeerController.currentPlayer) Hears" : "Find a New \nFriend" )
+                Text(winLoseText)
                     .font(.system(size: 32, design: .rounded))
                     .fontWeight(.bold)
                     .foregroundColor(Color("Second"))
                     .multilineTextAlignment(.center)
+                    .onAppear {
+                        if multipeerController.isWin {
+                            winLoseText = "\(multipeerController.currentPlayer)'s Here \n\(multipeerController.currentPlayer) Hears"
+                        } else {
+                            winLoseText = "Find a New \nFriend"
+                        }
+                    }
                 ZStack {
                     RoundedRectangle(cornerRadius: 12)
                         .frame(width: 290, height: 168)
                         .foregroundColor(Color("Second"))
                         .overlay {
                             if multipeerController.isPlayer {
-                                Text(multipeerController.isWin ? "Keren banget! Kamu beneran perhatiin yak ternyata. 😆" : "Ah, gimana, deh! Gak asik banget nongkrong tapi gak dengerin. 🤬!")
+                                Text(multipeerController.isWin ? playerWinMessage : playerLoseMessage)
                                     .font(.system(size: 17, design: .rounded))
                                     .fontWeight(.medium)
                                     .multilineTextAlignment(.center)
                                     .padding()
                             } else {
-                                Text(multipeerController.isWin ? "Hey, teman kamu mendengarkan dengan baik! Ayo traktir dia kopi susu gula aren!" : "Mendingan kamu cari temen baru aja, deh. Dia gak asik, ga dengerin pembicaraan!")
+                                Text(multipeerController.isWin ? refereeWinMessage : refereeLoseMessage)
                                     .font(.system(size: 17, design: .rounded))
                                     .fontWeight(.medium)
                                     .multilineTextAlignment(.center)
@@ -135,7 +148,6 @@ struct ResultView: View {
                         multipeerController.navigateToEnd = true
                     } else {
                         multipeerController.resetParameters(page: NavigateCommandConstant.navigateToChoosingPlayer)
-                        
                         multipeerController.sendMessage(NavigateCommandConstant.navigateToChoosingPlayer, to: connectedGuest)
                         multipeerController.navigateToChoosingPlayer = true
                     }
@@ -153,16 +165,11 @@ struct ResultView: View {
             .offset(x: screenWidth * 0.35, y: -screenHeight * 0.44)
         }
         .navigationBarBackButtonHidden(true)
-        .background(
-            NavigationLink(
-                destination: EndView()
-                    .environmentObject(multipeerController)
-                    .environmentObject(lobbyViewModel),
-                isActive: $multipeerController.navigateToEnd
-            ) {
-                EmptyView()
-            }
-        )
+        .navigationDestination(isPresented: $multipeerController.navigateToEnd) {
+            EndView()
+                .environmentObject(multipeerController)
+                .environmentObject(lobbyViewModel)
+        }
         .onAppear {
             multipeerController.resetNavigateVar()
 
@@ -172,7 +179,7 @@ struct ResultView: View {
 
             if multipeerController.isPlayer {
                 playerViewModel.playAudio(fileName: multipeerController.isWin ? "WinPlayer" : "LosePlayer")
-            } else{
+            } else {
                 playerViewModel.playAudio(fileName: multipeerController.isWin ? "WinReferee" : "LoseReferee")
             }
         }

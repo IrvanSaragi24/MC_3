@@ -29,10 +29,9 @@
 		A3FD841A2A8F1CB100FC32D6 /* WaitingToStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FD84192A8F1CB100FC32D6 /* WaitingToStartView.swift */; };
 		A3FD84202A8F1F6A00FC32D6 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = A3FD841F2A8F1F6A00FC32D6 /* .swiftlint.yml */; };
 		A3FD84222A8F545100FC32D6 /* UserDefaultsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FD84212A8F545100FC32D6 /* UserDefaultsViewModel.swift */; };
+		A3FD84232A8F71FA00FC32D6 /* HangOutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25C6E012A645D4800B4F3EC /* HangOutView.swift */; };
 		E22F946E2A67B13E0088315B /* BubbleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22F946D2A67B13E0088315B /* BubbleView.swift */; };
 		E22F94722A6B78F10088315B /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22F94712A6B78F10088315B /* LoadingView.swift */; };
-		E25C6DFC2A63CBAB00B4F3EC /* EndGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25C6DFB2A63CBAB00B4F3EC /* EndGameView.swift */; };
-		E25C6E022A645D4800B4F3EC /* HangOutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25C6E012A645D4800B4F3EC /* HangOutView.swift */; };
 		E2AD0EB22A60EDE100E76ED3 /* MC_3App.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2AD0EB12A60EDE100E76ED3 /* MC_3App.swift */; };
 		E2AD0EB42A60EDE100E76ED3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2AD0EB32A60EDE100E76ED3 /* ContentView.swift */; };
 		E2AD0EB62A60EDE300E76ED3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2AD0EB52A60EDE300E76ED3 /* Assets.xcassets */; };
@@ -332,7 +331,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		A3FD841B2A8F1EE700FC32D6 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputFileListPaths = (
@@ -354,6 +353,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3FD84232A8F71FA00FC32D6 /* HangOutView.swift in Sources */,
 				E2B337392A7171CB00F9384D /* SplashScreenView.swift in Sources */,
 				EC8318A92A67EBD400BD3A7E /* ButtonStyle.swift in Sources */,
 				EC8F9E2B2A69422100E0A76B /* Misc.swift in Sources */,
@@ -363,7 +363,6 @@
 				EC8318702A65F1A200BD3A7E /* Lobby.swift in Sources */,
 				ECCA2FDD2A6C1FAF000226AD /* RefereeView.swift in Sources */,
 				A3C02B112A73BD6000873EB5 /* PlayerViewModel.swift in Sources */,
-				E25C6E022A645D4800B4F3EC /* HangOutView.swift in Sources */,
 				A39597B72A70D8E100007F82 /* HapticViewModel.swift in Sources */,
 				A3C02B0F2A73B19600873EB5 /* MotionViewModel.swift in Sources */,
 				A39597B52A70CF1B00007F82 /* SynthesizerViewModel.swift in Sources */,
@@ -371,7 +370,6 @@
 				EC8F9E232A683F7000E0A76B /* ListenView.swift in Sources */,
 				ECCA2FE12A6C24DF000226AD /* ContinueView.swift in Sources */,
 				E22F946E2A67B13E0088315B /* BubbleView.swift in Sources */,
-				E25C6E022A645D4800B4F3EC /* HangOutView.swift in Sources */,
 				A3FD84182A8F1C8F00FC32D6 /* WaitingForInvitationView.swift in Sources */,
 				A3E9052E2A6EF4BF007A0E2A /* AudioViewModel.swift in Sources */,
 				E2B122572A6FDD2B00E8606C /* ResultView.swift in Sources */,
@@ -389,9 +387,7 @@
 				A3E905302A6EF4DE007A0E2A /* VoiceActivityDetector.swift in Sources */,
 				EC8F9E292A69411800E0A76B /* MultipeerController.swift in Sources */,
 				A3FD84162A8F1C6100FC32D6 /* EndView.swift in Sources */,
-				E25C6DFC2A63CBAB00B4F3EC /* EndGameView.swift in Sources */,
 				E22F94722A6B78F10088315B /* LoadingView.swift in Sources */,
-				E25C6DFC2A63CBAB00B4F3EC /* EndGameView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

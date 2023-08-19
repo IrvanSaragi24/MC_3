@@ -25,7 +25,7 @@ struct ChoosePlayerView: View {
             ZStack {
                 BubbleView()
                 VStack {
-                    VStack(spacing: 30){
+                    VStack(spacing: 30) {
                         Circle()
                             .stroke(Color("Second"), lineWidth: 8)
                             .frame(width: 234)

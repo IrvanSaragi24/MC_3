@@ -27,7 +27,7 @@ struct ChooseRoleView: View {
                         multipeerController.isHost = true
                         lobbyViewModel.lobby.name = multipeerController.myPeerId.displayName
                         isLobbyViewActive = true
-                    }) {
+                    }, label: {
                         ZStack {
                             Circle()
                                 .frame(width: 234)
@@ -45,18 +45,13 @@ struct ChooseRoleView: View {
                             }
                             .foregroundColor(Color("Main"))
                         }
-                    }
+                    })
                     .padding(.bottom, 63)
-                    .background(
-                        NavigationLink(
-                            destination: LobbyView()
-                                .environmentObject(multipeerController)
-                                .environmentObject(lobbyViewModel),
-                            isActive: $isLobbyViewActive
-                        ) {
-                            EmptyView()
-                        }
-                    )
+                    .navigationDestination(isPresented: $isLobbyViewActive) {
+                        LobbyView()
+                        .environmentObject(multipeerController)
+                        .environmentObject(lobbyViewModel)
+                    }
                     Button(
                         action: {
                             isWaitingInvitationViewActive = true
@@ -75,17 +70,11 @@ struct ChooseRoleView: View {
                                 }
                                 .foregroundColor(Color("Main"))
                             }
-                        }
-                    )
-                    .background(
-                        NavigationLink(
-                            destination: WaitingForInvitationView()
-                                .environmentObject(multipeerController),
-                            isActive: $isWaitingInvitationViewActive
-                        ) {
-                            EmptyView()
-                        }
-                    )
+                        })
+                    .navigationDestination(isPresented: $isWaitingInvitationViewActive) {
+                        WaitingForInvitationView()
+                        .environmentObject(multipeerController)
+                    }
                 }
             }
             .onAppear {

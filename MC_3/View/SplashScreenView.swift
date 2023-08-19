@@ -17,30 +17,32 @@ struct SplashScreenView: View {
             VStack {
                 if colorScheme == .dark {
                     // Use the dark mode logo
-                    Image("LogoLight")
-                        .resizable()
-                        .rotationEffect(Angle(degrees: 30))
-                        .frame(width: 200, height: 200)
-                        .rotationEffect(.degrees(waveAngle))
-                        .animation(Animation.easeInOut(duration: 1.0).repeatForever()) // Repeat the animation indefinitely
-                        .onAppear {
-                            withAnimation {
-                                waveAngle = -30.0 // Set the initial wave angle to -30 degrees
+                    withAnimation(Animation.easeInOut(duration: 1.0).repeatForever()) {
+                        Image("LogoLight")
+                            .resizable()
+                            .rotationEffect(Angle(degrees: 30))
+                            .frame(width: 200, height: 200)
+                            .rotationEffect(.degrees(waveAngle))
+                            .onAppear {
+                                withAnimation {
+                                    waveAngle = -30.0 // Set the initial wave angle to -30 degrees
+                                }
                             }
-                        }
-                        .padding()
+                            .padding()
+                    }
                 } else {
-                    Image("LogoDark")
-                        .resizable()
-                        .rotationEffect(Angle(degrees: 30))
-                        .frame(width: 200, height: 200)
-                        .rotationEffect(.degrees(waveAngle))
-                        .animation(Animation.easeInOut(duration: 1.0).repeatForever()) // Repeat the animation indefinitely
-                        .onAppear {
-                            withAnimation {
-                                waveAngle = -30.0 // Set the initial wave angle to -30 degrees
+                    withAnimation(Animation.easeInOut(duration: 1.0).repeatForever()) {
+                        Image("LogoDark")
+                            .resizable()
+                            .rotationEffect(Angle(degrees: 30))
+                            .frame(width: 200, height: 200)
+                            .rotationEffect(.degrees(waveAngle))
+                            .onAppear {
+                                withAnimation {
+                                    waveAngle = -30.0 // Set the initial wave angle to -30 degrees
+                                }
                             }
-                        }
+                    }
                 }
                 // Image("Ehlo")
                 Text("EhLo")
@@ -49,7 +51,7 @@ struct SplashScreenView: View {
                     .padding(.top, 50)
             }
             .scaleEffect(scale) // Apply scaling effect to ContentView
-            .animation(.easeInOut(duration: 0.5)) // Customize animation
+            .animation(.easeInOut(duration: 0.5), value: scale) // Customize animation
             .onAppear {
                 scale = 1.2 // Scale to 1.2 when ContentView appears
             }

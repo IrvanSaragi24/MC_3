@@ -10,15 +10,15 @@ import SwiftUI
 struct QuestionView: View {
     @State var colors: [Color] = [.clear, .clear, Color("Second"), .red]
     @State private var currentQuestionIndex = 0
-    
+
     let questions = [
         "Hey, Adhi! Siapa yang tadi ngomongin: 'tadi bukannya dia dapet Ravenclaw ya?'",
         "Ini pertanyaan ke-2.",
         "Ini pertanyaan ke-3."
     ]
     var body: some View {
-        VStack(spacing : 20) {
-            ZStack{
+        VStack(spacing: 20) {
+            ZStack {
                 RoundedRectangle(cornerRadius: 12)
                     .frame(width: 170, height: 60)
                     .foregroundColor(Color("Second"))
@@ -37,10 +37,10 @@ struct QuestionView: View {
                     .font(.system(size: 32, weight: .bold))
             }
             Capsule()
-                .stroke(Color("Second"), lineWidth : 2)
+                .stroke(Color("Second"), lineWidth: 2)
                 .frame(width: 150, height: 32)
-                .overlay{
-                    HStack{
+                .overlay {
+                    HStack {
                         Image(systemName: "person.3.fill")
                             .padding(.trailing, 6)
                         Text("Vote")
@@ -53,7 +53,7 @@ struct QuestionView: View {
             Image("Ilustrasi1")
                 .resizable()
                 .frame(width: 278, height: 278)
-            ZStack{
+            ZStack {
                 RoundedRectangle(cornerRadius: 12)
                     .frame(width: 290, height: 168)
                     .foregroundColor(Color("Second"))
@@ -74,13 +74,12 @@ struct QuestionView: View {
                             .font(.system(size: 12, weight: .bold))
                     }
                     .padding(.bottom, 160)
-                
             }
             Button {
                 currentQuestionIndex = (currentQuestionIndex + 1) % questions.count
                 updateColor()
             } label: {
-                ZStack{
+                ZStack {
                     RoundedRectangle(cornerRadius: 20)
                         .frame(width: 62, height: 30)
                         .foregroundColor(Color("Main"))
@@ -88,7 +87,6 @@ struct QuestionView: View {
                         .resizable()
                         .frame(width: 13, height: 16)
                         .foregroundColor(Color("Second"))
-                    
                 }
             }
             Text("\(currentQuestionIndex + 1)/ \(questions.count)")
@@ -97,7 +95,7 @@ struct QuestionView: View {
             HStack(spacing: 10) {
                 ForEach(0..<questions.count) { index in
                     Capsule()
-                        .stroke(Color("Second"), lineWidth : 3)
+                        .stroke(Color("Second"), lineWidth: 3)
                         .frame(width: 60, height: 10)
                         .overlay {
                             Capsule()
@@ -107,14 +105,13 @@ struct QuestionView: View {
             }
         }
     }
-    
-    func updateColor (){
+
+    func updateColor() {
         var newColors: [Color] = []
         for index in 0..<questions.count {
-            if index == currentQuestionIndex{
+            if index == currentQuestionIndex {
                 newColors.append(Color("Second"))
-            }
-            else {
+            } else {
                 newColors.append(.clear)
             }
         }

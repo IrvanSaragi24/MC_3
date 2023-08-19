@@ -35,7 +35,7 @@ struct LobbyView: View {
                 .multilineTextAlignment(.center)
                 .foregroundColor(Color("Second"))
                 .opacity(multipeerController.allGuest.count == 0 ? 0.3 : 0.0)
-            VStack (spacing: 25) {
+            VStack(spacing: 25) {
                 HStack {
                     Spacer()
                     Text("Lobby")
@@ -217,16 +217,11 @@ struct LobbyView: View {
         .onDisappear {
             multipeerController.stopBrowsing()
         }
-        .background(
-            NavigationLink(
-                destination: ListenView()
-                    .environmentObject(multipeerController)
-                    .environmentObject(lobbyViewModel),
-                isActive: $multipeerController.navigateToListen
-            ) {
-                EmptyView()
-            }
-        )
+        .navigationDestination(isPresented: $multipeerController.navigateToListen) {
+            ListenView()
+                .environmentObject(multipeerController)
+                .environmentObject(lobbyViewModel)
+        }
     }
 }
 

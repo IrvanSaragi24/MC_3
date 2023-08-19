@@ -78,16 +78,11 @@ struct ListenView: View {
                 }
                 .buttonStyle(MultipeerButtonStyle())
                 .opacity(multipeerController.isHost ? 100 : 0)
-                .background(
-                    NavigationLink(
-                        destination: ChoosingView()
-                            .environmentObject(lobbyViewModel)
-                            .environmentObject(multipeerController),
-                        isActive: $multipeerController.navigateToChoosingPlayer
-                    ) {
-                        EmptyView()
-                    }
-                )
+                .navigationDestination(isPresented: $multipeerController.navigateToChoosingPlayer) {
+                    ChoosingView()
+                        .environmentObject(lobbyViewModel)
+                        .environmentObject(multipeerController)
+                }
                 Button {
                     if multipeerController.isHost {
                         audioViewModel.stopVoiceActivityDetection()
@@ -102,15 +97,10 @@ struct ListenView: View {
                 .buttonStyle(SecondButtonStyle())
                 .padding(.bottom, 50)
                 .opacity(multipeerController.isHost ? 100 : 0)
-                .background(
-                    NavigationLink(
-                        destination: ChooseRoleView()
-                            .environmentObject(multipeerController),
-                        isActive: $multipeerController.navigateToChooseRole
-                    ) {
-                        EmptyView()
-                    }
-                )
+                .navigationDestination(isPresented: $multipeerController.navigateToChooseRole) {
+                    ChooseRoleView()
+                        .environmentObject(multipeerController)
+                }
             }
         }
         .navigationBarBackButtonHidden(true)
@@ -136,7 +126,8 @@ struct ListenView: View {
     }
 
     func startColorChangeTimer() {
-        Timer.scheduledTimer(withTimeInterval: 1.5, repeats: true) { timer in
+        // Underscore bisa jadiin timer kalo timer-nya mau dipake.
+        Timer.scheduledTimer(withTimeInterval: 1.5, repeats: true) { _ in
             withAnimation {
                 // Increment the currentColorIndex or reset to 0 if it reaches the last color
                 currentColorIndex = (currentColorIndex + 1) % colors.count
