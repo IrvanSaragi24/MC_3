@@ -14,8 +14,8 @@
             filePath = "MC_3/Utility/MultipeerController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "188"
-            endingLineNumber = "188"
+            startingLineNumber = "155"
+            endingLineNumber = "155"
             landmarkName = "resetParameters(page:)"
             landmarkType = "7">
          </BreakpointContent>

@@ -23,7 +23,7 @@ class MultipeerController: NSObject, ObservableObject {
     var myPeerId: MCPeerID!
 
     private let serviceType = MCConstants.service
-    private var session: MCSession
+    internal var session: MCSession
     private var browser: MCNearbyServiceBrowser
     private var advertiser: MCNearbyServiceAdvertiser
     var hostPeerID: MCPeerID? // I want to save the peerID of host
@@ -96,72 +96,39 @@ class MultipeerController: NSObject, ObservableObject {
     }
 
     func handleReceivedCommand(_ command: String) -> Bool {
-        var result = true
-        switch command {
-
-        case NavigateCommandConstant.navigateToLobby:
-            DispatchQueue.main.async {
-                self.navigateToLobby = true
-            }
-
-        case NavigateCommandConstant.navigateToWaitingInvitation:
-            DispatchQueue.main.async {
-                self.navigateToWaitingInvitation = true
-            }
-
-        case NavigateCommandConstant.navigateToWaitingStart:
-            DispatchQueue.main.async {
-                self.navigateToWaitingStart = true
-            }
-
-        case NavigateCommandConstant.navigateToListen:
-            DispatchQueue.main.async {
+        let navigationMapping: [String: () -> Void] = [
+            NavigateCommandConstant.navigateToLobby: { self.navigateToLobby = true },
+            NavigateCommandConstant.navigateToWaitingInvitation: { self.navigateToWaitingInvitation = true },
+            NavigateCommandConstant.navigateToWaitingStart: { self.navigateToWaitingStart = true },
+            NavigateCommandConstant.navigateToListen: {
                 self.navigateToListen = true
                 self.resetParameters(page: NavigateCommandConstant.navigateToListen)
-            }
-
-        case NavigateCommandConstant.navigateToChoosingPlayer:
-            DispatchQueue.main.async {
+            },
+            NavigateCommandConstant.navigateToChoosingPlayer: {
                 self.navigateToChoosingPlayer = true
                 self.resetParameters(page: NavigateCommandConstant.navigateToChoosingPlayer)
-            }
-
-        case NavigateCommandConstant.navigateToPlayer:
-            DispatchQueue.main.async {
-                self.navigateToPlayer = true
-            }
-
-        case NavigateCommandConstant.navigateToReferee:
-            DispatchQueue.main.async {
-                self.navigateToReferee = true
-            }
-
-        case NavigateCommandConstant.navigateToResult:
-            DispatchQueue.main.async {
-                self.navigateToResult = true
-            }
-
-        case NavigateCommandConstant.navigateToEnd:
-            DispatchQueue.main.async {
-                self.navigateToEnd = true
-            }
-
-        case NavigateCommandConstant.navigateToChooseRole:
-            DispatchQueue.main.async {
+            },
+            NavigateCommandConstant.navigateToPlayer: { self.navigateToPlayer = true },
+            NavigateCommandConstant.navigateToReferee: { self.navigateToResult = true },
+            NavigateCommandConstant.navigateToResult: { self.navigateToResult = true },
+            NavigateCommandConstant.navigateToEnd: { self.navigateToEnd = true },
+            NavigateCommandConstant.navigateToChooseRole: {
                 self.navigateToChooseRole = true
                 self.resetParameters(page: NavigateCommandConstant.navigateToChooseRole)
-            }
-
-        case NavigateCommandConstant.navigateToHangoutMode:
-            DispatchQueue.main.async {
+            },
+            NavigateCommandConstant.navigateToHangoutMode: {
                 self.navigateToHangoutMode = true
             }
+        ]
 
-        default:
-            result = false
+        if let navigationAction = navigationMapping[command] {
+            DispatchQueue.main.async {
+                navigationAction()
+            }
+            return true
+        } else {
+            return false
         }
-
-        return result
     }
 
     func resetParameters(page: String) {
@@ -359,116 +326,6 @@ extension MultipeerController: MCSessionDelegate {
         @unknown default:
             print("\(peerID) state: unknown")
         }
-    }
-
-    // Handle data received
-    func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
-        if let receivedString = String(data: data, encoding: .utf8) {
-            if !handleReceivedCommand(receivedString) {
-                let components = receivedString.components(separatedBy: ":")
-                if components.count == 1 {
-                    let message = components[0]
-                    if message.contains(MsgCommandConstant.updateTotalQuestion) {
-                        DispatchQueue.main.async { [weak self] in
-                            let originalString = message
-                            let substringToRemove = MsgCommandConstant.updateTotalQuestion
-                            let updatedString = originalString.replacingOccurrences(of: substringToRemove, with: "")
-                            self?.totalQuestion = Int(updatedString) ?? 1
-                        }
-                    } else if message.contains(MsgCommandConstant.updateCurrentPlayer) {
-                        DispatchQueue.main.async { [weak self] in
-                            let originalString = message
-                            let substringToRemove = MsgCommandConstant.updateCurrentPlayer
-                            let updatedString = originalString.replacingOccurrences(of: substringToRemove, with: "")
-                            self?.currentPlayer = updatedString
-                        }
-                    } else if message == MsgCommandConstant.disconnect {
-                        DispatchQueue.main.async { [weak self] in
-                            // Handle disconnect
-                            self?.gameState = .waitingForInvitation
-                            self?.session.disconnect()
-                            self?.navigateToWaitingInvitation = true
-                        }
-                    } else if message == MsgCommandConstant.startListen {
-                        DispatchQueue.main.async { [weak self] in
-                            // Handle the "Start Listen" command
-                            self?.gameState = .listening
-                        }
-                    } else if message == MsgCommandConstant.updateIsChoosingViewTrue {
-                        DispatchQueue.main.async { [weak self] in
-                            self?.isChoosingView = true
-                        }
-                    } else if message == MsgCommandConstant.updateIsChoosingViewFalse {
-                        DispatchQueue.main.async { [weak self] in
-                            self?.isChoosingView = false
-                        }
-                    } else if message == MsgCommandConstant.updatePlayerTrue {
-                        DispatchQueue.main.async { [weak self] in
-                            self?.isPlayer = true
-                        }
-                    } else if message == MsgCommandConstant.updatePlayerFalse {
-                        DispatchQueue.main.async { [weak self] in
-                            self?.isPlayer = false
-                        }
-                    } else if message == MsgCommandConstant.voteYes {
-                        DispatchQueue.main.async { [weak self] in
-                            self?.yesVote += 1
-                            self?.totalVote += 1
-                        }
-                    } else if message == MsgCommandConstant.voteNo {
-                        DispatchQueue.main.async { [weak self] in
-                            self?.noVote += 1
-                            self?.totalVote += 1
-                        }
-                    } else if message == MsgCommandConstant.updateIsResultViewTrue {
-                        DispatchQueue.main.async { [weak self] in
-                            self?.isResultView = true
-                            self?.gameState = .result
-                        }
-                    } else if message == MsgCommandConstant.updateIsWinTrue {
-                        DispatchQueue.main.async { [weak self] in
-                            self?.isWin = true
-                        }
-                    } else if message == MsgCommandConstant.updateIsWinFalse {
-                        DispatchQueue.main.async { [weak self] in
-                            self?.isWin = false
-                        }
-                    } else if message == MsgCommandConstant.updateIsEndViewTrue {
-                        DispatchQueue.main.async { [weak self] in
-                            self?.isEndView = true
-                        }
-                    } else if message == MsgCommandConstant.updateIsEndViewFalse {
-                        DispatchQueue.main.async { [weak self] in
-                            self?.isEndView = false
-                        }
-                    } else if message == MsgCommandConstant.resetAllVarToDefault {
-                        DispatchQueue.main.async { [weak self] in
-                            self?.resetVarToDefault()
-                        }
-                    } else if message == MsgCommandConstant.resetGame {
-                        DispatchQueue.main.async { [weak self] in
-                            self?.resetGame()
-                        }
-                    } else {
-                        print("UNKNOWN COMMAND")
-                    }
-                } else if components.count == 2 {
-                    let typeData = components[1]
-                        if typeData == "question" {
-                        DispatchQueue.main.async { [weak self] in
-                            self!.receivedQuestion = components[0]
-                        }
-                    } else {
-                        print("UNKNOWN COMMAND")
-                    }
-                } else {
-                    print("Invalid message format: \(receivedString)")
-                }
-            }
-        } else {
-            print("Failed to convert data to a string.")
-        }
-        delegate?.didReceive(data: data, from: peerID)
     }
 
     func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {

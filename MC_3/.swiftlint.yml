@@ -4,7 +4,7 @@ opt_in_rules:
 
 line_length: 150
 
-disabled_rules:
-    - function_body_length
-    - cyclomatic_complexity
+#disabled_rules:
+#    - function_body_length
+#    - cyclomatic_complexity
 #    - line_length

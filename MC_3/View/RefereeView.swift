@@ -246,11 +246,13 @@ struct ButtonSliderReferee: View {
                                         let selectedMessage = message
 
                                         if selectedMessage == "Yes:VoteStatus" {
-                                            multipeerController.sendMessage(MsgCommandConstant.voteYes, to: multipeerController.getConnectedPeers())
+                                            multipeerController.sendMessage(MsgCommandConstant.voteYes +
+                                                ":vote", to: multipeerController.getConnectedPeers())
                                             multipeerController.yesVote += 1
                                             multipeerController.totalVote += 1
                                         } else if selectedMessage == "No:VoteStatus" {
-                                            multipeerController.sendMessage(MsgCommandConstant.voteNo, to: multipeerController.getConnectedPeers())
+                                            multipeerController.sendMessage(MsgCommandConstant.voteNo +
+                                                ":vote", to: multipeerController.getConnectedPeers())
                                             multipeerController.noVote += 1
                                             multipeerController.totalVote += 1
                                         }
