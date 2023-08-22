@@ -17,32 +17,26 @@ struct SplashScreenView: View {
             VStack {
                 if colorScheme == .dark {
                     // Use the dark mode logo
-                    withAnimation(Animation.easeInOut(duration: 1.0).repeatForever()) {
-                        Image("LogoLight")
-                            .resizable()
-                            .rotationEffect(Angle(degrees: 30))
-                            .frame(width: 200, height: 200)
-                            .rotationEffect(.degrees(waveAngle))
-                            .onAppear {
-                                withAnimation {
-                                    waveAngle = -30.0 // Set the initial wave angle to -30 degrees
-                                }
+                    Image("LogoLight")
+                        .resizable()
+                        .frame(width: 200, height: 200)
+                        .rotationEffect(.degrees(waveAngle))
+                        .onAppear {
+                            withAnimation(Animation.easeInOut(duration: 1.0).repeatForever()) {
+                                waveAngle = 30.0 // Set the initial wave angle to -30 degrees
                             }
-                            .padding()
-                    }
+                        }
+                        .padding()
                 } else {
-                    withAnimation(Animation.easeInOut(duration: 1.0).repeatForever()) {
-                        Image("LogoDark")
-                            .resizable()
-                            .rotationEffect(Angle(degrees: 30))
-                            .frame(width: 200, height: 200)
-                            .rotationEffect(.degrees(waveAngle))
-                            .onAppear {
-                                withAnimation {
-                                    waveAngle = -30.0 // Set the initial wave angle to -30 degrees
-                                }
+                    Image("LogoDark")
+                        .resizable()
+                        .frame(width: 200, height: 200)
+                        .rotationEffect(.degrees(waveAngle))
+                        .onAppear {
+                            withAnimation(Animation.easeInOut(duration: 1.0).repeatForever()) {
+                                waveAngle = 30.0 // Set the initial wave angle to -30 degrees
                             }
-                    }
+                        }
                 }
                 // Image("Ehlo")
                 Text("EhLo")

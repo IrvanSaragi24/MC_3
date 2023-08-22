@@ -47,6 +47,7 @@ struct ResultView: View {
                                 .fontWeight(.bold)
                                 .foregroundColor(Color("Background"))
                                 .multilineTextAlignment(.center)
+                                .accessibilityIdentifier("currentPlayerNameText")
                         }
                     Capsule()
                         .stroke(Color("Second"), lineWidth: 3)
@@ -58,6 +59,7 @@ struct ResultView: View {
                                 .foregroundColor(Color("Second"))
                                 .font(.system(size: 10, design: .rounded))
                                 .fontWeight(.bold)
+                                .accessibilityIdentifier("currentPlayerLabel")
                         }
                         .padding(.bottom, 55)
                 }
@@ -74,6 +76,7 @@ struct ResultView: View {
                             winLoseText = "Find a New \nFriend"
                         }
                     }
+                    .accessibilityIdentifier("currentWinLoseStatusText")
                 ZStack {
                     RoundedRectangle(cornerRadius: 12)
                         .frame(width: 290, height: 168)
@@ -85,12 +88,14 @@ struct ResultView: View {
                                     .fontWeight(.medium)
                                     .multilineTextAlignment(.center)
                                     .padding()
+                                    .accessibilityIdentifier("messageForPlayerText")
                             } else {
                                 Text(multipeerController.isWin ? refereeWinMessage : refereeLoseMessage)
                                     .font(.system(size: 17, design: .rounded))
                                     .fontWeight(.medium)
                                     .multilineTextAlignment(.center)
                                     .padding()
+                                    .accessibilityIdentifier("messageForRefereeText")
                             }
                         }
                     Capsule()
@@ -136,6 +141,7 @@ struct ResultView: View {
                             .foregroundColor(Color("Second"))
                     }
                 }
+                .accessibilityIdentifier("resultAudioReplayButton")
             }
             .padding(.top, 40)
             Button {

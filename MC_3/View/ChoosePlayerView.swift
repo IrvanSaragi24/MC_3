@@ -39,12 +39,14 @@ struct ChoosePlayerView: View {
                             .font(.system(size: 32, design: .rounded))
                             .fontWeight(.bold)
                             .foregroundColor(Color("Second"))
+                            .accessibilityIdentifier("choosingLabel")
                         ProgressView(value: progressValue, total: totalProgress)
                             .progressViewStyle(LinearProgressViewStyle(tint: Color("Second")))
                             .frame(width: 234, height: 4)
                             .onAppear {
                                 startUpdatingProgress()
                             }
+                            .accessibilityIdentifier("choosingProgressIndicator")
                         ZStack {
                             RoundedRectangle(cornerRadius: 12)
                                 .frame(width: 290, height: 168)
@@ -54,6 +56,7 @@ struct ChoosePlayerView: View {
                                         .font(.system(size: 20, design: .rounded))
                                         .fontWeight(.medium)
                                         .multilineTextAlignment(.center)
+                                        .accessibilityIdentifier("choosingViewQuestionText")
                                 }
                             Capsule()
                                 .stroke(Color("Second"), lineWidth: 3)

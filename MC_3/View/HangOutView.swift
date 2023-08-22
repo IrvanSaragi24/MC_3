@@ -34,6 +34,7 @@ struct HangOutView: View {
                             .foregroundColor(Color("Second"))
                             .font(.system(size: 50, design: .rounded))
                             .fontWeight(.bold)
+                            .accessibilityIdentifier("hangoutModeLabel")
                         //                        ExtractedView()
                         ButtonSlider(circleScale: $circleScale, vibrateOnRing: $vibrateOnRing)
                     }
@@ -111,6 +112,7 @@ struct ButtonSlider: View {
                     Spacer()
                 }
             }
+            .accessibilityIdentifier("startHangoutModeButton")
             .frame(width: buttonWidth, height: 80, alignment: .center)
             .padding()
         }

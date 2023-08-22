@@ -35,6 +35,7 @@ struct LobbyView: View {
                 .multilineTextAlignment(.center)
                 .foregroundColor(Color("Second"))
                 .opacity(multipeerController.allGuest.count == 0 ? 0.3 : 0.0)
+                .accessibilityIdentifier("playerLimitLabel")
             VStack(spacing: 25) {
                 HStack {
                     Spacer()
@@ -42,6 +43,7 @@ struct LobbyView: View {
                         .foregroundColor(Color("Second"))
                         .font(.system(size: 38, design: .rounded))
                         .fontWeight(.bold)
+                        .accessibilityIdentifier("lobbyTitleLabel")
                     Spacer()
                     Button {
                         isInformasiModal = true
@@ -56,6 +58,7 @@ struct LobbyView: View {
                             .presentationDetents([.height(600)])
                     }
                     .padding(.trailing, 30)
+                    .accessibilityIdentifier("lobbyInfoButton")
                 }
                 .padding(.leading, 40)
                 HStack(spacing: 30) {
@@ -66,6 +69,7 @@ struct LobbyView: View {
                             HStack {
                                 Text("SP:")
                                     .fontWeight(.bold)
+                                    .accessibilityIdentifier("silentPeriodLabel")
                                 Spacer()
                                 Picker("Silent Period", selection: $lobbyViewModel.lobby.silentDuration) {
                                     ForEach(silentDurationOptions, id: \.self) { duration in
@@ -74,6 +78,7 @@ struct LobbyView: View {
                                     }
                                 }
                                 .pickerStyle(MenuPickerStyle())
+                                .accessibilityIdentifier("silentPeriodPicker")
                             }
                             .padding()
                             .foregroundColor(.black)
@@ -85,6 +90,7 @@ struct LobbyView: View {
                             HStack {
                                 Text("QA:")
                                     .fontWeight(.bold)
+                                    .accessibilityIdentifier("questionAmountLabel")
                                 Spacer()
                                 Picker("Number of Questions", selection: $lobbyViewModel.lobby.numberOfQuestion) {
                                     ForEach(numberOfQuestionOptions, id: \.self) { number in
@@ -93,6 +99,7 @@ struct LobbyView: View {
                                     }
                                 }
                                 .pickerStyle(MenuPickerStyle())
+                                .accessibilityIdentifier("questionAmountPicker")
                             }
                             .padding()
                             .foregroundColor(.black)
@@ -107,8 +114,10 @@ struct LobbyView: View {
                             Text("JOINED PLAYER")
                                 .font(.system(size: 12, design: .rounded))
                                 .fontWeight(.medium)
+                                .accessibilityIdentifier("joinedPlayerLabel")
                             Spacer()
                             Text("\(multipeerController.allGuest.filter { $0.status == .connected }.count)")
+                                .accessibilityIdentifier("joinedPlayerText")
                         }
                         .onChange(of: multipeerController.allGuest.filter { $0.status == .connected }.count) { newValue in
                             if newValue >= 1 {
@@ -125,6 +134,7 @@ struct LobbyView: View {
                         header: HStack(spacing: 8) {
                             Text("All Guests")
                                 .foregroundColor(Color("Second"))
+                                .accessibilityIdentifier("allGuestsLabel")
                             Spacer()
                             ProgressView()
                         }) {
@@ -149,9 +159,11 @@ struct LobbyView: View {
                                                 VStack(alignment: .leading) {
                                                     Text(guest.id.displayName)
                                                         .font(.system(size: 24, weight: .bold))
+                                                        .accessibilityIdentifier("guestDisplayName")
                                                     Text(guest.status.stringValue)
                                                         .font(.system(size: 12, design: .rounded))
                                                         .fontWeight(.regular)
+                                                        .accessibilityIdentifier("guestStatus")
                                                 }
                                                 Spacer()
                                                 Image(systemName: guest.status.imageButtonAdd)
@@ -165,6 +177,7 @@ struct LobbyView: View {
                                                             multipeerController.invitePeer(guest.id, to: multipeerController.lobby)
                                                         }
                                                     }
+                                                    .accessibilityIdentifier("inviteOrRemoveGuestButton")
                                             }
                                             .foregroundColor(guest.status.textColor)
                                             .padding()
@@ -207,6 +220,7 @@ struct LobbyView: View {
                 .buttonStyle(MultipeerButtonStyle())
                 .padding(.bottom, 50)
                 .disabled(!isButtonEnabled)
+                .accessibilityIdentifier("startListeningButton")
             }
             .padding(.top, 60)
         }

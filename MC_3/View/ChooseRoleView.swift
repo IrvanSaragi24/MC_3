@@ -23,6 +23,7 @@ struct ChooseRoleView: View {
                         .font(.system(size: 36, weight: .regular))
                         .fontWeight(.bold)
                         .padding(.bottom, 63)
+                        .accessibilityIdentifier("hangoutModeTitleLabel")
                     Button(action: {
                         multipeerController.isHost = true
                         lobbyViewModel.lobby.name = multipeerController.myPeerId.displayName
@@ -46,6 +47,7 @@ struct ChooseRoleView: View {
                             .foregroundColor(Color("Main"))
                         }
                     })
+                    .accessibilityIdentifier("chooseHostButton")
                     .padding(.bottom, 63)
                     .navigationDestination(isPresented: $isLobbyViewActive) {
                         LobbyView()
@@ -71,6 +73,7 @@ struct ChooseRoleView: View {
                                 .foregroundColor(Color("Main"))
                             }
                         })
+                    .accessibilityIdentifier("chooseGuestButton")
                     .navigationDestination(isPresented: $isWaitingInvitationViewActive) {
                         WaitingForInvitationView()
                         .environmentObject(multipeerController)

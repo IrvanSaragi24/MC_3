@@ -21,6 +21,7 @@ struct ContinueView: View {
                     .background(Color.blue)
                     .cornerRadius(8)
             })
+            .accessibilityIdentifier("continueListeningButton")
             Button(action: {
                 // Action for the second button
                 print("Second Button Tapped")
@@ -31,6 +32,7 @@ struct ContinueView: View {
                     .background(Color.red)
                     .cornerRadius(8)
             })
+            .accessibilityIdentifier("stopListeningButton")
         }
     }
 }

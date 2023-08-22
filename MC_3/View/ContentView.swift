@@ -24,9 +24,12 @@ struct ContentView: View {
                 VStack {
                     Text("Welcome!")
                         .font(.system(.largeTitle, design: .rounded, weight: .semibold))
+                        .accessibilityIdentifier("welcomeTitleLabel")
                     Text("Before starting, let's fill in your name first!")
                         .font(.system(size: 18, weight: .light, design: .rounded))
+                        .accessibilityIdentifier("welcomeDescriptionLabel")
                     GifImage("NameAnimation")
+                        .accessibilityIdentifier("welcomeGIF")
                     ZStack {
                         Capsule()
                             .frame(width: 250, height: 70)
@@ -36,6 +39,7 @@ struct ContentView: View {
                         .multilineTextAlignment(.center)
                         .font(.system(size: 30))
                         .fontWeight(.semibold)
+                        .accessibilityIdentifier("nameTextField")
                     }
                     NavigationLink(
                         destination: ChooseRoleView()
@@ -54,6 +58,7 @@ struct ContentView: View {
                                 .font(.system(size: 28, design: .rounded))
                                 .fontWeight(.bold)
                         }
+                        .accessibilityIdentifier("enterNameButton")
                     }
                     .padding(.bottom, 100)
                     .padding(.top, 60)

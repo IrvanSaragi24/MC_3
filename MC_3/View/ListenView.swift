@@ -35,6 +35,7 @@ struct ListenView: View {
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 225)
+                                    .accessibilityIdentifier("listeningProcessImage")
                             }
                             .padding(.top, 50)
                             .onAppear {
@@ -45,6 +46,7 @@ struct ListenView: View {
                         .font(.system(size: 36, design: .rounded))
                         .fontWeight(.semibold)
                         .foregroundColor(Color("Second"))
+                        .accessibilityIdentifier("listeningLabel")
                     ZStack {
                         RoundedRectangle(cornerRadius: 20)
                             .stroke(Color("Second"), lineWidth: 4)
@@ -60,12 +62,14 @@ struct ListenView: View {
                             .foregroundColor(Color("Second"))
                             .onAppear(perform: lobbyViewModel.startTimer)
                             .onDisappear(perform: lobbyViewModel.pauseTimer)
+                            .accessibilityIdentifier("timerText")
                     }
                     Text("If We Detect Silence,\nThe Game Starts!")
                         .font(.system(size: 24, weight: .medium, design: .rounded))
                         .foregroundColor(Color("Second"))
                         .multilineTextAlignment(.center)
                         .padding(.top, 20)
+                        .accessibilityIdentifier("listeningProcessDescriptionText")
                 }
                 Spacer()
                 Button {
@@ -83,6 +87,7 @@ struct ListenView: View {
                         .environmentObject(lobbyViewModel)
                         .environmentObject(multipeerController)
                 }
+                .accessibilityIdentifier("forceStartQuizButton")
                 Button {
                     if multipeerController.isHost {
                         audioViewModel.stopVoiceActivityDetection()
@@ -94,6 +99,7 @@ struct ListenView: View {
                 } label: {
                     Text("End Session")
                 }
+                .accessibilityIdentifier("endSessionButton")
                 .buttonStyle(SecondButtonStyle())
                 .padding(.bottom, 50)
                 .opacity(multipeerController.isHost ? 100 : 0)

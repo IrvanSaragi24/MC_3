@@ -38,6 +38,7 @@ struct PlayerView: View {
                                 .fontWeight(.bold)
                                 .foregroundColor(Color("Background"))
                                 .multilineTextAlignment(.center)
+                                .accessibilityIdentifier("playerNameText")
                         }
                     Capsule()
                         .stroke(Color("Second"), lineWidth: 3)
@@ -49,6 +50,7 @@ struct PlayerView: View {
                                 .foregroundColor(Color("Second"))
                                 .font(.system(size: 10, design: .rounded))
                                 .fontWeight(.bold)
+                                .accessibilityIdentifier("playerLabel")
                         }
                         .padding(.bottom, 55)
                 }
@@ -76,6 +78,7 @@ struct PlayerView: View {
                             multipeerController.navigateToResult = true
                         }
                     }
+                    .accessibilityIdentifier("playerVotingStatusText")
                 ZStack {
                     RoundedRectangle(cornerRadius: 12)
                         .frame(width: 290, height: 168)
@@ -86,6 +89,7 @@ struct PlayerView: View {
                                 .fontWeight(.medium)
                                 .multilineTextAlignment(.center)
                                 .padding()
+                                .accessibilityIdentifier("playerQuestionText")
                         }
                     Capsule()
                         .stroke(Color("Second"), lineWidth: 3)
@@ -110,6 +114,7 @@ struct PlayerView: View {
                                 .font(.system(size: 16, design: .rounded))
                                 .fontWeight(.semibold)
                                 .foregroundColor(Color("Second"))
+                                .accessibilityIdentifier("playerTotalQuestionText")
                         }
                         .padding(.top, 170)
                 }
@@ -126,6 +131,7 @@ struct PlayerView: View {
                             .foregroundColor(Color("Second"))
                     }
                 }
+                .accessibilityIdentifier("questionAudioReplayButton")
             }
         }
         .navigationBarBackButtonHidden(true)

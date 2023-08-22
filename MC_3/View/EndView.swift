@@ -22,7 +22,7 @@ struct EndView: View {
                     .foregroundColor(Color("Second"))
                     .multilineTextAlignment(.center)
                     .padding(.bottom, 100)
-
+                    .accessibilityIdentifier("continueHangoutLabel")
                 if multipeerController.isPlayer {
                     Button {
                         let connectedGuest = multipeerController.getConnectedPeers()
@@ -31,14 +31,13 @@ struct EndView: View {
                         multipeerController.resetParameters(page: NavigateCommandConstant.navigateToListen
                         )
                         multipeerController.navigateToListen = true
-
-                        print("Continue Listening")
                     } label: {
-                    Text("Continue")
-                        .font(.system(size: 28, design: .rounded))
-                        .fontWeight(.bold)
+                        Text("Continue")
+                            .font(.system(size: 28, design: .rounded))
+                            .fontWeight(.bold)
                     }
                     .buttonStyle(MultipeerButtonStyle())
+                    .accessibilityIdentifier("endViewContinueListeningButton")
                     Button {
                         // Reset
                         let connectedGuest = multipeerController.getConnectedPeers()
@@ -52,12 +51,14 @@ struct EndView: View {
                         .fontWeight(.bold)
                     }
                     .buttonStyle(SecondButtonStyle())
+                    .accessibilityIdentifier("endViewStopListeningButton")
                 } else {
                     Text("Waiting for decision..")
                         .font(.system(size: 28, design: .rounded))
                         .fontWeight(.bold)
                         .foregroundColor(Color("Second"))
                         .multilineTextAlignment(.center)
+                        .accessibilityIdentifier("waitingForDecisionText")
                 }
             }
             .navigationDestination(isPresented: $multipeerController.navigateToListen) {

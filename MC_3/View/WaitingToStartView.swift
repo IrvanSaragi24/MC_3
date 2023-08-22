@@ -26,9 +26,11 @@ struct WaitingToStartView: View {
                 Text("You have joined")
                     .font(.system(size: 18, weight: .light))
                     .foregroundColor(Color("Second"))
+                    .accessibilityIdentifier("joinedGuestLabel")
                 Text("\(multipeerController.hostPeerID?.displayName ?? "Unknown")’s Lobby")
                     .font(.system(size: 32, weight: .bold))
                     .foregroundColor(Color("Second"))
+                    .accessibilityIdentifier("lobbyNameLabel")
                 RoundedRectangle(cornerRadius: 21)
                     .stroke(lineWidth: 2)
                     .frame(width: 234, height: 32)
@@ -36,18 +38,22 @@ struct WaitingToStartView: View {
                         HStack {
                             Image(systemName: "person.3.fill")
                             Text("Total Player")
+                                .accessibilityIdentifier("totalPlayerLabel")
                             Spacer()
                             Text("\(multipeerController.getConnectedPeers().count)")
+                                .accessibilityIdentifier("totalPlayerText")
                         }
                         .padding()
                     }
                     .foregroundColor(Color("Second"))
                 Image("phone")
                     .padding(.top, 20)
+                    .accessibilityIdentifier("phoneImage")
                 Text("Wait for the host to start...")
                     .foregroundColor(Color("Second"))
                     .font(.system(size: 30, weight: .light))
                     .padding(.top, 50)
+                    .accessibilityIdentifier("waitingForHostLabel")
             }
             .navigationDestination(isPresented: $multipeerController.navigateToWaitingInvitation) {
                 WaitingForInvitationView()

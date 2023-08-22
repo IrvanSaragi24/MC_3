@@ -43,9 +43,9 @@ struct RefereeView: View {
                                     .frame(width: 170, height: 60)
                                     .font(.system(size: 24, design: .rounded))
                                     .fontWeight(.bold)
-                                //                                .fontWeight(.bold)
                                     .foregroundColor(Color("Background"))
                                     .multilineTextAlignment(.center)
+                                    .accessibilityIdentifier("refereeNameText")
                             }
                         Capsule()
                             .stroke(Color("Second"), lineWidth: 3)
@@ -57,6 +57,7 @@ struct RefereeView: View {
                                     .foregroundColor(Color("Second"))
                                     .font(.system(size: 9, design: .rounded))
                                     .fontWeight(.bold)
+                                    .accessibilityIdentifier("refereeLabel")
                             }
                             .padding(.bottom, 55)
                     }
@@ -77,6 +78,7 @@ struct RefereeView: View {
                                     }
                                     animateDots()
                                 }
+                                .accessibilityIdentifier("refereeVotingStatusText")
                             ButtonSliderReferee(
                                 circleScale: $circleScale,
                                 vibrateOnRing: $vibrateOnRing1,
@@ -87,6 +89,7 @@ struct RefereeView: View {
                                 .padding(.top, 100)
                                 .opacity(vibrateOnRing || vibrateOnRing1 ? 0 : 1)
                                 .environmentObject(multipeerController)
+                                .accessibilityIdentifier("voteNoButton")
                             ButtonSliderReferee(
                                 circleScale: $circleScale,
                                 vibrateOnRing: $vibrateOnRing,
@@ -96,6 +99,7 @@ struct RefereeView: View {
                                 .padding(.trailing, 280)
                                 .opacity(vibrateOnRing || vibrateOnRing1 ? 0 : 1)
                                 .environmentObject(multipeerController)
+                                .accessibilityIdentifier("voteYesButton")
                             Image("Like")
                                 .resizable()
                                 .frame(width: 132, height: 132)
@@ -113,6 +117,7 @@ struct RefereeView: View {
                             .opacity(0.4)
                             .multilineTextAlignment(.center)
                             .padding(.top, 250)
+                            .accessibilityIdentifier("votingStatusText")
                     }
                 }
             }

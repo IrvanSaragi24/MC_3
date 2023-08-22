@@ -55,7 +55,6 @@
 		EC8F9E292A69411800E0A76B /* MultipeerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8F9E282A69411800E0A76B /* MultipeerController.swift */; };
 		EC8F9E2B2A69422100E0A76B /* Misc.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8F9E2A2A69422100E0A76B /* Misc.swift */; };
 		ECAE9AA32A654C3200E46A34 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECAE9AA22A654C3200E46A34 /* Player.swift */; };
-		ECCA2FDB2A6C1C0C000226AD /* ChoosePlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCA2FDA2A6C1C0C000226AD /* ChoosePlayerView.swift */; };
 		ECCA2FDD2A6C1FAF000226AD /* RefereeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCA2FDC2A6C1FAF000226AD /* RefereeView.swift */; };
 		ECCA2FE12A6C24DF000226AD /* ContinueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCA2FE02A6C24DF000226AD /* ContinueView.swift */; };
 /* End PBXBuildFile section */
@@ -87,7 +86,6 @@
 		A3FD84242A92137D00FC32D6 /* MultipeerController+HandleCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MultipeerController+HandleCommands.swift"; sourceTree = "<group>"; };
 		E22F946D2A67B13E0088315B /* BubbleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleView.swift; sourceTree = "<group>"; };
 		E22F94712A6B78F10088315B /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
-		E25C6DFB2A63CBAB00B4F3EC /* EndGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndGameView.swift; sourceTree = "<group>"; };
 		E25C6E012A645D4800B4F3EC /* HangOutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HangOutView.swift; sourceTree = "<group>"; };
 		E2AD0EAE2A60EDE100E76ED3 /* MC_3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MC_3.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2AD0EB12A60EDE100E76ED3 /* MC_3App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MC_3App.swift; sourceTree = "<group>"; };
@@ -112,7 +110,6 @@
 		EC8F9E282A69411800E0A76B /* MultipeerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipeerController.swift; sourceTree = "<group>"; };
 		EC8F9E2A2A69422100E0A76B /* Misc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Misc.swift; sourceTree = "<group>"; };
 		ECAE9AA22A654C3200E46A34 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
-		ECCA2FDA2A6C1C0C000226AD /* ChoosePlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoosePlayerView.swift; sourceTree = "<group>"; };
 		ECCA2FDC2A6C1FAF000226AD /* RefereeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefereeView.swift; sourceTree = "<group>"; };
 		ECCA2FE02A6C24DF000226AD /* ContinueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinueView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -169,7 +166,6 @@
 			isa = PBXGroup;
 			children = (
 				E2B337382A7171CB00F9384D /* SplashScreenView.swift */,
-				E25C6DFB2A63CBAB00B4F3EC /* EndGameView.swift */,
 				EC8318A82A67EBD400BD3A7E /* ButtonStyle.swift */,
 				EC8318712A66050C00BD3A7E /* ChooseRoleView.swift */,
 				E2AD0EB32A60EDE100E76ED3 /* ContentView.swift */,
@@ -178,7 +174,6 @@
 				EC8F9E222A683F7000E0A76B /* ListenView.swift */,
 				E2B122562A6FDD2B00E8606C /* ResultView.swift */,
 				E22F946D2A67B13E0088315B /* BubbleView.swift */,
-				ECCA2FDA2A6C1C0C000226AD /* ChoosePlayerView.swift */,
 				ECCA2FDC2A6C1FAF000226AD /* RefereeView.swift */,
 				ECCA2FE02A6C24DF000226AD /* ContinueView.swift */,
 				E22F94712A6B78F10088315B /* LoadingView.swift */,
@@ -245,9 +240,9 @@
 			isa = PBXGroup;
 			children = (
 				EC8F9E282A69411800E0A76B /* MultipeerController.swift */,
+				A3FD84242A92137D00FC32D6 /* MultipeerController+HandleCommands.swift */,
 				EC8F9E2A2A69422100E0A76B /* Misc.swift */,
 				A3E9052F2A6EF4DE007A0E2A /* VoiceActivityDetector.swift */,
-				A3FD84242A92137D00FC32D6 /* MultipeerController+HandleCommands.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -387,7 +382,6 @@
 				A3E905322A6F4B00007A0E2A /* LobbyViewModel.swift in Sources */,
 				A3E9052C2A6EF495007A0E2A /* Audio.swift in Sources */,
 				E2AD0EB22A60EDE100E76ED3 /* MC_3App.swift in Sources */,
-				ECCA2FDB2A6C1C0C000226AD /* ChoosePlayerView.swift in Sources */,
 				ECAE9AA32A654C3200E46A34 /* Player.swift in Sources */,
 				A3E905302A6EF4DE007A0E2A /* VoiceActivityDetector.swift in Sources */,
 				EC8F9E292A69411800E0A76B /* MultipeerController.swift in Sources */,

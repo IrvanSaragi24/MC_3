@@ -49,6 +49,7 @@ struct ChoosingView: View {
                             Text(multipeerController.receivedQuestion)
                                 .font(.system(size: 20, weight: .medium, design: .rounded))
                                 .multilineTextAlignment(.center)
+                                .accessibilityIdentifier("choosingViewQuestionText")
                         }
                     Capsule()
                         .stroke(Color("Second"), lineWidth: 3)
@@ -70,6 +71,7 @@ struct ChoosingView: View {
                             Text("\(lobbyViewModel.lobby.currentQuestionIndex) / \(lobbyViewModel.lobby.numberOfQuestion)")
                                 .font(.system(size: 16, weight: .semibold, design: .rounded))
                                 .foregroundColor(Color("Second"))
+                                .accessibilityIdentifier("choosingViewQuestionIndexText")
                         }
                         .padding(.top, 170)
                 }
