@@ -136,6 +136,20 @@
 			path = Audios;
 			sourceTree = "<group>";
 		};
+		A394A5322A94B18200F95C14 /* GIF */ = {
+			isa = PBXGroup;
+			children = (
+				E2E460C82A72E1A900F97324 /* NameAnimation.gif */,
+				E2E460C62A72DE5700F97324 /* NameView.gif */,
+				E2E460CA2A72E6E100F97324 /* Time.gif */,
+				E2E460C22A72D76D00F97324 /* Cool.gif */,
+				E2E460C02A72D50300F97324 /* Huh!.gif */,
+				E2B3374E2A72825F00F9384D /* LOL3.gif */,
+				E2E460CC2A72E95700F97324 /* Hmm.gif */,
+			);
+			path = GIF;
+			sourceTree = "<group>";
+		};
 		E22F94102A6504E90088315B /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -165,6 +179,7 @@
 		E22F94122A65051F0088315B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E2B3374A2A7281C600F9384D /* Gifimage.swift */,
 				E2B337382A7171CB00F9384D /* SplashScreenView.swift */,
 				EC8318A82A67EBD400BD3A7E /* ButtonStyle.swift */,
 				EC8318712A66050C00BD3A7E /* ChooseRoleView.swift */,
@@ -189,14 +204,6 @@
 		E2AD0EA52A60EDE100E76ED3 = {
 			isa = PBXGroup;
 			children = (
-				E2B3374E2A72825F00F9384D /* LOL3.gif */,
-				E2E460CC2A72E95700F97324 /* Hmm.gif */,
-				E2E460C02A72D50300F97324 /* Huh!.gif */,
-				E2E460C22A72D76D00F97324 /* Cool.gif */,
-				E2E460CA2A72E6E100F97324 /* Time.gif */,
-				E2E460C62A72DE5700F97324 /* NameView.gif */,
-				E2E460C82A72E1A900F97324 /* NameAnimation.gif */,
-				E2B3374A2A7281C600F9384D /* Gifimage.swift */,
 				E2AD0EB02A60EDE100E76ED3 /* MC_3 */,
 				E2AD0EAF2A60EDE100E76ED3 /* Products */,
 			);
@@ -213,6 +220,7 @@
 		E2AD0EB02A60EDE100E76ED3 /* MC_3 */ = {
 			isa = PBXGroup;
 			children = (
+				A394A5322A94B18200F95C14 /* GIF */,
 				A35E52C52A7510A600B9C0FD /* Audios */,
 				A37E2CB62A72237400CE935F /* MC-3-Info.plist */,
 				E2AD0EB12A60EDE100E76ED3 /* MC_3App.swift */,
